@@ -512,27 +512,27 @@ PROVENANCE_DATABASE: dict[str, ProvenanceDossier] = {
         veracity_and_assessment="A classic Hebrew *Hekhalot* (Heavenly Palaces) vision in which Metatron, the Angel of the Presence, transforms Moses's flesh into torches of fire and guides him through the Seven Heavens—where Moses sees the angels of every firmament, the Temple on high, the Patriarchs, and the state of the wicked and righteous dead.",
     ),
     "martyrdom-and-ascension-of-isaiah": ProvenanceDossier(
-        date_and_origin="Composite work: *Martyrdom of Isaiah* (ch. 1–5) is a 2nd–1st century BC Jewish text; *Vision/Ascension of Isaiah* (ch. 6–11) is a late 1st or early 2nd century AD Christian prophetic vision.",
-        manuscripts_and_language="Complete text preserved only in Ge'ez Ethiopic; large portions also survive in Greek (4th-century Amherst Papyrus), Coptic, Latin, and Old Church Slavonic.",
-        translation_source="R. H. Charles (*The Ascension of Isaiah*, 1900 / *APOT*, 1913) & Richard Laurence.",
-        veracity_and_assessment="HIGHLY SIGNIFICANT SECOND TEMPLE & EARLY CHRISTIAN APOCALYPSE: Chapters 1–5 narrate how the wicked King Manasseh, incited by the false prophet Belkira and Beliar, had the prophet Isaiah sawn in sunder with a wood-saw (the exact tradition referenced in Hebrews 11:37, 'they were sawn asunder'). Chapters 6–11 recount Isaiah's visionary ascent through the Seven Heavens, where he receives progressively brighter garments of glory at each degree of heaven, witnesses the pre-mortal Beloved (Christ) and the Angel of the Holy Spirit worshiped beside the Great Glory, and foresees the Beloved descending incognito through the heavens to be crucified, rise on the third day, and ascend back to the Seventh Heaven.",
+        date_and_origin="*Martyrdom of Isaiah* (ch. 1–5): 2nd–1st century BC Second Temple Jewish narrative (later combined with the Christian *Vision/Ascension of Isaiah*).",
+        manuscripts_and_language="Preserved complete in Ge'ez Ethiopic, with Greek (4th-century Amherst Papyrus), Latin, and Old Church Slavonic witnesses.",
+        translation_source="R. H. Charles (*The Apocrypha and Pseudepigrapha of the Old Testament*, Oxford, 1913, Vol. II).",
+        veracity_and_assessment="HIGHLY SIGNIFICANT SECOND TEMPLE PSEUDEPIGRAPHON: Chapters 1–5 narrate how the wicked King Manasseh, incited by the false prophet Belkira (Beliar/Sammael), had the prophet Isaiah sawn in sunder with a wood-saw while Isaiah's lips spoke with the Holy Spirit—preserving the ancient Jewish tradition explicitly referenced in Hebrews 11:37 ('they were sawn asunder'). (Note: Only R. H. Charles's 1913 public-domain translation of Chapters 1–5 is included here.)",
     ),
     "2-baruch": ProvenanceDossier(
         date_and_origin="Late 1st century AD (c. AD 90–110, composed in Judea in Hebrew or Aramaic alongside 4 Ezra in the generation after the AD 70 destruction of Jerusalem).",
         manuscripts_and_language="Classical Syriac (discovered by Antonio Ceriani in a 6th-century Syriac Bible codex in the Ambrosian Library at Milan in 1866); a 4th-century Greek fragment was later found at Oxyrhynchus (P.Oxy. 403). Chapters 78–87 (the *Epistle of Baruch*) were preserved in numerous Syriac Bibles.",
-        translation_source="R. H. Charles (*The Apocalypse of Baruch*, 1896 / *APOT*, 1913).",
+        translation_source="R. H. Charles (*The Apocalypse of Baruch*, 1896 / *APOT*, Oxford, 1913, Vol. II, pp. 481–524).",
         veracity_and_assessment="ONE OF THE GREATEST 1ST-CENTURY JEWISH APOCALYPSES: Narrates how four angels first hid the sacred Temple vessels (the veil, ephod, mercy-seat, and Urim and Thummim) inside the earth before the Chaldeans could seize them (ch. 6)—so they might be restored when Jerusalem is renewed—and records Baruch's sevenfold fasts, theological dialogues with the Lord on the fall of Adam ('each of us has been the Adam of his own soul,' 54:19), the vision of the twelve alternating dark and bright waters (ch. 53–74), the nature of the resurrection body (ch. 49–51), and Baruch's epistle to the lost Nine and a Half Tribes beyond the Euphrates (ch. 78–87).",
     ),
     "3-baruch": ProvenanceDossier(
         date_and_origin="Late 1st to 2nd century AD (composed in Greek after AD 70, with minor Christian redactions).",
         manuscripts_and_language="Koine Greek (two manuscripts) and Old Church Slavonic.",
-        translation_source="H. M. Hughes / R. H. Charles (*APOT*, 1913) & W. R. Morfill.",
+        translation_source="H. M. Hughes in R. H. Charles (*APOT*, Oxford, 1913, Vol. II).",
         veracity_and_assessment="As Baruch weeps over the ruined Temple by the river Kidron, the angel Phanuel ('Interpreter of Revelations') takes him through Five Heavens—showing him the builders of the Tower of Babel in the first and second heavens, the cosmic serpent/Hades and the Phoenix shading the sun in the third heaven, the lake of birds where the souls of the righteous assemble in the fourth heaven, and the Archangel Michael receiving the virtues and prayers of humans in golden bowls in the fifth heaven to carry before God.",
     ),
     "4-baruch": ProvenanceDossier(
         date_and_origin="Early 2nd century AD (c. AD 118–136, composed in Hebrew/Aramaic or Greek in Palestine prior to the Bar Kokhba revolt, later lightly Christianized in the final chapter).",
         manuscripts_and_language="Koine Greek (*Paraleipomena Jeremiou* — 'Things Omitted from Jeremiah'), Ge'ez Ethiopic (where it is canonical in the Ethiopian Orthodox Bible as *Säqoqawä Eremyas* / Rest of the Words of Baruch), Armenian, and Slavonic.",
-        translation_source="J. Rendel Harris (1889 translation).",
+        translation_source="Robert A. Kraft & Ann Elizabeth Purintun (1987 CATSS Public Domain / Free Non-Commercial Edition, University of Pennsylvania).",
         veracity_and_assessment="CANONICAL IN THE ETHIOPIAN ORTHODOX BIBLE: Shares with 2 Baruch the hiding of the Temple vessels inside the earth before the Babylonian army enters Jerusalem, and tells how Jeremiah sent Abimelech (Ebed-Melech the Ethiopian of Jeremiah 38) to gather figs from the estate of Agrippa—where Abimelech fell asleep beneath a tree for 66 years, awaking with the figs still dripping fresh milk after the Exile had ended, and how an eagle carried Baruch's letter and fifteen figs to Jeremiah in Babylon to revive the dead and lead the exiles home.",
     ),
     "apocalypse-of-elijah": ProvenanceDossier(
@@ -743,27 +743,81 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
     """
     books: list[Book] = []
 
-    # Pre-load scraped `pseudepigrapha_com.jsonl` records keyed by division
+    # Pre-load verified Public Domain / Free Non-Commercial works from `pseudepigrapha_com.jsonl`
+    # (Excludes post-1929 copyrighted translations such as 1977/1990 Nag Hammadi Library, 1983-1985 OTP,
+    # NRSV 3 Maccabees/Psalm 151, Qimron 1QS, Speiser ANET, Rhodes, and Garstad Pseudo-Methodius)
+    pcom_allowed_ids = {
+        "book-of-noah",  # R. H. Charles (1913)
+        "assumption-of-moses",  # R. H. Charles (1897/1913)
+        "revelation-of-moses-hebrew",  # Moses Gaster (1893) / Alexander Walker (1870)
+        "martyrdom-and-ascension-of-isaiah",  # Sec 0 only: R. H. Charles (1913 Martyrdom of Isaiah ch. 1-5)
+        "2-baruch",  # R. H. Charles (1896/1913 Syriac Apocalypse of Baruch)
+        "3-baruch",  # H. M. Hughes in R. H. Charles (1913 Greek Apocalypse of Baruch)
+        "4-baruch",  # Robert A. Kraft (1987 CATSS Public Domain / Free Non-Commercial edition)
+        "damascus-zadokite-document",  # R. H. Charles (1912/1913 Fragments of a Zadokite Work)
+        "epistle-of-the-apostles",  # M. R. James (1924 The Apocryphal New Testament)
+        "questions-of-bartholomew",  # M. R. James (1924 The Apocryphal New Testament)
+        "interrogatio-johannis",  # M. R. James (1924 The Apocryphal New Testament)
+        "gospel-of-marcion",  # 19th-century patristic reconstruction
+    }
     pcom_by_div: dict[str, list[dict]] = defaultdict(list)
-    # Exclude the 3 works already ingested from `apocrypha/` to guarantee 0% duplication
-    pcom_skip_ids = {"4-maccabees", "slavonic-life-of-adam-and-eve", "gospel-of-mary-magdalene"}
     if pseudepigrapha_com_path.exists():
         with open(pseudepigrapha_com_path, "r", encoding="utf-8") as f:
             for line in f:
                 if line.strip():
                     rec = json.loads(line)
-                    if rec.get("id") not in pcom_skip_ids:
+                    if rec.get("id") in pcom_allowed_ids:
                         pcom_by_div[rec.get("division", "II")].append(rec)
 
     div_prefix_map = {
-        "I": "[I. Deuterocanon & Ethiopian Canon]",
+        "I": "[I. Deuterocanon]",
         "II": "[II. OT Pseudepigrapha]",
         "III": "[II. OT Pseudepigrapha]",
-        "IV": "[IV. Wisdom, Qumran & Near East]",
-        "V": "[V. Nag Hammadi & Apocryphal Gospels]",
+        "IV": "[IV. Wisdom & Qumran]",
+        "V": "[V. Apocryphal Gospels]",
         "VI": "[VI. Acts, Dialogues & Apocalypses]",
-        "VII": "[VII. Apostolic Fathers & Wisdom]",
+        "VII": "[VII. Apostolic Fathers]",
     }
+
+    _BOILERPLATE_SUBSTRINGS = (
+        "html layout,",
+        "adam jerome",
+        "scanned and edited by joshua williams",
+        "red numbers identify chapters",
+        "black numbers within the text refer to verses",
+        "edited and adapted by george lyons",
+        "edited by wesley caspers",
+        "edited by diane morgan",
+        "wesley center for applied theology",
+        "at northwest nazarene university",
+        "text may be freely used for personal or scholarly purposes",
+        "copyright 2000",
+        "[and they helped us when we sinned], finish",
+    )
+
+    def _clean_pcom_paragraphs(wid: str, raw_paras: list[str], stitle: str) -> list[str]:
+        cleaned: list[str] = []
+        for p in raw_paras:
+            cp = clean_prose_text(p)
+            if not cp:
+                continue
+            low = cp.lower()
+            # Keep Robert A. Kraft's required 1987 CATSS Public Domain header in 4-baruch
+            if wid != "4-baruch" and any(b in low for b in _BOILERPLATE_SUBSTRINGS):
+                continue
+            if wid == "2-baruch" and low in (
+                "for the",
+                "the apocrypha and pseudepigrapha of the old testament in english",
+                "(oxford: oxford university press, 1913) 2: 481-524",
+            ):
+                continue
+            if not cleaned and low == stitle.lower():
+                continue
+            # Deduplicate consecutively identical paragraphs (e.g. in 2-baruch)
+            if cleaned and cleaned[-1] == cp:
+                continue
+            cleaned.append(cp)
+        return cleaned
 
     def _build_pcom_books_for_div(div_code: str) -> list[Book]:
         out: list[Book] = []
@@ -771,13 +825,18 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
         for rec in pcom_by_div.get(div_code, []):
             wid = str(rec["id"])
             wtitle = clean_prose_text(str(rec["title"]))
+            if wid == "martyrdom-and-ascension-of-isaiah":
+                wtitle = "The Martyrdom of Isaiah (Chapters 1–5, R. H. Charles 1913 Translation)"
             wcat = clean_prose_text(str(rec.get("category", "Pseudepigrapha")))
+            raw_sections = rec.get("sections", [])
+            if wid == "martyrdom-and-ascension-of-isaiah":
+                # Keep only Section 0 (R. H. Charles 1913 Martyrdom of Isaiah ch. 1-5);
+                # exclude Section 1 (M. A. Knibb 1985 Ascension of Isaiah ch. 6-11).
+                raw_sections = raw_sections[:1]
             chs: list[Chapter] = []
-            for s_idx, sec in enumerate(rec.get("sections", []), start=1):
+            for s_idx, sec in enumerate(raw_sections, start=1):
                 stitle = clean_prose_text(str(sec.get("title") or f"Section {s_idx}"))
-                paras = [clean_prose_text(p) for p in sec.get("paragraphs", []) if clean_prose_text(p)]
-                if paras and paras[0].lower() == stitle.lower():
-                    paras = paras[1:]
+                paras = _clean_pcom_paragraphs(wid, sec.get("paragraphs", []), stitle)
                 blocks = [ContentBlock(block_type=BlockType.PARAGRAPH, text=p) for p in paras]
                 if blocks:
                     chs.append(Chapter(id=f"{wid}-sec-{s_idx:03d}", title=stitle, blocks=blocks))
@@ -1101,26 +1160,9 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
 
     # ==========================================================================
     # DIVISION V: NEW TESTAMENT APOCRYPHAL GOSPELS & INFANCY NARRATIVES
+    # (Note: Post-1929 copyrighted Nag Hammadi translations of Gospel of Thomas
+    #  and Gospel of Mary are excluded so this volume remains 100% Public Domain.)
     # ==========================================================================
-    b_gthom = ingest_ista_jsonl_book(
-        apocrypha_dir / "gospel_of_thomas.jsonl",
-        "gospel-of-thomas",
-        "[V. Apocryphal Gospels] The Gospel of Thomas (Coptic Nag Hammadi Sayings & Greek Fragments)",
-        "The Gospel According to Thomas",
-        "Nag Hammadi Codex II & Oxyrhynchus Papyri",
-    )
-    _attach_dossier_to_book(b_gthom, "gospel-of-thomas")
-    books.append(b_gthom)
-
-    b_gmary = ingest_ista_jsonl_book(
-        apocrypha_dir / "gospel_of_mary.jsonl",
-        "gospel-of-mary",
-        "[V. Apocryphal Gospels] The Gospel of Mary (Mary Magdalene)",
-        "Excerpts from the Coptic Gospel of Mary (Berlin Papyrus 8502)",
-        "Berlin Gnostic Codex",
-    )
-    _attach_dossier_to_book(b_gmary, "gospel-of-mary")
-    books.append(b_gmary)
 
     # Load `lost_books_of_the_bible.jsonl` records keyed by `book`
     lbob_by_book: dict[str, list[dict]] = defaultdict(list)
@@ -1367,7 +1409,7 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
 
     intro = Chapter(
         id="apocrypha-compendium-guide",
-        title="Editorial Guide to Provenance, Deduplication & Historical Veracity",
+        title="Editorial Guide to Provenance, Public-Domain Licensing & Historical Veracity",
         is_front_matter=True,
         blocks=[
             ContentBlock(
@@ -1376,12 +1418,15 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
                     f"This Master Compendium unites {len(books)} distinct extra-canonical works across seven "
                     "historical divisions: (I) The 15 Old Testament Deuterocanonical books of the 1611 King James "
                     "Version; (II) Major Old Testament Pseudepigrapha, Enochic literature, Jubilees, Jasher, "
-                    "Pseudo-Philo, the Adam and Eve cycle, the Testament of Abraham, and the Narrative of Zosimus; "
+                    "Pseudo-Philo, the Adam and Eve cycle, the Testament of Abraham, the Narrative of Zosimus, "
+                    "the Assumption of Moses, the Martyrdom of Isaiah, and 2–4 Baruch; "
                     "(III) The Testaments of the Twelve Patriarchs; (IV) Second Temple Wisdom, the Psalms and Odes "
-                    "of Solomon, Aristeas, Ahikar, and the Sibylline Oracles; (V) New Testament Apocryphal Gospels "
-                    "(including the Nag Hammadi Gospel of Thomas, Gospel of Mary, Gospel of Peter, and Gospel of "
-                    "Nicodemus); (VI) The Apocryphal Acts of the Apostles and Early Christian Apocalypses; and "
-                    "(VII) The Apostolic Fathers (The Didache, 1–2 Clement, Barnabas, Ignatius, Polycarp, and The Shepherd of Hermas)."
+                    "of Solomon, Aristeas, 4 Maccabees, Ahikar, the Sibylline Oracles, and the Qumran/Cairo Damascus "
+                    "Zadokite Document; (V) New Testament Apocryphal Gospels (including the Gospel of Peter, "
+                    "Protevangelion of James, Infancy Gospels, and Gospel of Nicodemus); (VI) The Apocryphal Acts "
+                    "of the Apostles, the Epistle of the Apostles, the Questions of Bartholomew, and Early Christian "
+                    "Apocalypses; and (VII) The Apostolic Fathers (The Didache, 1–2 Clement, Barnabas, Ignatius, "
+                    "Polycarp, and The Shepherd of Hermas)."
                 ),
             ),
             ContentBlock(
@@ -1390,10 +1435,25 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
                     "Strict Deduplication & Scholarly Provenance Dossiers: Every duplicate file across the upstream "
                     "archives has been eliminated so each text appears once (with both landmark translations of 1 Enoch—R. H. Charles "
                     "and Archbishop Richard Laurence—explicitly distinguished). Because ancient extra-canonical texts vary widely "
-                    "from authentic 1st-century BC/AD documents and Dead Sea Scrolls witnesses to late-antique Gnostic romances and "
+                    "from authentic 1st-century BC/AD documents and Dead Sea Scrolls witnesses to late-antique romances and "
                     "medieval Midrash, every single work in this volume opens with a dedicated 'Source, Provenance & Historical "
                     "Veracity Dossier' detailing its date of composition, original language, manuscript tradition, translator, "
                     "and critical historical evaluation."
+                ),
+            ),
+            ContentBlock(
+                block_type=BlockType.PARAGRAPH,
+                text=(
+                    "Public-Domain & Non-Commercial Attribution Notice: Every translation included in this compendium is "
+                    "drawn from verified pre-1929 public-domain editions—principally the 1611 King James Version Apocrypha, "
+                    "R. H. Charles's Oxford editions (1896–1917), M. R. James's Biblical Antiquities of Philo (1917) and "
+                    "Apocryphal New Testament (1924), Archbishop Richard Laurence (1821/1883), Mordecai M. Noah (1840), "
+                    "the Ante-Nicene Fathers Vol. VIII (1886), Milton S. Terry (1899), Charles H. Hoole (1894), Archbishop "
+                    "William Wake (1693), William Hone (1820), and Rutherford H. Platt Jr. (1926)—together with Prof. Robert A. "
+                    "Kraft's 1987 CATSS Public Domain / Free Non-Commercial edition of 4 Baruch (Paraleipomena Jeremiou, "
+                    "Center for Computer Analysis of Texts, University of Pennsylvania). Digital transcriptions of R. H. Charles's "
+                    "1913 editions prepared by the Internet Sacred Text Archive (John Bruno Hare) and the Wesley Center for Applied "
+                    "Theology at Northwest Nazarene University are gratefully acknowledged for personal and non-commercial scholarly study."
                 ),
             ),
         ],
@@ -1402,7 +1462,7 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
     return Work(
         id="complete-apocrypha-pseudepigrapha-compendium",
         title="The Complete Apocrypha & Pseudepigrapha Compendium",
-        subtitle="Deuterocanon, Enochic Literature, Second Temple Pseudepigrapha, Nag Hammadi Texts, New Testament Apocrypha & Apostolic Fathers — With Historical Veracity Dossiers",
+        subtitle="Deuterocanon, Enochic Literature, Second Temple Pseudepigrapha, New Testament Apocrypha & Apostolic Fathers — With Historical Veracity Dossiers",
         authors=[
             "R. H. Charles (tr.)",
             "M. R. James (tr.)",
@@ -1412,7 +1472,7 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
         ],
         edition_label="Proteus Critical Provenance & Veracity Master Compendium",
         description=(
-            "Complete deduplicated library of Biblical Apocrypha, Old Testament Pseudepigrapha, Dead Sea Scrolls parallels, "
+            "Complete deduplicated public-domain library of Biblical Apocrypha, Old Testament Pseudepigrapha, Dead Sea Scrolls parallels, "
             "New Testament Apocrypha, and the Apostolic Fathers, featuring a scholarly Source, Provenance & Historical "
             "Veracity dossier for every work."
         ),

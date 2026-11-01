@@ -2,9 +2,9 @@
 
 Includes:
 - `load_onomasticon_entries()`: 419 canonical BYU Onomasticon entries with IPA, Deseret Alphabet, Hebrew reconstructions, and etymology.
-- `load_citations_by_canonical_ref()`: All 20,758 verse keys mapped to 67,165 pre-1960 historical citations.
-- `DiscourseExcerptIndex`: Fast contextual sermon excerpt extractor across all 2,871 pre-1960 discourses
-  (`Journal of Discourses`, `Teachings of the Prophet Joseph Smith`, and `General Conference 1942–1959`).
+- `load_citations_by_canonical_ref()`: Verse keys mapped to pre-1942 public-domain historical citations (`Journal of Discourses` 1839–1886 and `Teachings of the Prophet Joseph Smith` 1830–1844).
+- `DiscourseExcerptIndex`: Fast contextual sermon excerpt extractor across all 1,821 pre-1942 public-domain discourses
+  (`Journal of Discourses` and `Teachings of the Prophet Joseph Smith`, excluding post-1941 General Conference).
   Locates the exact paragraph where `citation_id` is anchored and extracts a complete multi-paragraph
   (or complete multi-sentence) window around the citation, never cutting off mid-sentence, with `…` ellipses.
 """
@@ -122,8 +122,16 @@ def _normalize_citation_verse_key(raw_key: str) -> tuple[str, str]:
 
 def load_citations_by_canonical_ref(
     citation_dir: Path = Path("data/raw/scripture-citation-index"),
+    allowed_corpora: set[str] | None = None,
+    max_year: int = 1941,
 ) -> dict[str, tuple[str, list[HistoricalCitationRecord]]]:
-    """Load all 20,758 verse citation lists keyed by canonical URN (`ot:gen:1:26`, `bofm:1-ne:3:7`, etc.)."""
+    """Load pre-1942 public-domain verse citation lists keyed by canonical URN (`ot:gen:1:26`, `bofm:1-ne:3:7`, etc.).
+
+    By default restricts to pre-1942 public-domain corpora (`J` = Journal of Discourses 1839–1886,
+    `T` = Teachings of the Prophet Joseph Smith 1830–1844), excluding `E` (1942–1959 General Conference).
+    """
+    if allowed_corpora is None:
+        allowed_corpora = {"J", "T"}
     cpath = citation_dir / "citations_by_verse_pre_1960.json"
     raw_map = json.loads(cpath.read_text(encoding="utf-8"))
 
@@ -143,8 +151,11 @@ def load_citations_by_canonical_ref(
                 year=int(it.get("year") or 0),
             )
             for it in items
+            if it.get("corpus", "") in allowed_corpora
+            and (int(it.get("year") or 0) <= max_year)
         ]
-        by_urn[urn] = (display_cite, records)
+        if records:
+            by_urn[urn] = (display_cite, records)
 
     return by_urn
 
@@ -180,6 +191,8 @@ class DiscourseExcerptIndex:
                 r = json.loads(line)
                 tid = r["talk_id"]
                 corpus = r.get("corpus", "E")
+                if corpus not in ("J", "T"):
+                    continue
                 raw_html = r.get("raw_html", "")
 
                 if corpus == "J":

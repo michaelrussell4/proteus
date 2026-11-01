@@ -217,16 +217,14 @@ def build_top_1000_cited_verses_anthology() -> Work:
         total_cites = len(recs)
         jod_cnt = sum(1 for r in recs if r.corpus == "J")
         tpjs_cnt = sum(1 for r in recs if r.corpus == "T")
-        gc_cnt = sum(1 for r in recs if r.corpus == "E")
 
         speaker_counts = Counter(r.speaker for r in recs if r.speaker)
         top_speakers = ", ".join(f"{sp} ({cnt}×)" for sp, cnt in speaker_counts.most_common(5))
 
         ann_id = f"{ann_prefix}-r{rank}"
         note_paras: list[str] = [
-            f"Rank #{rank} Overall • Cited {total_cites} times (1839–1959): "
-            f"Journal of Discourses ({jod_cnt}), Teachings of the Prophet Joseph Smith ({tpjs_cnt}), "
-            f"General Conference 1942–1959 ({gc_cnt}).",
+            f"Rank #{rank} Overall • Cited {total_cites} times (1830–1886 Public Domain Corpora): "
+            f"Journal of Discourses ({jod_cnt}), Teachings of the Prophet Joseph Smith ({tpjs_cnt}).",
             f"Frequent Citing Speakers: {top_speakers}.",
         ]
 
@@ -299,7 +297,7 @@ def build_top_1000_cited_verses_anthology() -> Work:
         Book(
             id="top-100-overall",
             title="Part I: The Top 100 Most-Cited Verses (Ranked #1–#100)",
-            full_title="The Top 100 Most-Cited Scripture Verses of the Restoration (1839–1959)",
+            full_title="The Top 100 Most-Cited Scripture Verses of the Early Restoration (1830–1886)",
             chapters=top100_chapters,
         )
     )
@@ -343,38 +341,51 @@ def build_top_1000_cited_verses_anthology() -> Work:
             Book(
                 id=vol_slug,
                 title=f"{vol_title} ({len(items)} Verses in Top 1,000)",
-                full_title=f"Most-Cited Passages in {vol_title} (1839–1959)",
+                full_title=f"Most-Cited Passages in {vol_title} (1830–1886)",
                 chapters=vol_chapters,
             )
         )
 
     intro = Chapter(
         id="top-1000-intro",
-        title="Methodology & Historical Scope (1839–1959)",
+        title="Methodology, Attribution & Public-Domain Scope (1830–1886)",
         is_front_matter=True,
         blocks=[
             ContentBlock(
                 block_type=BlockType.PARAGRAPH,
                 text=(
-                    "This anthology ranks the 1,000 most frequently cited scripture verses across the first "
-                    "century of Latter-day Saint discourse (1839–1959), derived from 67,165 historical citations "
-                    "across the 26-volume Journal of Discourses, Teachings of the Prophet Joseph Smith, and "
-                    "General Conference addresses prior to 1960. Every verse includes an interactive [★ Citations] "
-                    "pop-up badge detailing citation counts by corpus, top citing speakers, and primary source references."
+                    "This anthology ranks the 1,000 most frequently cited scripture verses across 19th-century "
+                    "Latter-day Saint discourse (1830–1886), restricted strictly to pre-1942 public-domain "
+                    "historical sources: the 26-volume Journal of Discourses (1839–1886) and the sermons and "
+                    "writings of Joseph Smith (1830–1844, compiled from the History of the Church in Teachings "
+                    "of the Prophet Joseph Smith). Post-1941 General Conference addresses are excluded so that "
+                    "all discourse excerpts remain in the public domain. Every verse includes an interactive "
+                    "[★ Citations] pop-up badge detailing citation counts by corpus, top citing speakers, and "
+                    "primary source excerpts."
                 ),
-            )
+            ),
+            ContentBlock(
+                block_type=BlockType.PARAGRAPH,
+                text=(
+                    "Attribution & Non-Commercial Notice: Historical citation mappings are derived from the "
+                    "Brigham Young University Scripture Citation Index (scriptures.byu.edu), compiled by "
+                    "Stephen W. Liddle and Richard C. Galbraith. This edition is provided strictly free of "
+                    "charge for personal, non-commercial, and educational study."
+                ),
+            ),
         ],
     )
 
     return Work(
         id="top-1000-cited-verses",
         title="The Top 1,000 Cited Verses of the Restoration",
-        subtitle="Ranked by Historical Citation Frequency (1839–1959) with Interactive Sermon Profiles",
-        authors=["Proteus Relational Scripture Engine", "BYU Scripture Citation Index (Pre-1960)"],
+        subtitle="Ranked by 19th-Century Citation Frequency (1830–1886) with Public-Domain Sermon Profiles",
+        authors=["Proteus Relational Scripture Engine", "BYU Scripture Citation Index (JoD & TPJS)"],
         edition_label="Proteus Relational Study Anthology",
         description=(
-            "The 1,000 most frequently quoted scripture passages in early Latter-day Saint sermons (1839–1959), "
-            "complete with native Kindle pop-up speaker analytics and historical discourse excerpts."
+            "The 1,000 most frequently quoted scripture passages in 19th-century Latter-day Saint sermons "
+            "(Journal of Discourses & Teachings of the Prophet Joseph Smith, 1830–1886), complete with "
+            "native Kindle pop-up speaker analytics and public-domain discourse excerpts."
         ),
         front_matter=[intro],
         books=books,
@@ -454,14 +465,14 @@ def build_enriched_book_of_mormon(
         legend_blocks.append(
             ContentBlock(
                 block_type=BlockType.PARAGRAPH,
-                text="2. BYU Onomasticon Etymology (◈ Lexical Channel): The first appearance of any canonical proper name in a chapter is underlined with a subtle dotted border and marked with a diamond glyph (◈). Tap the name to open a native Kindle pop-up containing its IPA pronunciation, Deseret Alphabet transcription, Hebrew/Semitic reconstructions, and scholarly etymology.",
+                text="2. BYU Onomasticon Etymology (◈ Lexical Channel): The first appearance of any canonical proper name in a chapter is underlined with a subtle dotted border and marked with a diamond glyph (◈). Tap the name to open a native Kindle pop-up containing its IPA pronunciation, Deseret Alphabet transcription, Hebrew/Semitic reconstructions, and scholarly etymology from the Brigham Young University Book of Mormon Onomasticon Project (onoma.lib.byu.edu, edited by Paul Y. Hoskisson; used for free, non-commercial educational study).",
             )
         )
     if enable_citations:
         legend_blocks.append(
             ContentBlock(
                 block_type=BlockType.PARAGRAPH,
-                text="3. Historical Citation Index ([★ N] Discourse Channel): Verses cited in early Latter-day Saint sermons (1839–1959) carry a bracketed star badge ([★ N]) at the end of the verse showing how many times that verse was quoted in the Journal of Discourses, Teachings of the Prophet Joseph Smith, and pre-1960 General Conference. Tap the badge to inspect the citing speakers and discourse references.",
+                text="3. Historical Citation Index ([★ N] Discourse Channel): Verses cited in 19th-century Latter-day Saint sermons (1830–1886) carry a bracketed star badge ([★ N]) at the end of the verse showing how many times that verse was quoted in the public-domain Journal of Discourses (1839–1886) and Teachings of the Prophet Joseph Smith (1830–1844), indexed via the BYU Scripture Citation Index (scriptures.byu.edu, Stephen W. Liddle & Richard C. Galbraith; free non-commercial educational use). Tap the badge to inspect the citing speakers and discourse excerpts.",
             )
         )
 
@@ -565,13 +576,12 @@ def build_enriched_book_of_mormon(
 
                         jod_c = sum(1 for r in recs if r.corpus == "J")
                         tpjs_c = sum(1 for r in recs if r.corpus == "T")
-                        gc_c = sum(1 for r in recs if r.corpus == "E")
                         sp_counts = Counter(r.speaker for r in recs if r.speaker)
                         top_sp = ", ".join(f"{s} ({c}×)" for s, c in sp_counts.most_common(4))
 
                         c_paras = [
-                            f"Cited {total_c} {'time' if total_c == 1 else 'times'} (1839–1959) — "
-                            f"JoD: {jod_c} | TPJS: {tpjs_c} | Conf. Era: {gc_c}.",
+                            f"Cited {total_c} {'time' if total_c == 1 else 'times'} (1830–1886 Public Domain) — "
+                            f"JoD: {jod_c} | TPJS: {tpjs_c}.",
                             f"Citing Speakers: {top_sp}.",
                             "Primary References: "
                             + "; ".join(f"{r.speaker} ({r.source_citation}, {r.year})" for r in recs[:6])

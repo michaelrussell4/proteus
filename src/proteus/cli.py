@@ -149,7 +149,7 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
     ),
     # Phase 3 Targets: Enriched & Relational Compilations
     "top-1000-cited-verses": (
-        "[Phase 3] The Top 1,000 Cited Verses of the Restoration (1839–1959 Ranked Anthology)",
+        "[Phase 3] The Top 1,000 Cited Verses of the Restoration (1830–1886 Public-Domain Ranked Anthology)",
         lambda: build_top_1000_cited_verses_anthology(),
     ),
     "book-of-mormon-onomasticon": (
@@ -184,7 +184,7 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
             enable_citations=True,
             custom_id="book-of-mormon-master-study",
             custom_title="The Book of Mormon (Master Relational Study Edition)",
-            custom_subtitle="Uniting Red-Letter Divine Speech (✦), BYU Onomasticon Etymologies (◈), and Pre-1960 Discourse Citations ([★])",
+            custom_subtitle="Uniting Red-Letter Divine Speech (✦), BYU Onomasticon Etymologies (◈), and 19th-Century Discourse Citations ([★])",
             custom_edition_label="Proteus Three-Channel Master Study Edition",
         ),
     ),
