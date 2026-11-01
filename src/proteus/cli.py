@@ -16,6 +16,7 @@ if hasattr(sys.stderr, "reconfigure"):
 
 from proteus.core.models import Work
 from proteus.ingest import (
+    build_early_modern_english_quick_guide,
     build_early_modern_english_scripture_guide,
     ingest_bom_historical_edition,
     ingest_complete_apocrypha_and_pseudepigrapha_compendium,
@@ -204,6 +205,10 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
         "[Phase 4] An Early Modern English Guide to Reading the Scriptures (KJV & Book of Mormon Companion)",
         lambda: build_early_modern_english_scripture_guide(),
     ),
+    "early-modern-english-quick-guide": (
+        "[Phase 4] Reading Old English Scripture: A Plain-Language Quick Guide (thou/ye, -eth, old words)",
+        lambda: build_early_modern_english_quick_guide(),
+    ),
 }
 
 PHASE1_TARGETS = [
@@ -236,6 +241,7 @@ PHASE4_TARGETS = [
     "bom-intertextual-parallels",
     "bom-poetic-and-chiasmus",
     "early-modern-english-scripture-guide",
+    "early-modern-english-quick-guide",
 ]
 
 

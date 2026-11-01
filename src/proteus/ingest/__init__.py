@@ -11,6 +11,10 @@ from proteus.ingest.early_modern_english import (
     build_early_modern_english_scripture_guide,
     ingest_early_modern_english_guide,
 )
+from proteus.ingest.eme_quick_guide import (
+    build_early_modern_english_quick_guide,
+    ingest_early_modern_english_quick_guide,
+)
 from proteus.ingest.lds_literature import (
     ingest_complete_lds_literature_compendium,
     ingest_foundational_lds_classics_anthology,
@@ -22,7 +26,9 @@ from proteus.ingest.standard_works import (
 )
 
 __all__ = [
+    "build_early_modern_english_quick_guide",
     "build_early_modern_english_scripture_guide",
+    "ingest_early_modern_english_quick_guide",
     "ingest_bom_historical_edition",
     "ingest_complete_apocrypha_and_pseudepigrapha_compendium",
     "ingest_complete_lds_literature_compendium",
