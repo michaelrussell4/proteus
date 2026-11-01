@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="{{ language }}" lang="{{ language }}">
+<head>
+  <meta charset="utf-8" />
+  <title>Table of Contents — {{ title }}</title>
+  <link rel="stylesheet" type="text/css" href="styles/{{ css_theme }}" />
+</head>
+<body>
+  <nav epub:type="toc" id="toc">
+    <h1 class="book-title">Table of Contents</h1>
+    <ol>
+      <li><a href="text/cover.xhtml">Cover</a></li>
+      <li><a href="text/titlepage.xhtml">Title Page</a></li>
+      {% for fm in front_matter_items %}
+      <li><a href="text/{{ fm.filename }}">{{ fm.title }}</a></li>
+      {% endfor %}
+      {% for bk in book_nav_items %}
+      <li>
+        <a href="text/{{ bk.intro_filename }}">{{ bk.title }}</a>
+        {% if bk.chapters %}
+        <ol>
+          {% for ch in bk.chapters %}
+          <li><a href="text/{{ ch.filename }}">{{ ch.title }}</a></li>
+          {% endfor %}
+        </ol>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </nav>
+
+  <nav epub:type="landmarks" id="landmarks" hidden="hidden">
+    <h2>Guide</h2>
+    <ol>
+      <li><a epub:type="cover" href="text/cover.xhtml">Cover</a></li>
+      <li><a epub:type="titlepage" href="text/titlepage.xhtml">Title Page</a></li>
+      <li><a epub:type="toc" href="nav.xhtml">Table of Contents</a></li>
+      {% if start_reading_href %}
+      <li><a epub:type="bodymatter" href="text/{{ start_reading_href }}">Start of Text</a></li>
+      {% endif %}
+    </ol>
+  </nav>
+</body>
+</html>
+

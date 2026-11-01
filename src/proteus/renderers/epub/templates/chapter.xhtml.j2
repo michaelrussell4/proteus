@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="{{ language }}" lang="{{ language }}">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ book_title }} — {{ chapter.title }}</title>
+  <link rel="stylesheet" type="text/css" href="../styles/{{ css_theme }}" />
+</head>
+<body>
+  <article epub:type="{{ 'frontmatter' if chapter.is_front_matter else 'chapter' }}" id="{{ chapter.id }}">
+    <header class="chapter-header">
+      {% if book_title and book_title != chapter.title %}
+      <p class="book-running-label">{{ book_title }}</p>
+      {% endif %}
+      <h2 class="chapter-title">{{ chapter.title }}</h2>
+      {% if chapter.subtitle %}
+      <p class="volume-subtitle">{{ chapter.subtitle }}</p>
+      {% endif %}
+    </header>
+
+    {% if chapter.headnote %}
+    <div class="headnote">
+      <p class="first-para">{{ chapter.headnote }}</p>
+    </div>
+    {% endif %}
+
+    {% if chapter.verses %}
+    <div class="verses-container">
+      {% for v in chapter.verses %}
+      <p class="verse" id="v-{{ v.verse }}">
+        {% if chapter.verses | length > 1 or v.verse != 1 %}
+        <span class="verse-num">{{ v.verse }}</span>
+        {% endif %}
+        {% if v.html_text %}
+        {{ v.html_text | safe }}
+        {% else %}
+        {{ v.text }}
+        {% endif %}
+      </p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if chapter.blocks %}
+    <div class="blocks-container">
+      {% for b in chapter.blocks %}
+        {% if b.block_type.value == 'heading' %}
+        <h2 class="chapter-title">{{ b.text }}</h2>
+        {% elif b.block_type.value == 'subheading' %}
+        <h3 class="subheading">{{ b.text }}</h3>
+        {% elif b.block_type.value == 'headnote' %}
+        <div class="headnote"><p class="first-para">{{ b.html_text | safe if b.html_text else b.text }}</p></div>
+        {% elif b.block_type.value == 'signature' %}
+        <p class="signature">{{ b.text }}</p>
+        {% elif b.block_type.value == 'blockquote' %}
+        <blockquote><p class="first-para">{{ b.html_text | safe if b.html_text else b.text }}</p></blockquote>
+        {% elif b.block_type.value == 'poetry' %}
+        <div class="poetry">{{ b.html_text | safe if b.html_text else b.text }}</div>
+        {% elif b.block_type.value == 'table' %}
+        {{ b.html_text | safe }}
+        {% elif b.block_type.value == 'callout' %}
+        <div class="callout-box">{{ b.html_text | safe if b.html_text else b.text }}</div>
+        {% else %}
+        <p class="{{ 'first-para' if loop.first else '' }}">{{ b.html_text | safe if b.html_text else b.text }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if chapter.annotations %}
+    <section class="footnotes-section" epub:type="footnotes">
+      {% for ann in chapter.annotations %}
+      <aside class="footnote" epub:type="footnote" id="fn-{{ ann.id }}">
+        {% for p_text in ann.paragraphs %}
+          {% if loop.first %}
+          <p><a href="#ref-{{ ann.id }}"><strong>[{{ ann.label }}]</strong></a>{% if ann.title %} <strong>{{ ann.title }}:</strong>{% endif %} {{ p_text }}</p>
+          {% else %}
+          <p>{{ p_text }}</p>
+          {% endif %}
+        {% endfor %}
+      </aside>
+      {% endfor %}
+    </section>
+    {% endif %}
+  </article>
+</body>
+</html>
+

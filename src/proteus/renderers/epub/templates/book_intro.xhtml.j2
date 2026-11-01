@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="{{ language }}" lang="{{ language }}">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ book.title }}</title>
+  <link rel="stylesheet" type="text/css" href="../styles/{{ css_theme }}" />
+</head>
+<body>
+  <section class="book-division" epub:type="part" id="{{ book.id }}">
+    <p class="book-running-label">{{ volume_title }}</p>
+    <h1 class="book-title">{{ book.full_title or book.title }}</h1>
+    {% if book.subtitle %}
+    <p class="volume-subtitle">{{ book.subtitle }}</p>
+    {% endif %}
+    {% if book.author %}
+    <p class="volume-authors">{{ book.author }}</p>
+    {% endif %}
+    {% if book.heading %}
+    <div class="headnote">
+      <p class="first-para">{{ book.heading }}</p>
+    </div>
+    {% endif %}
+  </section>
+</body>
+</html>
+

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content="{{ uid }}" />
+    <meta name="dtb:depth" content="2" />
+    <meta name="dtb:totalPageCount" content="0" />
+    <meta name="dtb:maxPageNumber" content="0" />
+  </head>
+  <docTitle>
+    <text>{{ title }}</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="navpoint-cover" playOrder="1">
+      <navLabel><text>Cover</text></navLabel>
+      <content src="text/cover.xhtml" />
+    </navPoint>
+    <navPoint id="navpoint-titlepage" playOrder="2">
+      <navLabel><text>Title Page</text></navLabel>
+      <content src="text/titlepage.xhtml" />
+    </navPoint>
+    {% set ns = namespace(order=3) %}
+    {% for fm in front_matter_items %}
+    <navPoint id="navpoint-fm-{{ loop.index }}" playOrder="{{ ns.order }}">
+      <navLabel><text>{{ fm.title }}</text></navLabel>
+      <content src="text/{{ fm.filename }}" />
+    </navPoint>
+    {% set ns.order = ns.order + 1 %}
+    {% endfor %}
+    {% for bk in book_nav_items %}
+    <navPoint id="navpoint-bk-{{ loop.index }}" playOrder="{{ ns.order }}">
+      <navLabel><text>{{ bk.title }}</text></navLabel>
+      <content src="text/{{ bk.intro_filename }}" />
+      {% set ns.order = ns.order + 1 %}
+      {% for ch in bk.chapters %}
+      <navPoint id="navpoint-bk-{{ bk.index }}-ch-{{ loop.index }}" playOrder="{{ ns.order }}">
+        <navLabel><text>{{ ch.title }}</text></navLabel>
+        <content src="text/{{ ch.filename }}" />
+      </navPoint>
+      {% set ns.order = ns.order + 1 %}
+      {% endfor %}
+    </navPoint>
+    {% endfor %}
+  </navMap>
+</ncx>
+

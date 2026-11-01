@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="pub-id" xml:lang="{{ language }}">
+  <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <dc:identifier id="pub-id">{{ uid }}</dc:identifier>
+    <dc:title>{{ title }}{% if subtitle %}: {{ subtitle }}{% endif %}</dc:title>
+    <dc:language>{{ language }}</dc:language>
+    {% for author in authors %}
+    <dc:creator>{{ author }}</dc:creator>
+    {% endfor %}
+    <dc:publisher>{{ publisher }}</dc:publisher>
+    <dc:date>{{ publication_date }}</dc:date>
+    <dc:rights>{{ rights }}</dc:rights>
+    {% if description %}
+    <dc:description>{{ description }}</dc:description>
+    {% endif %}
+    {% for subject in subjects %}
+    <dc:subject>{{ subject }}</dc:subject>
+    {% endfor %}
+    <meta property="dcterms:modified">{{ modified_timestamp }}</meta>
+    <meta name="cover" content="cover-image" />
+  </metadata>
+
+  <manifest>
+    <item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav" />
+    <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+    <item id="css-theme" href="styles/{{ css_theme }}" media-type="text/css" />
+    <item id="cover-image" href="images/cover.png" media-type="image/png" properties="cover-image" />
+    {% for item in manifest_items %}
+    <item id="{{ item.id }}" href="text/{{ item.filename }}" media-type="application/xhtml+xml" />
+    {% endfor %}
+  </manifest>
+
+  <spine toc="ncx">
+    {% for item in spine_items %}
+    <itemref idref="{{ item.id }}" />
+    {% if loop.first %}
+    <itemref idref="nav" linear="no" />
+    {% endif %}
+    {% endfor %}
+  </spine>
+
+  <guide>
+    <reference type="cover" title="Cover" href="text/cover.xhtml" />
+    <reference type="title-page" title="Title Page" href="text/titlepage.xhtml" />
+    <reference type="toc" title="Table of Contents" href="nav.xhtml" />
+    {% if start_reading_href %}
+    <reference type="text" title="Start of Text" href="text/{{ start_reading_href }}" />
+    {% endif %}
+  </guide>
+</package>
+

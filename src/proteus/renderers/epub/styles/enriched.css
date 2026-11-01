@@ -1,0 +1,263 @@
+/* ==========================================================================
+   Proteus Publishing Pipeline — Kindle Paperwhite (KFX / Enhanced Typesetting)
+   Theme: Enriched Multi-Channel Study Edition (enriched.css)
+   Supports 3 Distinct Visual & Pop-up Channels:
+     1. Divine Speech (Red-Letter): <span class="divine-speech"> + ✦ marker
+     2. Onomasticon Proper Names:   <a class="noteref onoma-link"> + ◈ glyph
+     3. Historical Citations:       <a class="noteref cite-badge"> + [★N] badge
+   ========================================================================== */
+
+@namespace epub "http://www.idpf.org/2007/ops";
+
+body {
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  orphans: 2;
+  widows: 2;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  text-rendering: optimizeLegibility;
+}
+
+section,
+article {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.title-page,
+.book-division {
+  text-align: center;
+  margin-top: 12%;
+  margin-bottom: 2em;
+  padding: 0 5%;
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+.volume-title {
+  font-size: 1.8em;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  margin: 0 0 0.45em 0;
+}
+
+.volume-subtitle {
+  font-size: 1.02em;
+  font-style: italic;
+  line-height: 1.4;
+  margin: 0 0 1.4em 0;
+  opacity: 0.88;
+}
+
+.edition-badge {
+  font-size: 0.8em;
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  margin: 1.6em 0 0.6em 0;
+  border-top: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  display: inline-block;
+  padding: 0.35em 1.2em;
+}
+
+.volume-authors {
+  font-size: 0.98em;
+  margin: 1.1em 0;
+}
+
+.volume-imprint {
+  font-size: 0.78em;
+  margin-top: 2.8em;
+  opacity: 0.75;
+}
+
+header.chapter-header {
+  text-align: center;
+  margin: 1.8em 0 1.4em 0;
+  padding-bottom: 0.55em;
+  border-bottom: 1px solid currentColor;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  -webkit-hyphens: none;
+  hyphens: none;
+}
+
+.book-running-label {
+  font-size: 0.76em;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  margin: 0 0 0.25em 0;
+  opacity: 0.8;
+}
+
+h1.book-title {
+  font-size: 1.6em;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 0.2em 0 0.4em 0;
+}
+
+h2.chapter-title {
+  font-size: 1.28em;
+  font-weight: bold;
+  line-height: 1.3;
+  margin: 0.2em 0 0.3em 0;
+}
+
+h3.subheading {
+  font-size: 1.05em;
+  font-weight: bold;
+  text-align: center;
+  margin: 1.5em 0 0.7em 0;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.headnote {
+  font-size: 0.9em;
+  font-style: italic;
+  text-align: justify;
+  margin: 0 3% 1.3em 3%;
+  line-height: 1.48;
+}
+
+p {
+  margin: 0 0 0.4em 0;
+  text-align: justify;
+  text-indent: 1.35em;
+}
+
+p.first-para,
+header + p,
+h3.subheading + p,
+.headnote + p {
+  text-indent: 0;
+}
+
+p.verse {
+  margin: 0 0 0.36em 0;
+  text-align: justify;
+  text-indent: 0;
+}
+
+span.verse-num {
+  font-size: 0.76em;
+  font-weight: bold;
+  vertical-align: super;
+  line-height: 0;
+  margin-right: 0.3em;
+  opacity: 0.82;
+}
+
+/* ==========================================================================
+   Channel 1: Divine Speech / Red-Letter Typography
+   Uses warm crimson on light pages, bright coral-gold in dark mode, and
+   includes a leading ✦ star marker so grayscale e-ink screens remain 100% clear!
+   ========================================================================== */
+span.divine-speech {
+  color: #8b1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  span.divine-speech {
+    color: #f28b82;
+  }
+}
+
+span.divine-marker {
+  font-size: 0.78em;
+  margin-right: 0.2em;
+  font-style: normal;
+}
+
+/* ==========================================================================
+   Channel 2: Onomasticon Proper-Name Lexical Links (◈)
+   Inline dotted underline + miniature diamond superscript
+   ========================================================================== */
+a.onoma-link {
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  font-weight: normal;
+  color: inherit;
+}
+
+sup.onoma-glyph {
+  font-size: 0.65em;
+  line-height: 0;
+  vertical-align: super;
+  margin-left: 0.08em;
+  opacity: 0.78;
+}
+
+/* ==========================================================================
+   Channel 3: Historical Citation Index Badges ([★N])
+   ========================================================================== */
+sup.fn-sup {
+  font-size: 0.72em;
+  line-height: 0;
+  vertical-align: super;
+}
+
+a.cite-badge {
+  text-decoration: none;
+  font-weight: bold;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+}
+
+span.citation-rank-head {
+  font-size: 0.95em;
+  letter-spacing: 0.02em;
+}
+
+p.signature {
+  text-align: right;
+  font-variant: small-caps;
+  margin: 1em 2% 1.2em 0;
+  text-indent: 0;
+}
+
+/* Pop-up Footnote & Study Aside Container */
+section.footnotes-section {
+  margin-top: 2.5em;
+  padding-top: 1em;
+  border-top: 1px solid currentColor;
+  font-size: 0.88em;
+}
+
+aside.footnote {
+  margin: 0.6em 0;
+  padding: 0.2em 0;
+}
+
+aside.footnote p {
+  text-indent: 0;
+  text-align: left;
+  margin: 0 0 0.38em 0;
+  line-height: 1.45;
+}
+
+nav[epub|type~="toc"] ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+nav[epub|type~="toc"] ol ol {
+  padding-left: 1.4em;
+  margin-top: 0.25em;
+  margin-bottom: 0.5em;
+}
+
+nav[epub|type~="toc"] li {
+  margin: 0.35em 0;
+  line-height: 1.35;
+}
+
+nav[epub|type~="toc"] a {
+  text-decoration: none;
+}
+

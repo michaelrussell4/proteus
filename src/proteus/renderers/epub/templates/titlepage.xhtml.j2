@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="{{ language }}" lang="{{ language }}">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <link rel="stylesheet" type="text/css" href="../styles/{{ css_theme }}" />
+</head>
+<body>
+  <section class="title-page" epub:type="titlepage">
+    <h1 class="volume-title">{{ title }}</h1>
+    {% if subtitle %}
+    <p class="volume-subtitle">{{ subtitle }}</p>
+    {% endif %}
+    {% if edition_label %}
+    <div class="edition-badge">{{ edition_label }}</div>
+    {% endif %}
+    {% if authors %}
+    <p class="volume-authors">{{ authors | join(" • ") }}</p>
+    {% endif %}
+    {% if description %}
+    <p class="headnote">{{ description }}</p>
+    {% endif %}
+    <p class="volume-imprint">{{ publisher }}<br />{{ publication_date }}</p>
+  </section>
+</body>
+</html>
+
