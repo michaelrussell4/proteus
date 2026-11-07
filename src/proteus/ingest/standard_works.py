@@ -9,7 +9,7 @@ from pathlib import Path
 
 from proteus.core.models import BlockType, Book, Chapter, ContentBlock, Verse, Work
 from proteus.core.references import make_canonical_ref, normalize_book_name, slugify
-from proteus.core.typography import clean_prose_text
+from proteus.core.typography import clean_prose_text, lowercase_continuation_start
 
 
 STANDARD_WORKS_FILES: dict[str, tuple[str, str]] = {
@@ -50,24 +50,10 @@ CANONICAL_BOM_BOOK_ORDER: list[tuple[str, str]] = [
 ]
 
 
-def ingest_standard_work(
-    volume_slug: str,
-    raw_dir: Path = Path("data/raw/lds-standard-works"),
-) -> Work:
-    """Load one of the 5 canonical LDS Standard Works into a normalized `Work`."""
-    if volume_slug not in STANDARD_WORKS_FILES:
-        raise ValueError(f"Unknown standard work '{volume_slug}'. Valid: {list(STANDARD_WORKS_FILES)}")
-
-    filename, default_title = STANDARD_WORKS_FILES[volume_slug]
-    filepath = raw_dir / filename
-    data = json.loads(filepath.read_text(encoding="utf-8"))
-
-    title = clean_prose_text(data.get("title") or default_title)
-    subtitle = clean_prose_text(data.get("subtitle", "")) or None
-
+def _extract_volume_front_matter(data: dict, volume_slug: str) -> list[Chapter]:
+    """Extract canonical Title Page and Witnesses (Three Witnesses & Eight Witnesses) into `front_matter`."""
     front_matter: list[Chapter] = []
 
-    # Title page block if present
     if "title_page" in data and isinstance(data["title_page"], dict):
         tp = data["title_page"]
         tp_blocks: list[ContentBlock] = []
@@ -90,11 +76,10 @@ def ingest_standard_work(
                 )
             )
 
-    # Testimonies (Book of Mormon)
     for idx, test in enumerate(data.get("testimonies", []), start=1):
         t_title = clean_prose_text(test.get("title", f"Testimony {idx}"))
         t_blocks = [
-            ContentBlock(block_type=BlockType.PARAGRAPH, text=clean_prose_text( test.get("text", "") ))
+            ContentBlock(block_type=BlockType.PARAGRAPH, text=clean_prose_text(test.get("text", "")))
         ]
         for wit in test.get("witnesses", []):
             t_blocks.append(ContentBlock(block_type=BlockType.SIGNATURE, text=clean_prose_text(wit)))
@@ -106,6 +91,26 @@ def ingest_standard_work(
                 blocks=t_blocks,
             )
         )
+
+    return front_matter
+
+
+def ingest_standard_work(
+    volume_slug: str,
+    raw_dir: Path = Path("data/raw/lds-standard-works"),
+) -> Work:
+    """Load one of the 5 canonical LDS Standard Works into a normalized `Work`."""
+    if volume_slug not in STANDARD_WORKS_FILES:
+        raise ValueError(f"Unknown standard work '{volume_slug}'. Valid: {list(STANDARD_WORKS_FILES)}")
+
+    filename, default_title = STANDARD_WORKS_FILES[volume_slug]
+    filepath = raw_dir / filename
+    data = json.loads(filepath.read_text(encoding="utf-8"))
+
+    title = clean_prose_text(data.get("title") or default_title)
+    subtitle = clean_prose_text(data.get("subtitle", "")) or None
+
+    front_matter = _extract_volume_front_matter(data, volume_slug)
 
     books: list[Book] = []
 
@@ -122,9 +127,13 @@ def ingest_standard_work(
                 ch_num = c_data["chapter"]
                 ch_head = clean_prose_text(c_data.get("heading", "")) or None
                 verses: list[Verse] = []
+                prev_ended_with_em_dash = False
                 for v_data in c_data.get("verses", []):
                     v_num = v_data["verse"]
                     v_text = clean_prose_text(v_data["text"])
+                    if prev_ended_with_em_dash:
+                        v_text = lowercase_continuation_start(v_text)
+                    prev_ended_with_em_dash = v_text.rstrip(" ”’\"')").endswith("—")
                     verses.append(
                         Verse(
                             verse=v_num,
@@ -158,15 +167,21 @@ def ingest_standard_work(
         dc_chapters: list[Chapter] = []
         for s_data in data["sections"]:
             sec_num = s_data["section"]
-            verses = [
-                Verse(
-                    verse=v_data["verse"],
-                    text=clean_prose_text(v_data["text"]),
-                    canonical_ref=make_canonical_ref("Doctrine and Covenants", sec_num, v_data["verse"]),
-                    citation_label=f"D&C {sec_num}:{v_data['verse']}",
+            verses: list[Verse] = []
+            prev_ended_with_em_dash = False
+            for v_data in s_data.get("verses", []):
+                v_txt = clean_prose_text(v_data["text"])
+                if prev_ended_with_em_dash:
+                    v_txt = lowercase_continuation_start(v_txt)
+                prev_ended_with_em_dash = v_txt.rstrip(" ”’\"')").endswith("—")
+                verses.append(
+                    Verse(
+                        verse=v_data["verse"],
+                        text=v_txt,
+                        canonical_ref=make_canonical_ref("Doctrine and Covenants", sec_num, v_data["verse"]),
+                        citation_label=f"D&C {sec_num}:{v_data['verse']}",
+                    )
                 )
-                for v_data in s_data.get("verses", [])
-            ]
             dc_chapters.append(
                 Chapter(
                     id=f"dc-sec-{sec_num}",
@@ -199,14 +214,23 @@ def ingest_standard_work(
 def ingest_bom_historical_edition(
     edition_year: str,
     raw_dir: Path = Path("data/raw/bom-historical-editions/editions"),
+    standard_works_dir: Path = Path("data/raw/lds-standard-works"),
 ) -> Work:
-    """Ingest a specific historical Book of Mormon edition (1830-2013) while ignoring Next.js app boilerplate."""
+    """Ingest a specific historical Book of Mormon edition (1830-2013) while preserving the
+    Book of Mormon Title Page and the Testimonies of the Three and Eight Witnesses at the beginning.
+    """
     if edition_year not in HISTORICAL_BOM_YEARS:
         raise ValueError(f"Unsupported BoM edition year '{edition_year}'. Valid: {HISTORICAL_BOM_YEARS}")
 
     ed_dir = raw_dir / edition_year
     if not ed_dir.exists():
         raise FileNotFoundError(f"Historical BoM directory not found: {ed_dir}")
+
+    front_matter: list[Chapter] = []
+    bom_json_path = standard_works_dir / "book-of-mormon.json"
+    if bom_json_path.exists():
+        bom_meta = json.loads(bom_json_path.read_text(encoding="utf-8"))
+        front_matter = _extract_volume_front_matter(bom_meta, f"book-of-mormon-{edition_year}")
 
     books: list[Book] = []
     for book_slug, canonical_name in CANONICAL_BOM_BOOK_ORDER:
@@ -220,10 +244,14 @@ def ingest_bom_historical_edition(
             ch_data = json.loads(ch_file.read_text(encoding="utf-8"))
             ch_num = ch_data["chapter"]
             verses: list[Verse] = []
+            prev_ended_with_em_dash = False
             for v_data in ch_data.get("verses", []):
                 v_num = v_data["verse"]
                 # Preserve exact historical spelling/punctuation while applying clean curly quotes
                 v_text = clean_prose_text(v_data["text"], smart_typography=True)
+                if prev_ended_with_em_dash:
+                    v_text = lowercase_continuation_start(v_text)
+                prev_ended_with_em_dash = v_text.rstrip(" ”’\"')").endswith("—")
                 verses.append(
                     Verse(
                         verse=v_num,
@@ -254,6 +282,7 @@ def ingest_bom_historical_edition(
         subtitle="An Account Written by the Hand of Mormon upon Plates Taken from the Plates of Nephi",
         authors=["Joseph Smith Jr. (Translator)"],
         edition_label=f"{edition_year} Historical Printing",
+        front_matter=front_matter,
         books=books,
     )
 

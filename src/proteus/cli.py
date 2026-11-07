@@ -104,27 +104,27 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
         ),
     ),
     "old-testament-minimalist": (
-        "[Phase 2] The Old Testament (Minimalist Edition — clean chapters & verses, zero footnotes)",
+        "[Phase 2] The Old Testament (Clean chapters & verses, zero footnotes)",
         lambda: transform_to_minimalist(ingest_standard_work("old-testament")),
     ),
     "new-testament-minimalist": (
-        "[Phase 2] The New Testament (Minimalist Edition — clean chapters & verses, zero footnotes)",
+        "[Phase 2] The New Testament (Clean chapters & verses, zero footnotes)",
         lambda: transform_to_minimalist(ingest_standard_work("new-testament")),
     ),
     "book-of-mormon-minimalist": (
-        "[Phase 2] The Book of Mormon (Minimalist Edition — clean chapters & verses, zero footnotes)",
+        "[Phase 2] The Book of Mormon (Clean chapters & verses, zero footnotes)",
         lambda: transform_to_minimalist(ingest_standard_work("book-of-mormon")),
     ),
     "doctrine-and-covenants-minimalist": (
-        "[Phase 2] The Doctrine and Covenants (Minimalist Edition — clean sections & verses, zero footnotes)",
+        "[Phase 2] The Doctrine and Covenants (Clean sections & verses, zero footnotes)",
         lambda: transform_to_minimalist(ingest_standard_work("doctrine-and-covenants")),
     ),
     "pearl-of-great-price-minimalist": (
-        "[Phase 2] The Pearl of Great Price (Minimalist Edition — clean chapters & verses, zero footnotes)",
+        "[Phase 2] The Pearl of Great Price (Clean chapters & verses, zero footnotes)",
         lambda: transform_to_minimalist(ingest_standard_work("pearl-of-great-price")),
     ),
     "lds-standard-works-minimalist": (
-        "[Phase 2] The Complete LDS Standard Works Quad (Minimalist Edition: OT + NT + BoM + D&C + PoGP)",
+        "[Phase 2] The Complete LDS Standard Works Quad (OT + NT + BoM + D&C + PoGP)",
         lambda: combine_works_into_quad(
             [
                 transform_to_minimalist(ingest_standard_work("old-testament")),
@@ -153,39 +153,27 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
         lambda: build_top_1000_cited_verses_anthology(),
     ),
     "book-of-mormon-onomasticon": (
-        "[Phase 3] The Book of Mormon Onomasticon Study Reader (◈ Etymology, IPA & Deseret Pop-ups)",
+        "[Phase 3] The Book of Mormon Onomasticon Study Reader (◈ Etymology & IPA Pop-ups)",
         lambda: build_enriched_book_of_mormon(
             enable_divine_speech=False,
             enable_onomasticon=True,
             enable_citations=False,
             custom_id="book-of-mormon-onomasticon",
             custom_title="The Book of Mormon (Onomasticon Lexical Study Edition)",
-            custom_subtitle="With Interactive BYU Onomasticon Etymologies, IPA Pronunciations & Deseret Glyphs",
+            custom_subtitle="With Interactive BYU Onomasticon Etymologies, IPA Pronunciations & Ancient Reconstructions",
             custom_edition_label="Proteus Onomasticon Study Reader",
         ),
     ),
-    "book-of-mormon-red-letter": (
-        "[Phase 3] The Book of Mormon (✦ Red-Letter / Divine Speech Edition)",
-        lambda: build_enriched_book_of_mormon(
-            enable_divine_speech=True,
-            enable_onomasticon=False,
-            enable_citations=False,
-            custom_id="book-of-mormon-red-letter",
-            custom_title="The Book of Mormon (Red-Letter Divine Speech Edition)",
-            custom_subtitle="With the Direct Words of Jesus Christ, Jehovah, and the Father Rubricated",
-            custom_edition_label="Proteus Divine Speech Edition",
-        ),
-    ),
     "book-of-mormon-master-study": (
-        "[Phase 3] The Master Study Book of Mormon (3-in-1: ✦ Divine Speech + ◈ Onomasticon + [★] Citations)",
+        "[Phase 3] The Master Study Book of Mormon (◈ Onomasticon + [★] Historical Citations)",
         lambda: build_enriched_book_of_mormon(
-            enable_divine_speech=True,
+            enable_divine_speech=False,
             enable_onomasticon=True,
             enable_citations=True,
             custom_id="book-of-mormon-master-study",
             custom_title="The Book of Mormon (Master Relational Study Edition)",
-            custom_subtitle="Uniting Red-Letter Divine Speech (✦), BYU Onomasticon Etymologies (◈), and 19th-Century Discourse Citations ([★])",
-            custom_edition_label="Proteus Three-Channel Master Study Edition",
+            custom_subtitle="Uniting BYU Onomasticon Etymologies (◈) and 19th-Century Discourse Citations ([★])",
+            custom_edition_label="Proteus Relational Master Study Edition",
         ),
     ),
     # Phase 4 Targets: Advanced NLP, Historical Variants, Intertextual Parallels & Poetics
@@ -233,7 +221,6 @@ PHASE2_TARGETS = [
 PHASE3_TARGETS = [
     "top-1000-cited-verses",
     "book-of-mormon-onomasticon",
-    "book-of-mormon-red-letter",
     "book-of-mormon-master-study",
 ]
 PHASE4_TARGETS = [

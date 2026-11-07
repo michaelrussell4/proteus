@@ -26,7 +26,7 @@ from proteus.core.models import (
     ContentBlock,
     Work,
 )
-from proteus.core.typography import escape_xhtml
+from proteus.core.typography import escape_xhtml, lowercase_continuation_start
 
 
 # Discourse & narrative transition patterns that naturally open a new literary paragraph
@@ -118,7 +118,16 @@ def _chapter_verses_to_narrative_blocks(
         nonlocal curr_texts, curr_vnums, curr_citations, curr_words
         if not curr_texts:
             return
-        combined_text = " ".join(curr_texts)
+        parts: list[str] = [curr_texts[0]]
+        for nxt in curr_texts[1:]:
+            prev_strip = parts[-1].rstrip(" ”’\"')")
+            if prev_strip.endswith(("—", ";", ",")):
+                nxt = lowercase_continuation_start(nxt)
+            if parts[-1].endswith("—"):
+                parts[-1] = parts[-1] + nxt
+            else:
+                parts.append(nxt)
+        combined_text = " ".join(parts)
         html_str: str | None = None
 
         if include_subtle_verse_range_popups and curr_vnums:
@@ -255,15 +264,16 @@ def transform_to_minimalist(
     strip_verse_numbers: bool = False,
     strip_headnotes: bool = True,
 ) -> Work:
-    """Transform a `Work` into a Minimalist Edition (super-clean typography, chapters and verse
-    numbers preserved, zero footnotes, headnotes, or extra editorial apparatus).
+    """Transform a `Work` into a clean, simple Edition (super-clean typography, chapters and verse
+    numbers preserved, canonical front matter & witnesses preserved, zero footnotes or extra editorial apparatus).
     """
     out = deepcopy(work)
     out.id = f"{work.id}-minimalist"
-    out.title = f"{work.title} (Minimalist Edition)"
-    out.edition_label = "Proteus Minimalist Typography Edition"
+    out.title = work.title
+    out.edition_label = None
     out.css_theme = "minimalist.css"
-    out.front_matter = []
+    for fm_ch in out.front_matter:
+        fm_ch.annotations = []
 
     for book in out.books:
         book.front_matter = []
@@ -298,16 +308,22 @@ def transform_to_study_notebook(work: Work) -> Work:
 
 def combine_works_into_quad(works: list[Work], compact_book_chapters: bool = False) -> Work:
     """Combine all five Standard Works (Old Testament, New Testament, Book of Mormon,
-    Doctrine and Covenants, and Pearl of Great Price) into a single Minimalist Quad Edition
-    with all chapters and verse numbers preserved individually for direct TOC navigation
-    and zero editorial clutter.
+    Doctrine and Covenants, and Pearl of Great Price) into a single clean Quad Edition
+    with all chapters, verse numbers, and Book of Mormon Witnesses preserved individually
+    for direct TOC navigation and zero editorial clutter.
     """
     all_books: list[Book] = []
     for w in works:
-        for b in w.books:
+        clean_wid = w.id.replace("-minimalist", "")
+        for b_idx, b in enumerate(w.books):
             b_copy = deepcopy(b)
-            b_copy.id = f"{w.id}-{b.id}"
-            b_copy.front_matter = []
+            b_copy.id = f"{clean_wid}-{b.id}"
+            if b_idx == 0 and w.front_matter:
+                b_copy.front_matter = deepcopy(w.front_matter)
+                for fm_ch in b_copy.front_matter:
+                    fm_ch.annotations = []
+            else:
+                b_copy.front_matter = []
             b_copy.heading = None
             if not b_copy.subtitle:
                 b_copy.subtitle = w.title
@@ -322,14 +338,14 @@ def combine_works_into_quad(works: list[Work], compact_book_chapters: bool = Fal
 
     return Work(
         id="lds-standard-works-minimalist",
-        title="The Standard Works (Minimalist Quad Edition)",
+        title="The Standard Works",
         subtitle="The Old Testament • The New Testament • The Book of Mormon • The Doctrine and Covenants • The Pearl of Great Price",
         authors=["The Church of Jesus Christ of Latter-day Saints"],
-        edition_label="Proteus Minimalist Complete Canon Quad",
+        edition_label=None,
         description=(
-            "Complete five-volume Minimalist Quad of the Standard Works (Old Testament, New Testament, "
-            "Book of Mormon, Doctrine and Covenants, and Pearl of Great Price), preserving all chapters and "
-            "verse numbers in super-clean, distraction-free typography with zero footnotes or apparatus."
+            "The complete Standard Works: The Old Testament, The New Testament, "
+            "The Book of Mormon, The Doctrine and Covenants, and The Pearl of Great Price, "
+            "with chapters and verse numbers preserved in clean, distraction-free typography."
         ),
         books=all_books,
         css_theme="minimalist.css",

@@ -11,9 +11,3 @@ wheels/
 
 # Large raw datasets (exceed GitHub's 100MB limit)
 data/raw/
-
-# Generated landing-page assets (rebuild with scripts/build_site.py)
-site/downloads/
-site/covers/
-site/index.html
-site/catalog.json

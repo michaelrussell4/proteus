@@ -7,7 +7,7 @@ Provides:
      and actual historical sermon excerpts from `talk_texts_pre_1960.jsonl`.
 2. Book of Mormon Onomasticon Study Reader (`transform_with_onomasticon`)
    - Links proper nouns in the text to BYU Onomasticon pop-up notes containing IPA pronunciation,
-     Deseret Alphabet glyphs (`𐐤𐐀𐐙𐐌`), Hebrew/Semitic reconstructions, and scholarly etymologies.
+     Hebrew/Semitic reconstructions, and scholarly etymologies.
 3. Red-Letter / Divine Speech Edition (`transform_with_divine_speech`)
    - Identifies direct words of Christ / Jehovah / the Father across the Book of Mormon (including
      the risen Christ's ministry in 3 Nephi 11–28, Moroni 8/12, Ether 3/12, 2 Nephi 29–31, etc.)
@@ -465,14 +465,14 @@ def build_enriched_book_of_mormon(
         legend_blocks.append(
             ContentBlock(
                 block_type=BlockType.PARAGRAPH,
-                text="2. BYU Onomasticon Etymology (◈ Lexical Channel): The first appearance of any canonical proper name in a chapter is underlined with a subtle dotted border and marked with a diamond glyph (◈). Tap the name to open a native Kindle pop-up containing its IPA pronunciation, Deseret Alphabet transcription, Hebrew/Semitic reconstructions, and scholarly etymology from the Brigham Young University Book of Mormon Onomasticon Project (onoma.lib.byu.edu, edited by Paul Y. Hoskisson; used for free, non-commercial educational study).",
+                text="BYU Onomasticon Etymology (◈ Lexical Channel): The first appearance of any canonical proper name in a chapter is underlined with a subtle dotted border and marked with a diamond glyph (◈). Tap the name to open a native Kindle pop-up containing its IPA pronunciation, Hebrew/Semitic reconstructions, and scholarly etymology from the Brigham Young University Book of Mormon Onomasticon Project (onoma.lib.byu.edu, edited by Paul Y. Hoskisson; used for free, non-commercial educational study).",
             )
         )
     if enable_citations:
         legend_blocks.append(
             ContentBlock(
                 block_type=BlockType.PARAGRAPH,
-                text="3. Historical Citation Index ([★ N] Discourse Channel): Verses cited in 19th-century Latter-day Saint sermons (1830–1886) carry a bracketed star badge ([★ N]) at the end of the verse showing how many times that verse was quoted in the public-domain Journal of Discourses (1839–1886) and Teachings of the Prophet Joseph Smith (1830–1844), indexed via the BYU Scripture Citation Index (scriptures.byu.edu, Stephen W. Liddle & Richard C. Galbraith; free non-commercial educational use). Tap the badge to inspect the citing speakers and discourse excerpts.",
+                text="Historical Citation Index ([★ N] Discourse Channel): Verses cited in 19th-century Latter-day Saint sermons (1830–1886) carry a bracketed star badge ([★ N]) at the end of the verse showing how many times that verse was quoted in the public-domain Journal of Discourses (1839–1886) and Teachings of the Prophet Joseph Smith (1830–1844), indexed via the BYU Scripture Citation Index (scriptures.byu.edu, Stephen W. Liddle & Richard C. Galbraith; free non-commercial educational use). Tap the badge to inspect the citing speakers and discourse excerpts.",
             )
         )
 
@@ -523,8 +523,6 @@ def build_enriched_book_of_mormon(
                         header_parts = [f"◈ {entry.name_upper}"]
                         if entry.ipa:
                             header_parts.append(f"/{entry.ipa}/")
-                        if entry.deseret:
-                            header_parts.append(f"Deseret: {entry.deseret}")
                         if entry.classifications:
                             header_parts.append(f"({', '.join(entry.classifications)})")
 

@@ -1,7 +1,7 @@
 """Relational Dataset Loaders for Phase 3 (`onomasticon` & `scripture-citation`).
 
 Includes:
-- `load_onomasticon_entries()`: 419 canonical BYU Onomasticon entries with IPA, Deseret Alphabet, Hebrew reconstructions, and etymology.
+- `load_onomasticon_entries()`: 419 canonical BYU Onomasticon entries with IPA, Hebrew reconstructions, and etymology.
 - `load_citations_by_canonical_ref()`: Verse keys mapped to pre-1942 public-domain historical citations (`Journal of Discourses` 1839–1886 and `Teachings of the Prophet Joseph Smith` 1830–1844).
 - `DiscourseExcerptIndex`: Fast contextual sermon excerpt extractor across all 1,821 pre-1942 public-domain discourses
   (`Journal of Discourses` and `Teachings of the Prophet Joseph Smith`, excluding post-1941 General Conference).
@@ -25,7 +25,6 @@ class OnomasticonEntry:
     name_upper: str
     display_name: str
     ipa: str | None
-    deseret: str | None
     classifications: list[str]
     hebrew_summary: str | None
     etymology_paragraphs: list[str]
@@ -46,6 +45,28 @@ class HistoricalCitationRecord:
     year: int
 
 
+def _strip_deseret_references(text: str) -> str:
+    """Remove Deseret Alphabet Unicode glyphs (U+10400..U+1044F) and inline Deseret Alphabet
+    spelling notes that cannot render in Kindle system pop-up fonts.
+    """
+    if not text:
+        return ""
+    # Strip any SMP Deseret Alphabet characters
+    s = re.sub(r"[\U00010400-\U0001044F]+", "", text)
+    # Remove specific inline Deseret Alphabet clauses in BYU Onomasticon prose
+    s = re.sub(r"\s*\(the Deseret Alphabet transcriptions are identical\)", "", s, flags=re.I)
+    s = re.sub(r",?\s*according to the Deseret Alphabet spelling,?", "", s, flags=re.I)
+    s = re.sub(r";\s*as\s+[^\s;]+\s+in the 1869 Deseret Alphabet", "", s, flags=re.I)
+    s = re.sub(
+        r",?\s*and the Deseret Alphabet spelling of the PN NEPHI,\s*,\s*\(IPA:\s*niːfaɪ\),\s*and\s*,\s*\(IPA:\s*neɪfaɪ\),",
+        "",
+        s,
+        flags=re.I,
+    )
+    s = re.sub(r"^See also Deseret Variant\s*$", "", s, flags=re.I)
+    return s.strip()
+
+
 def load_onomasticon_entries(
     onomasticon_dir: Path = Path("data/raw/bom-onomasticon"),
 ) -> dict[str, OnomasticonEntry]:
@@ -63,7 +84,6 @@ def load_onomasticon_entries(
         if raw_ipa:
             clean_ipa = re.sub(r"(?:IPA:\s*|'+)", "", str(raw_ipa)).strip()
 
-        deseret = rec.get("deseret_alphabet") or None
         classifications = rec.get("classifications") or []
 
         heb_dict = rec.get("hebrew_transcriptions")
@@ -81,11 +101,12 @@ def load_onomasticon_entries(
         hebrew_summary = " | ".join(heb_parts) if heb_parts else None
 
         ety_raw = rec.get("etymology", {}).get("clean_text", "")
-        ety_paras = [
-            clean_prose_text(p)
-            for p in ety_raw.split("\n\n")
-            if clean_prose_text(p) and not p.strip().startswith("----")
-        ]
+        ety_paras: list[str] = []
+        for p in ety_raw.split("\n\n"):
+            p_scrubbed = _strip_deseret_references(p)
+            p_clean = clean_prose_text(p_scrubbed)
+            if p_clean and not p_clean.strip().startswith("----"):
+                ety_paras.append(p_clean)
         if not ety_paras:
             ety_paras = ["Included in the BYU Book of Mormon Onomasticon lexical database."]
 
@@ -94,7 +115,6 @@ def load_onomasticon_entries(
             name_upper=key.upper(),
             display_name=display_name,
             ipa=clean_ipa,
-            deseret=deseret,
             classifications=classifications,
             hebrew_summary=hebrew_summary,
             etymology_paragraphs=ety_paras[:6],

@@ -117,7 +117,7 @@ def compute_inline_word_diff_xhtml(
 # ==============================================================================
 
 def build_historical_variants_bom(
-    raw_dir: Path = Path("data/raw/bom-editions-main/public/data/en"),
+    raw_dir: Path = Path("data/raw/bom-historical-editions/editions"),
 ) -> Work:
     """Compile The Historical Textual Variants Book of Mormon (1830–2013),
     tracking word-level changes across all 8 historical editions (1830, 1837, 1840, 1841, 1879, 1920, 1981, 2013)
