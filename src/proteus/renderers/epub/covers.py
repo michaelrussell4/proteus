@@ -202,28 +202,28 @@ COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
     "book-of-mormon": (
         "canon",
         "The Book of Mormon",
-        "2013 STANDARD EDITION",
+        "2013 EDITION",
         "Another Testament of Jesus Christ",
         "liahona",
     ),
     "book-of-mormon-1830": (
         "canon",
         "The Book of Mormon",
-        "1830 PALMYRA EDITION",
-        "An Account Written by the Hand of Mormon upon Plates Taken from the Plates of Nephi",
+        "1830 PALMYRA",
+        "Original 1830 E. B. Grandin Text with Verse Locators",
         "liahona",
     ),
     "doctrine-and-covenants": (
         "canon",
         "The Doctrine and Covenants",
-        "2013 STANDARD EDITION",
+        "2013 EDITION",
         "Containing Revelations Given to Joseph Smith, the Prophet",
         "liahona",
     ),
     "pearl-of-great-price": (
         "canon",
         "The Pearl of Great Price",
-        "2013 STANDARD EDITION",
+        "2013 EDITION",
         "Revelations, Translations, and Narrations of Joseph Smith",
         "liahona",
     ),
@@ -231,124 +231,124 @@ COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
     "book-of-mormon-narrative": (
         "narrative",
         "The Book of Mormon",
-        "CONTINUOUS NARRATIVE EDITION",
-        "Flowing Literary Paragraphs with Interactive Verse-Range Locators",
+        "NARRATIVE EDITION",
+        "Flowing Literary Paragraphs with Pop-Up Verse Ranges",
         "tree",
     ),
     "book-of-mormon-1830-narrative": (
         "narrative",
         "The Book of Mormon",
-        "1830 NARRATIVE EDITION",
-        "The Original Palmyra Text in Flowing Literary Paragraphs",
+        "1830 NARRATIVE",
+        "Original Palmyra Text in Continuous Literary Paragraphs",
         "tree",
     ),
     "new-testament-narrative": (
         "narrative",
         "The New Testament",
-        "CONTINUOUS NARRATIVE EDITION",
-        "The King James Version in Flowing Literary Paragraphs",
+        "NARRATIVE EDITION",
+        "King James Version in Flowing Literary Paragraphs",
         "tree",
     ),
     "book-of-mormon-study-notebook": (
         "narrative",
         "The Book of Mormon",
-        "WIDE-MARGIN STUDY NOTEBOOK",
-        "Spacious Annotation Layout with Chapter Reflection Grids",
+        "STUDY NOTEBOOK",
+        "Wide-Margin Annotation Layout with Reflection Grids",
         "codex",
     ),
     # Enriched & Study Series
     "book-of-mormon-master-study": (
         "enriched",
         "The Book of Mormon",
-        "MASTER STUDY EDITION",
-        "With BYU Onomasticon Etymologies & 19th-Century Discourse Citations",
+        "MASTER STUDY",
+        "BYU Onomasticon Etymologies & 19th-Century Sermon Citations",
         "liahona",
     ),
     "book-of-mormon-onomasticon": (
         "enriched",
         "The Book of Mormon",
-        "ONOMASTICON STUDY EDITION",
-        "With Interactive BYU Etymologies, Semitic Roots & IPA Pronunciations",
+        "ONOMASTICON",
+        "Interactive Name Etymologies, Semitic Roots & IPA Pronunciations",
         "liahona",
     ),
     "top-1000-cited-verses": (
         "enriched",
         "Top 1,000 Cited Verses",
-        "RESTORATION CITATION INDEX",
-        "Ranked by 19th-Century Sermon Frequency with Public-Domain Excerpts",
+        "CITATION INDEX",
+        "Ranked by 19th-Century Sermon Frequency with Discourse Excerpts",
         "arch",
     ),
     # Variants, Parallels & Poetics
     "book-of-mormon-historical-variants": (
         "variants",
         "The Book of Mormon",
-        "HISTORICAL VARIANTS • 1830–2013",
-        "Word-Level Collation Across Eight Landmark Print Editions",
+        "TEXTUAL VARIANTS",
+        "Word-Level Collation Across Eight Editions (1830–2013)",
         "collation",
     ),
     "bom-intertextual-parallels": (
         "variants",
-        "Book of Mormon Parallels",
-        "INTERTEXTUAL COLLATION EDITION",
-        "Brass Plates Isaiah & The Sermon at the Temple Aligned with the KJV",
+        "The Book of Mormon",
+        "PARALLEL TEXTS",
+        "Brass Plates Isaiah & 3 Nephi Aligned with the King James Bible",
         "collation",
     ),
     "bom-poetic-and-chiasmus": (
         "variants",
         "The Book of Mormon",
-        "POETRY & CHIASMUS EDITION",
-        "Concentric Chiastic Structures, Hebraic Parallelisms & Prophetic Psalms",
+        "POETRY & CHIASMUS",
+        "Concentric Chiastic Structures, Parallelisms & Prophetic Psalms",
         "collation",
     ),
     # Reading Guides
     "early-modern-english-quick-guide": (
         "guides",
         "Reading Old English Scripture",
-        "PLAIN-LANGUAGE QUICK GUIDE",
-        "A Practical Companion to Thou, Ye, -eth, Archaic Syntax & Vocabulary",
+        "QUICK GUIDE",
+        "A Practical Companion to Thou, Ye, -eth & Archaic Vocabulary",
         "rose",
     ),
     "early-modern-english-scripture-guide": (
         "guides",
         "Early Modern English",
-        "COMPREHENSIVE REFERENCE GUIDE",
-        "Philological Grammar, Pronouns, Verbal Morphology & Hebraisms in Scripture",
+        "FULL REFERENCE",
+        "Comprehensive Grammar, Pronouns, Verb Morphology & Hebraisms",
         "rose",
     ),
     # Apocrypha & Ancient Texts
     "kjv-apocrypha": (
         "apocrypha",
         "The KJV Apocrypha",
-        "1611 DEUTEROCANONICAL EDITION",
+        "1611 DEUTEROCANON",
         "The Fifteen Books Placed Between the Old and New Testaments",
         "seal",
     ),
     "enoch-jubilees-jasher": (
         "apocrypha",
         "Enoch, Jubilees & Jasher",
-        "ANCIENT APOCRYPHA OMNIBUS",
+        "3-BOOK OMNIBUS",
         "Three Foundational Extra-Canonical Books with Scholarly Notes",
         "seal",
     ),
     "complete-apocrypha-pseudepigrapha-compendium": (
         "apocrypha",
         "Apocrypha & Pseudepigrapha",
-        "COMPLETE 99-BOOK COMPENDIUM",
-        "Deuterocanon, Enochic Literature, Second Temple Texts & Provenance Dossiers",
+        "72-BOOK COMPENDIUM",
+        "Deuterocanon, Enochic Literature, Second Temple Texts & Dossiers",
         "seal",
     ),
     # Restoration Literature
     "foundational-lds-classics-anthology": (
         "literature",
         "Foundational Classics",
-        "NINE-VOLUME DOCTRINAL OMNIBUS",
+        "9-BOOK OMNIBUS",
         "Landmark Works of Early Restoration Theology & Instruction",
         "arch",
     ),
     "complete-lds-literature-compendium": (
         "literature",
         "Restoration Literature",
-        "COMPLETE 71-VOLUME COMPENDIUM",
+        "71-BOOK COMPENDIUM",
         "Foundational Theology, History, Biographies & Discourses (1833–1927)",
         "arch",
     ),
@@ -935,35 +935,49 @@ def generate_cover_png_bytes(work: Work, save_copy_dir: Path | None = Path("dist
         draw.rectangle((cx_c + 8, cy_c + 8, cx_c + cs - 8, cy_c + cs - 8), fill=palette.primary_accent)
 
     # 3. Standardized Top Series Header Band
-    font_series = _load_font(26, bold=True, display=False)
-    draw.line((180, 148, W - 180, 148), fill=palette.secondary_accent, width=1)
-    _draw_tracked_text(draw, W // 2, 168, palette.series_banner, font_series, fill=palette.primary_accent, tracking=5)
-    draw.line((180, 214, W - 180, 214), fill=palette.secondary_accent, width=2)
-    draw.polygon([(W // 2, 206), (W // 2 + 8, 214), (W // 2, 222), (W // 2 - 8, 214)], fill=palette.primary_accent)
+    font_series = _load_font(33, bold=True, display=False)
+    s_bb = draw.textbbox((0, 0), palette.series_banner, font=font_series)
+    s_top_off = s_bb[1]
+    s_glyph_h = s_bb[3] - s_bb[1]
+    band_top, band_bot = 142, 214
+    draw.line((160, band_top, W - 160, band_top), fill=palette.secondary_accent, width=2)
+    s_y = band_top + (band_bot - band_top - s_glyph_h) // 2 - s_top_off
+    _draw_tracked_text(draw, W // 2, s_y, palette.series_banner, font_series, fill=palette.primary_accent, tracking=4)
+    draw.line((160, band_bot, W - 160, band_bot), fill=palette.secondary_accent, width=2)
+    draw.polygon([(W // 2, band_bot - 9), (W // 2 + 9, band_bot), (W // 2, band_bot + 9), (W // 2 - 9, band_bot)], fill=palette.primary_accent)
 
     # 4. Large, Tracked Display Main Title
     font_title, title_lines, title_tracking = _fit_title_layout(
-        draw, clean_main_title, max_w=W - 340, max_h=560, start_size=164, min_size=104, tracking=6
+        draw, clean_main_title, max_w=W - 320, max_h=520, start_size=158, min_size=104, tracking=6
     )
 
-    line_heights = [_measure_tracked_text(draw, l, font_title, title_tracking)[1] for l in title_lines]
-    total_title_h = sum(int(h * 1.28) for h in line_heights)
-
-    curr_y = 285 if len(title_lines) >= 3 else (320 if len(title_lines) == 2 else 360)
+    curr_y = 265 if len(title_lines) >= 3 else (285 if len(title_lines) == 2 else 330)
     for tline in title_lines:
         lh = _draw_tracked_text(
             draw, W // 2, curr_y, tline, font_title, fill=palette.title_color, tracking=title_tracking
         )
-        curr_y += int(lh * 1.28)
+        curr_y += int(lh * 1.25)
 
-    # 5. Standardized Edition Pill / Badge (or Classical Divider for Clean Series)
-    curr_y += 22
+    # 5. Prominent, Thumbnail-Legible Edition Banner (or Classical Divider for Clean Series)
+    curr_y += 28
     if edition_pill:
-        font_pill = _load_font(31, bold=True, display=False)
-        pw, ph = _measure_tracked_text(draw, edition_pill, font_pill, tracking=5)
-        pad_x, pad_y = 44, 16
-        box_w = pw + pad_x * 2
-        box_h = ph + pad_y * 2
+        # Select a large, unmistakable font size (68px–86px) that fits comfortably inside the banner
+        font_pill = _load_font(84, bold=True, display=True)
+        pill_tracking = 5
+        for p_sz in range(86, 62, -4):
+            cand_f = _load_font(p_sz, bold=True, display=True)
+            cw, _ = _measure_tracked_text(draw, edition_pill, cand_f, tracking=pill_tracking)
+            if cw <= W - 440:
+                font_pill = cand_f
+                break
+
+        pw, _ = _measure_tracked_text(draw, edition_pill, font_pill, tracking=pill_tracking)
+        p_bb = draw.textbbox((0, 0), edition_pill, font=font_pill)
+        p_top_off = p_bb[1]
+        p_glyph_h = p_bb[3] - p_bb[1]
+        pad_x, pad_y = 60, 32
+        box_w = max(pw + pad_x * 2, 760)
+        box_h = p_glyph_h + pad_y * 2
         bx1 = (W - box_w) // 2
         by1 = curr_y
         bx2 = bx1 + box_w
@@ -971,40 +985,57 @@ def generate_cover_png_bytes(work: Work, save_copy_dir: Path | None = Path("dist
 
         # Flanking ornamental wings
         wing_y = (by1 + by2) // 2
-        draw.line((190, wing_y, bx1 - 24, wing_y), fill=palette.primary_accent, width=2)
-        draw.line((bx2 + 24, wing_y, W - 190, wing_y), fill=palette.primary_accent, width=2)
-        draw.polygon([(bx1 - 24, wing_y - 7), (bx1 - 14, wing_y), (bx1 - 24, wing_y + 7), (bx1 - 34, wing_y)], fill=palette.primary_accent)
-        draw.polygon([(bx2 + 24, wing_y - 7), (bx2 + 34, wing_y), (bx2 + 24, wing_y + 7), (bx2 + 14, wing_y)], fill=palette.primary_accent)
+        if bx1 - 32 > 160:
+            draw.line((150, wing_y, bx1 - 28, wing_y), fill=palette.primary_accent, width=3)
+            draw.line((bx2 + 28, wing_y, W - 150, wing_y), fill=palette.primary_accent, width=3)
+        draw.polygon(
+            [(bx1 - 22, wing_y - 11), (bx1 - 11, wing_y), (bx1 - 22, wing_y + 11), (bx1 - 33, wing_y)],
+            fill=palette.primary_accent,
+        )
+        draw.polygon(
+            [(bx2 + 22, wing_y - 11), (bx2 + 33, wing_y), (bx2 + 22, wing_y + 11), (bx2 + 11, wing_y)],
+            fill=palette.primary_accent,
+        )
 
-        draw.rectangle((bx1, by1, bx2, by2), fill=palette.pill_bg, outline=palette.primary_accent, width=3)
-        _draw_tracked_text(draw, W // 2, by1 + pad_y - 2, edition_pill, font_pill, fill=palette.pill_text, tracking=5)
+        # Double-framed high-contrast architectural edition plaque
+        draw.rectangle((bx1, by1, bx2, by2), fill=palette.pill_bg, outline=palette.primary_accent, width=4)
+        draw.rectangle(
+            (bx1 + 10, by1 + 10, bx2 - 10, by2 - 10),
+            outline=palette.secondary_accent,
+            width=2,
+        )
+        pill_text_y = by1 + (box_h - p_glyph_h) // 2 - p_top_off
+        _draw_tracked_text(
+            draw, W // 2, pill_text_y, edition_pill, font_pill, fill=palette.pill_text, tracking=pill_tracking
+        )
         curr_y = by2 + 36
     else:
         # Clean classical diamond rule
-        draw.line((W // 2 - 280, curr_y, W // 2 - 28, curr_y), fill=palette.primary_accent, width=3)
+        draw.line((W // 2 - 320, curr_y, W // 2 - 32, curr_y), fill=palette.primary_accent, width=3)
         draw.polygon(
-            [(W // 2, curr_y - 12), (W // 2 + 14, curr_y), (W // 2, curr_y + 12), (W // 2 - 14, curr_y)],
+            [(W // 2, curr_y - 14), (W // 2 + 16, curr_y), (W // 2, curr_y + 14), (W // 2 - 16, curr_y)],
             fill=palette.primary_accent,
         )
-        draw.line((W // 2 + 28, curr_y, W // 2 + 280, curr_y), fill=palette.primary_accent, width=3)
-        curr_y += 40
+        draw.line((W // 2 + 32, curr_y, W // 2 + 320, curr_y), fill=palette.primary_accent, width=3)
+        curr_y += 44
 
-    # 6. Subtitle (Palatino Italic)
+    # 6. Subtitle (Palatino Italic — larger and clearer)
     if work_subtitle:
-        font_sub = _load_font(40, italic=True, display=False)
-        sub_lines = _wrap_text(draw, work_subtitle, font_sub, max_width=W - 360)
-        for sline in sub_lines[:3]:
+        sub_sz = 46 if edition_pill else 52
+        font_sub = _load_font(sub_sz, italic=True, display=False)
+        sub_lines = _wrap_text(draw, work_subtitle, font_sub, max_width=W - 320)
+        for sline in sub_lines[:2]:
             sb = draw.textbbox((0, 0), sline, font=font_sub)
             sw = sb[2] - bbox_left(sb)
             sh = sb[3] - sb[1]
             draw.text(((W - sw) // 2, curr_y), sline, font=font_sub, fill=palette.subtitle_color)
-            curr_y += int(sh * 1.32)
+            curr_y += int(sh * 1.30)
 
-    # 7. Large, Prominent Centerpiece Illustration (Radius ~ 280–345px)
-    bottom_anchor = 2070
+    # 7. Large, Prominent Centerpiece Illustration (Radius ~ 270–335px)
+    bottom_anchor = 2075
     avail_h = bottom_anchor - curr_y
     med_cy = curr_y + avail_h // 2
-    med_radius = min(345, max(265, int(avail_h * 0.40)))
+    med_radius = min(335, max(255, int(avail_h * 0.39)))
 
     # Soft radial ambient glow behind the medallion blended smoothly to the exact gradient at med_cy
     if palette.card_bg is not None:

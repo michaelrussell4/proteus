@@ -468,9 +468,28 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   font-size: 0.86rem;
   color: var(--text-muted);
   padding-top: 0.25rem;
+}
+
+.catalog-summary-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-sm {
+  padding: 0.35rem 0.78rem;
+  font-size: 0.82rem;
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
 }
 
 .sort-wrapper {

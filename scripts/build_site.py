@@ -683,6 +683,10 @@ def main() -> None:
 
         <div class="hero-cta-row">
           <a class="btn btn-primary btn-hero" href="#editions">Browse Editions ↓</a>
+          <button type="button" id="btn-download-all-hero" class="btn btn-secondary btn-hero" data-download-all="all">
+            <svg class="icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>
+            <span class="btn-download-all-label">Download All ({len(catalog)} EPUBs · {total_mb:.0f} MB)</span>
+          </button>
           <a class="btn btn-outline btn-hero" href="#how-to-read">Send-to-Kindle Guide</a>
         </div>
       </div>
@@ -707,14 +711,20 @@ def main() -> None:
 
         <div class="catalog-summary-bar">
           <span id="results-count">Showing <strong>{len(catalog)}</strong> editions</span>
-          <div class="sort-wrapper">
-            <label for="catalog-sort">Sort by:</label>
-            <select id="catalog-sort" class="sort-select">
-              <option value="featured">Featured Selections</option>
-              <option value="title">Title (A–Z)</option>
-              <option value="size-desc">File Size (Largest first)</option>
-              <option value="size-asc">File Size (Smallest first)</option>
-            </select>
+          <div class="catalog-summary-actions">
+            <button type="button" id="btn-download-visible" class="btn btn-secondary btn-sm" data-download-all="visible">
+              <svg class="icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>
+              <span id="btn-download-visible-label">Download All ({len(catalog)} EPUBs)</span>
+            </button>
+            <div class="sort-wrapper">
+              <label for="catalog-sort">Sort by:</label>
+              <select id="catalog-sort" class="sort-select">
+                <option value="featured">Featured Selections</option>
+                <option value="title">Title (A–Z)</option>
+                <option value="size-desc">File Size (Largest first)</option>
+                <option value="size-asc">File Size (Smallest first)</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>

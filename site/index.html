@@ -58,7 +58,7 @@
           </div>
           <div class="stat-divider"></div>
           <div class="stat-item">
-            <span class="stat-number">52.3 MB</span>
+            <span class="stat-number">52.6 MB</span>
             <span class="stat-label">Total Library Size</span>
           </div>
           <div class="stat-divider"></div>
@@ -75,6 +75,10 @@
 
         <div class="hero-cta-row">
           <a class="btn btn-primary btn-hero" href="#editions">Browse Editions ↓</a>
+          <button type="button" id="btn-download-all-hero" class="btn btn-secondary btn-hero" data-download-all="all">
+            <svg class="icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>
+            <span class="btn-download-all-label">Download All (27 EPUBs · 53 MB)</span>
+          </button>
           <a class="btn btn-outline btn-hero" href="#how-to-read">Send-to-Kindle Guide</a>
         </div>
       </div>
@@ -99,14 +103,20 @@
 
         <div class="catalog-summary-bar">
           <span id="results-count">Showing <strong>27</strong> editions</span>
-          <div class="sort-wrapper">
-            <label for="catalog-sort">Sort by:</label>
-            <select id="catalog-sort" class="sort-select">
-              <option value="featured">Featured Selections</option>
-              <option value="title">Title (A–Z)</option>
-              <option value="size-desc">File Size (Largest first)</option>
-              <option value="size-asc">File Size (Smallest first)</option>
-            </select>
+          <div class="catalog-summary-actions">
+            <button type="button" id="btn-download-visible" class="btn btn-secondary btn-sm" data-download-all="visible">
+              <svg class="icon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>
+              <span id="btn-download-visible-label">Download All (27 EPUBs)</span>
+            </button>
+            <div class="sort-wrapper">
+              <label for="catalog-sort">Sort by:</label>
+              <select id="catalog-sort" class="sort-select">
+                <option value="featured">Featured Selections</option>
+                <option value="title">Title (A–Z)</option>
+                <option value="size-desc">File Size (Largest first)</option>
+                <option value="size-asc">File Size (Smallest first)</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
@@ -124,7 +134,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Clean Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>3.87 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>3.89 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/lds-standard-works-minimalist.epub" download>The Standard Works</a></h3>
             <p class="book-subtitle">The Old Testament • The New Testament • The Book of Mormon • The Doctrine and Covenants • The Pearl of Great Price</p>
@@ -149,7 +159,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Clean Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>991 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>992 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-minimalist.epub" download>The Book of Mormon</a></h3>
             <p class="book-subtitle">Another Testament of Jesus Christ</p>
@@ -199,7 +209,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Clean Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>902 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>906 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament-minimalist.epub" download>The New Testament</a></h3>
             <p class="book-subtitle">Of Our Lord and Saviour Jesus Christ</p>
@@ -224,7 +234,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Clean Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>640 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>651 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/doctrine-and-covenants-minimalist.epub" download>The Doctrine and Covenants</a></h3>
             <p class="book-subtitle">Of The Church of Jesus Christ of Latter-day Saints</p>
@@ -249,7 +259,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Clean Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>373 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>387 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/pearl-of-great-price-minimalist.epub" download>The Pearl of Great Price</a></h3>
             <p class="book-subtitle">Selections from the Revelations, Translations, and Narrations of Joseph Smith</p>
@@ -324,7 +334,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Standard Works</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>727 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>740 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/doctrine-and-covenants.epub" download>The Doctrine and Covenants (2013 Standard Edition)</a></h3>
             <p class="book-subtitle">Of The Church of Jesus Christ of Latter-day Saints</p>
@@ -349,7 +359,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Standard Works</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>450 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>459 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/pearl-of-great-price.epub" download>The Pearl of Great Price (2013 Standard Edition)</a></h3>
             <p class="book-subtitle">Selections from the Revelations, Translations, and Narrations of Joseph Smith</p>
@@ -399,7 +409,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Narrative &amp; Journal</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1.10 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1.11 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-1830-narrative.epub" download>The Book of Mormon (1830 Narrative Edition)</a></h3>
             <p class="book-subtitle">Original Palmyra Text in Continuous Literary Paragraphs</p>
@@ -424,7 +434,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Narrative &amp; Journal</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1000 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1010 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament-narrative.epub" download>The New Testament (Continuous Narrative Edition)</a></h3>
             <p class="book-subtitle">Authorized King James Text in Flowing Literary Paragraphs</p>
@@ -474,7 +484,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Study Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>5.50 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>5.51 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-master-study.epub" download>The Book of Mormon (Master Study Edition)</a></h3>
             <p class="book-subtitle">With BYU Onomasticon Etymologies &amp; 19th-Century Discourse Citations</p>
@@ -499,7 +509,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Study Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>2.01 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>2.02 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-onomasticon.epub" download>The Book of Mormon (Onomasticon Study Edition)</a></h3>
             <p class="book-subtitle">Interactive BYU Onomasticon Etymologies, IPA Pronunciations &amp; Ancient Roots</p>
@@ -524,7 +534,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Study Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1.40 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1.42 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-historical-variants.epub" download>The Book of Mormon (Historical Textual Variants)</a></h3>
             <p class="book-subtitle">Word-Level Collation Across Eight Landmark Print Editions (1830–2013)</p>
@@ -549,7 +559,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Study Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>481 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>476 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/bom-intertextual-parallels.epub" download>Book of Mormon Intertextual Parallels</a></h3>
             <p class="book-subtitle">Word-Level Collation of Brass Plates Isaiah &amp; 3 Nephi Against the King James Bible</p>
@@ -574,7 +584,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Study Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>406 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>422 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/bom-poetic-and-chiasmus.epub" download>The Book of Mormon (Poetic &amp; Chiasmus Edition)</a></h3>
             <p class="book-subtitle">Hebraic Parallelisms, Prophetic Oracles &amp; Structural Chiasms</p>
@@ -599,7 +609,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Study Editions</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>2.42 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>2.44 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/top-1000-cited-verses.epub" download>The Top 1,000 Cited Verses of the Restoration</a></h3>
             <p class="book-subtitle">Ranked by 19th-Century Citation Frequency (1830–1886) with Public-Domain Sermon Profiles</p>
@@ -624,7 +634,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Apocrypha &amp; Ancient Texts</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>3.42 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>3.43 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/complete-apocrypha-pseudepigrapha-compendium.epub" download>Complete Apocrypha &amp; Pseudepigrapha Compendium</a></h3>
             <p class="book-subtitle">Deuterocanon, Enochic Literature, Second Temple Texts &amp; Provenance Dossiers</p>
@@ -649,7 +659,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Apocrypha &amp; Ancient Texts</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>835 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>852 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/kjv-apocrypha.epub" download>The Complete KJV Apocrypha</a></h3>
             <p class="book-subtitle">The Fifteen Deuterocanonical Books of the 1611 Authorized King James Bible</p>
@@ -674,7 +684,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Apocrypha &amp; Ancient Texts</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1.14 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>1.16 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/enoch-jubilees-jasher.epub" download>The Books of Enoch, Jubilees &amp; Jasher</a></h3>
             <p class="book-subtitle">Patriarchal &amp; Second Temple Apocrypha with R. H. Charles &amp; Richard Laurence Translations</p>
@@ -699,7 +709,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Restoration Literature</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>2.92 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>2.94 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/foundational-lds-classics-anthology.epub" download>Foundational Classics of the Restoration</a></h3>
             <p class="book-subtitle">Nine Landmark Doctrinal Works with 3,276 Interactive Pop-Up Footnotes</p>
@@ -724,7 +734,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Restoration Literature</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>14.56 MB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>14.58 MB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/complete-lds-literature-compendium.epub" download>The Complete Restoration Literature Compendium</a></h3>
             <p class="book-subtitle">All 71 Public-Domain Historical Volumes of Early Latter-day Saint Theology &amp; History</p>
@@ -749,7 +759,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Reading Guides</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>439 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>456 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/early-modern-english-quick-guide.epub" download>Reading Old English Scripture: A Quick Guide</a></h3>
             <p class="book-subtitle">A Practical Companion to Thou, Ye, -eth, Archaic Syntax &amp; Vocabulary</p>
@@ -774,7 +784,7 @@
           <div class="book-content">
             <div class="book-meta-top">
               <span class="book-collection-tag">Reading Guides</span>
-              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>492 KB</span>
+              <span class="book-size-tag"><svg class="icon-inline" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 2a.75.75 0 01.75.75v8.69l2.72-2.72a.75.75 0 111.06 1.06l-4 4a.75.75 0 01-1.06 0l-4-4a.75.75 0 011.06-1.06l2.72 2.72V2.75A.75.75 0 0110 2zM3 13.75A.75.75 0 013.75 13h12.5a.75.75 0 010 1.5H3.75A.75.75 0 013 13.75z" clip-rule="evenodd"/></svg>503 KB</span>
             </div>
             <h3 class="book-title"><a href="https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/early-modern-english-scripture-guide.epub" download>Early Modern English Guide to the Scriptures</a></h3>
             <p class="book-subtitle">Comprehensive Grammar, Pronouns, Verb Inflections, Hebraisms &amp; 100-Word Lexicon</p>
@@ -997,8 +1007,8 @@
     "badge": "Complete Canon Quad",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/lds-standard-works-minimalist.epub",
     "cover": "covers/lds-standard-works-minimalist.png",
-    "size_bytes": 4062620,
-    "size_human": "3.87 MB",
+    "size_bytes": 4074779,
+    "size_human": "3.89 MB",
     "creator": "The Church of Jesus Christ of Latter-day Saints",
     "short_desc": "All five scriptural volumes in one clean, distraction-free file with full Book of Mormon Witness testimonies and zero footnote clutter.",
     "full_desc": "The complete scriptural canon of The Church of Jesus Christ of Latter-day Saints formatted specifically for readers who want clean, distraction-free typography without study notes or cross-reference superscripts. Retains standard chapters, verse numbers, and the Book of Mormon Title Page and Testimonies of the Three and Eight Witnesses.",
@@ -1020,8 +1030,8 @@
     "badge": "Clean Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-minimalist.epub",
     "cover": "covers/book-of-mormon-minimalist.png",
-    "size_bytes": 1014467,
-    "size_human": "991 KB",
+    "size_bytes": 1015357,
+    "size_human": "992 KB",
     "creator": "Translated by Joseph Smith, Jun.",
     "short_desc": "Clean chapters and verses with the Title Page and Testimonies of the Three and Eight Witnesses\u2014no footnote superscripts.",
     "full_desc": "A clean, distraction-free edition of the Book of Mormon featuring standard chapters and verse numbers, complete front matter (Origin, Title Page, Testimonies of the Three and Eight Witnesses), and normalized em-dash grammar\u2014without inline footnote markers.",
@@ -1043,7 +1053,7 @@
     "badge": "Clean Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/old-testament-minimalist.epub",
     "cover": "covers/old-testament-minimalist.png",
-    "size_bytes": 2265930,
+    "size_bytes": 2266316,
     "size_human": "2.16 MB",
     "creator": "1769 Oxford King James Text",
     "short_desc": "All 39 books of the Authorized King James Old Testament with clean chapters and verses and zero footnote clutter.",
@@ -1065,8 +1075,8 @@
     "badge": "Clean Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament-minimalist.epub",
     "cover": "covers/new-testament-minimalist.png",
-    "size_bytes": 923456,
-    "size_human": "902 KB",
+    "size_bytes": 927698,
+    "size_human": "906 KB",
     "creator": "1769 Oxford King James Text",
     "short_desc": "All 27 books of the Authorized King James New Testament with clean chapters and verses and zero footnote clutter.",
     "full_desc": "The complete 27-book Authorized King James New Testament formatted for distraction-free reading on Kindle and modern e-readers, retaining standard chapters and verses without footnote markers.",
@@ -1087,8 +1097,8 @@
     "badge": "Clean Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/doctrine-and-covenants-minimalist.epub",
     "cover": "covers/doctrine-and-covenants-minimalist.png",
-    "size_bytes": 655191,
-    "size_human": "640 KB",
+    "size_bytes": 666812,
+    "size_human": "651 KB",
     "creator": "Joseph Smith Jr., et al.",
     "short_desc": "Sections 1\u2013138 and Official Declarations 1 & 2 with clean verse numbering and zero footnote distractions.",
     "full_desc": "A clean reading edition of the Doctrine and Covenants containing Sections 1 through 138 and Official Declarations 1 and 2, with historical section headnotes and clean verse numbering.",
@@ -1109,8 +1119,8 @@
     "badge": "Clean Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/pearl-of-great-price-minimalist.epub",
     "cover": "covers/pearl-of-great-price-minimalist.png",
-    "size_bytes": 381931,
-    "size_human": "373 KB",
+    "size_bytes": 396159,
+    "size_human": "387 KB",
     "creator": "Joseph Smith Jr.",
     "short_desc": "Moses, Abraham, Joseph Smith\u2014Matthew, Joseph Smith\u2014History, and the Articles of Faith in a clean reading format.",
     "full_desc": "A clean, distraction-free edition of the Pearl of Great Price featuring the Book of Moses, the Book of Abraham, Joseph Smith\u2014Matthew, Joseph Smith\u2014History, and the Articles of Faith.",
@@ -1131,7 +1141,7 @@
     "badge": "2013 Canonical Text",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon.epub",
     "cover": "covers/book-of-mormon.png",
-    "size_bytes": 1101107,
+    "size_bytes": 1104971,
     "size_human": "1.05 MB",
     "creator": "Translated by Joseph Smith, Jun.",
     "short_desc": "The complete 2013 Standard Works edition with chapter synopses, Title Page, and Testimonies of the Three and Eight Witnesses.",
@@ -1153,7 +1163,7 @@
     "badge": "1830 Palmyra Text",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-1830.epub",
     "cover": "covers/book-of-mormon-1830.png",
-    "size_bytes": 1126118,
+    "size_bytes": 1116914,
     "size_human": "1.07 MB",
     "creator": "Joseph Smith, Jun. (Author and Proprietor)",
     "short_desc": "The historic 1830 E. B. Grandin Palmyra printing with the Title Page, Witnesses, and canonical verse anchors.",
@@ -1175,8 +1185,8 @@
     "badge": "2013 Canonical Text",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/doctrine-and-covenants.epub",
     "cover": "covers/doctrine-and-covenants.png",
-    "size_bytes": 744545,
-    "size_human": "727 KB",
+    "size_bytes": 758119,
+    "size_human": "740 KB",
     "creator": "Joseph Smith Jr., et al.",
     "short_desc": "The complete 2013 Standard Works edition of the Doctrine and Covenants with full introductory and section headnotes.",
     "full_desc": "The complete 2013 Standard Works text of the Doctrine and Covenants, including the Explanatory Introduction, Chronological Order of Contents, Section headnotes, Sections 1\u2013138, and Official Declarations 1 and 2.",
@@ -1197,8 +1207,8 @@
     "badge": "2013 Canonical Text",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/pearl-of-great-price.epub",
     "cover": "covers/pearl-of-great-price.png",
-    "size_bytes": 460724,
-    "size_human": "450 KB",
+    "size_bytes": 470228,
+    "size_human": "459 KB",
     "creator": "Joseph Smith Jr.",
     "short_desc": "The complete 2013 Standard Works edition of the Pearl of Great Price with full chapter headnotes.",
     "full_desc": "The canonical 2013 edition of the Pearl of Great Price, including the Introductory Note, Book of Moses, Book of Abraham, Joseph Smith\u2014Matthew, Joseph Smith\u2014History, and the Articles of Faith.",
@@ -1218,7 +1228,7 @@
     "badge": "Continuous Narrative",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-narrative.epub",
     "cover": "covers/book-of-mormon-narrative.png",
-    "size_bytes": 1160445,
+    "size_bytes": 1166288,
     "size_human": "1.11 MB",
     "creator": "Translated by Joseph Smith, Jun.",
     "short_desc": "Reads like a continuous novel with natural paragraphs, poetry stanzas, epistles, and tap-to-see verse ranges.",
@@ -1241,8 +1251,8 @@
     "badge": "1830 Narrative",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-1830-narrative.epub",
     "cover": "covers/book-of-mormon-1830-narrative.png",
-    "size_bytes": 1148784,
-    "size_human": "1.10 MB",
+    "size_bytes": 1160772,
+    "size_human": "1.11 MB",
     "creator": "Joseph Smith, Jun.",
     "short_desc": "The original 1830 Palmyra text formatted as a continuous literary narrative with Witnesses and pop-up verse ranges.",
     "full_desc": "Experience the Book of Mormon as its first readers did in 1830. Rather than short two-sentence verses, the 1830 Palmyra text flows naturally in continuous paragraphs with the original Title Page and Witness testimonies, while discrete verse ranges remain accessible via bidirectional Kindle pop-up notes.",
@@ -1264,8 +1274,8 @@
     "badge": "Continuous Narrative",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament-narrative.epub",
     "cover": "covers/new-testament-narrative.png",
-    "size_bytes": 1023826,
-    "size_human": "1000 KB",
+    "size_bytes": 1034502,
+    "size_human": "1010 KB",
     "creator": "1769 Oxford King James Text",
     "short_desc": "The King James New Testament formatted as a flowing narrative with epistolary headers and pop-up verse ranges.",
     "full_desc": "Reads the Gospels, Acts, Epistles, and Revelation as continuous literary prose and letters rather than isolated numbered fragments, with tap-to-view verse range pop-up badges on every paragraph.",
@@ -1286,7 +1296,7 @@
     "badge": "Study Notebook",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-study-notebook.epub",
     "cover": "covers/book-of-mormon-study-notebook.png",
-    "size_bytes": 1078385,
+    "size_bytes": 1084237,
     "size_human": "1.03 MB",
     "creator": "Translated by Joseph Smith, Jun.",
     "short_desc": "Designed for Kindle Scribe and active note-takers with wide margins, generous line spacing, and chapter reflection blocks.",
@@ -1308,8 +1318,8 @@
     "badge": "Flagship Study Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-master-study.epub",
     "cover": "covers/book-of-mormon-master-study.png",
-    "size_bytes": 5763160,
-    "size_human": "5.50 MB",
+    "size_bytes": 5772484,
+    "size_human": "5.51 MB",
     "creator": "Proteus Relational Publishing Engine",
     "short_desc": "The flagship relational study volume uniting BYU Onomasticon name etymologies (\u25c8) and 19th-century Restoration sermon citations ([\u2605]).",
     "full_desc": "The flagship relational study edition of the Book of Mormon. Unites two deep scholarly layers into a seamless Kindle Paperwhite reading experience: 1) BYU Book of Mormon Onomasticon etymology notes, IPA pronunciations, and ancient Semitic/Egyptian reconstructions for every proper name and toponym (\u25c8), and 2) 19th-century public-domain discourse citations ([\u2605]) connecting verses directly to early sermons in the Journal of Discourses (1839\u20131886) and Teachings of the Prophet Joseph Smith (1830\u20131844).",
@@ -1331,8 +1341,8 @@
     "badge": "Lexical & Etymology",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-onomasticon.epub",
     "cover": "covers/book-of-mormon-onomasticon.png",
-    "size_bytes": 2112550,
-    "size_human": "2.01 MB",
+    "size_bytes": 2120664,
+    "size_human": "2.02 MB",
     "creator": "BYU Onomasticon Project (ed. Paul Y. Hoskisson) & Proteus Engine",
     "short_desc": "Tap the first occurrence of any proper name in a chapter to view its IPA pronunciation and ancient Semitic/Egyptian etymology.",
     "full_desc": "Links the first occurrence of every Book of Mormon personal name and place name in each chapter to a native Kindle pop-up card containing its IPA pronunciation guide, proposed Hebrew/Semitic/Egyptian reconstructions, and scholarly etymology from the Brigham Young University Book of Mormon Onomasticon Project.",
@@ -1354,8 +1364,8 @@
     "badge": "Critical Apparatus",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-historical-variants.epub",
     "cover": "covers/book-of-mormon-historical-variants.png",
-    "size_bytes": 1473210,
-    "size_human": "1.40 MB",
+    "size_bytes": 1489248,
+    "size_human": "1.42 MB",
     "creator": "Grant Hardy (Collation) & Proteus Publishing Engine",
     "short_desc": "Comprehensive critical collation comparing the Book of Mormon text across eight historic editions from 1830 to 2013.",
     "full_desc": "Built from Grant Hardy's BYU OpenScripture collation data, this critical edition tracks textual variations across the 1830, 1837, 1840, 1841, 1879, 1920, 1981, and 2013 printings. Tap any variant badge to view an instant Kindle pop-up apparatus detailing how the wording evolved across all eight editions.",
@@ -1377,8 +1387,8 @@
     "badge": "Intertextual Collation",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/bom-intertextual-parallels.epub",
     "cover": "covers/bom-intertextual-parallels.png",
-    "size_bytes": 493039,
-    "size_human": "481 KB",
+    "size_bytes": 487341,
+    "size_human": "476 KB",
     "creator": "Proteus Intertextual Alignment Engine",
     "short_desc": "Word-level textual collation of Brass Plates Isaiah (2 Nephi 12\u201324) and the Sermon at the Temple (3 Nephi 12\u201314) against the KJV.",
     "full_desc": "A specialized critical edition exploring word-level textual parallels and divergences between the Book of Mormon and the King James Bible. Highlights unique insertions, omissions, and substitutions in the Brass Plates Isaiah chapters and the Sermon at the Temple, with instant Kindle pop-up notes showing the full KJV comparison.",
@@ -1399,8 +1409,8 @@
     "badge": "Poetics & Chiasmus",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/bom-poetic-and-chiasmus.epub",
     "cover": "covers/bom-poetic-and-chiasmus.png",
-    "size_bytes": 415625,
-    "size_human": "406 KB",
+    "size_bytes": 431837,
+    "size_human": "422 KB",
     "creator": "Proteus Structural Poetics Engine",
     "short_desc": "Displays Book of Mormon prophetic poetry, the Psalm of Nephi, and landmark chiasms (including Alma 36) in indented stanzas.",
     "full_desc": "Presents the Book of Mormon with its Hebraic poetic structures, prophetic speeches, and landmark chiastic compositions (such as Alma 36, Mosiah 3:18\u201319, Mosiah 5:10\u201312, Alma 41:13\u201315, and 2 Nephi 4:15\u201335) set in indented parallel stanzas with structural pop-up commentary.",
@@ -1421,8 +1431,8 @@
     "badge": "Historical Analytics",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/top-1000-cited-verses.epub",
     "cover": "covers/top-1000-cited-verses.png",
-    "size_bytes": 2540366,
-    "size_human": "2.42 MB",
+    "size_bytes": 2562359,
+    "size_human": "2.44 MB",
     "creator": "Proteus Relational Scripture Engine & BYU Citation Index",
     "short_desc": "The 1,000 most-quoted scriptures in 19th-century Restoration sermons (JoD & TPJS, 1830\u20131886), with pop-up discourse excerpts.",
     "full_desc": "Ranks the top 1,000 most frequently cited scripture verses across 19th-century Latter-day Saint discourse (1830\u20131886), restricted strictly to pre-1942 public-domain sources: the 26-volume Journal of Discourses (1839\u20131886) and Teachings of the Prophet Joseph Smith (1830\u20131844). Tap any verse badge to view speaker frequencies and contextual sermon excerpts.",
@@ -1443,8 +1453,8 @@
     "badge": "72 Ancient Works",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/complete-apocrypha-pseudepigrapha-compendium.epub",
     "cover": "covers/complete-apocrypha-pseudepigrapha-compendium.png",
-    "size_bytes": 3581481,
-    "size_human": "3.42 MB",
+    "size_bytes": 3599089,
+    "size_human": "3.43 MB",
     "creator": "R. H. Charles, M. R. James, Richard Laurence, William Wake (Translators)",
     "short_desc": "72 deduplicated public-domain ancient works (1,376 chapters) with a Source, Provenance & Historical Veracity dossier for every book.",
     "full_desc": "A monumental extra-canonical compendium uniting 72 deduplicated public-domain works across the 1611 KJV Apocrypha, Enochic & Patriarchal Literature (1 Enoch, 2 Enoch, Jubilees, Jasher, Testaments of the Twelve Patriarchs), Old Testament Pseudepigrapha, New Testament Apocrypha, and the Apostolic Fathers. Every single book opens with a scholarly 'Source, Provenance & Historical Veracity' dossier.",
@@ -1466,8 +1476,8 @@
     "badge": "15 KJV Books",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/kjv-apocrypha.epub",
     "cover": "covers/kjv-apocrypha.png",
-    "size_bytes": 855551,
-    "size_human": "835 KB",
+    "size_bytes": 872016,
+    "size_human": "852 KB",
     "creator": "1611 King James Translators",
     "short_desc": "All 15 Deuterocanonical books placed between the Old and New Testaments in the original 1611 King James Bible (including 1 & 2 Esdras).",
     "full_desc": "Contains all 15 books of the King James Apocrypha (1 Esdras, 2 Esdras, Tobit, Judith, Rest of Esther, Wisdom of Solomon, Ecclesiasticus / Sirach, Baruch with the Epistle of Jeremy, Song of the Three Holy Children, Susanna, Bel and the Dragon, Prayer of Manasses, and 1 & 2 Maccabees), introduced by Doctrine and Covenants Section 91.",
@@ -1488,8 +1498,8 @@
     "badge": "Patriarchal Omnibus",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/enoch-jubilees-jasher.epub",
     "cover": "covers/enoch-jubilees-jasher.png",
-    "size_bytes": 1197289,
-    "size_human": "1.14 MB",
+    "size_bytes": 1216513,
+    "size_human": "1.16 MB",
     "creator": "R. H. Charles, Richard Laurence, Mordecai Manuel Noah (Translators)",
     "short_desc": "Both historic translations of 1 Enoch (Charles 1917 & Laurence 1883), the Book of Jubilees (with 1,148 pop-up notes), and the Book of Jasher.",
     "full_desc": "Unites the four foundational patriarchal extra-canonical volumes prized by students of the Book of Moses and ancient scripture: R. H. Charles's 1917 translation of 1 Enoch, Archbishop Richard Laurence's 1821/1883 translation of 1 Enoch, R. H. Charles's 1917 Book of Jubilees (complete with 1,148 interactive pop-up footnotes), and the 1840 English translation of Sefer haYashar (Book of Jasher).",
@@ -1510,8 +1520,8 @@
     "badge": "9 Doctrinal Classics",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/foundational-lds-classics-anthology.epub",
     "cover": "covers/foundational-lds-classics-anthology.png",
-    "size_bytes": 3062886,
-    "size_human": "2.92 MB",
+    "size_bytes": 3079195,
+    "size_human": "2.94 MB",
     "creator": "Joseph Smith Jr., James E. Talmage, Parley P. Pratt, Brigham Young, Joseph F. Smith",
     "short_desc": "Nine essential doctrinal books\u2014including Lectures on Faith, Jesus the Christ, and Key to the Science of Theology\u2014with 3,276 pop-up notes.",
     "full_desc": "A curated 9-volume doctrinal omnibus uniting the foundational classics of early Latter-day Saint theology: Lectures on Faith (1835), The Wentworth Letter (1842), Jesus the Christ (1915, chapters 1\u201342 in strict numerical order), The Articles of Faith (1899), The House of the Lord (1912), Key to the Science of Theology (1855), A Voice of Warning (1837), Discourses of Brigham Young (1925), and Gospel Doctrine (1919).",
@@ -1532,8 +1542,8 @@
     "badge": "71-Book Compendium",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/complete-lds-literature-compendium.epub",
     "cover": "covers/complete-lds-literature-compendium.png",
-    "size_bytes": 15263521,
-    "size_human": "14.56 MB",
+    "size_bytes": 15283130,
+    "size_human": "14.58 MB",
     "creator": "Joseph Smith Jr., B. H. Roberts, James E. Talmage, Parley P. Pratt, Orson Pratt, et al.",
     "short_desc": "All 71 public-domain historical Restoration books (5.91M words, 1,982 chapters) organized into seven thematic divisions.",
     "full_desc": "An unprecedented single-volume library containing all 71 public-domain works of 19th and early-20th-century Restoration history, theology, biography, and discourse. Organized into 7 thematic divisions with a master linked Table of Contents and 3,276 interactive pop-up footnotes.",
@@ -1554,8 +1564,8 @@
     "badge": "Quick Reference",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/early-modern-english-quick-guide.epub",
     "cover": "covers/early-modern-english-quick-guide.png",
-    "size_bytes": 449703,
-    "size_human": "439 KB",
+    "size_bytes": 466784,
+    "size_human": "456 KB",
     "creator": "Proteus Scriptorium",
     "short_desc": "Plain-language, 30-minute guide to thou/ye, -eth/-est, archaic syntax, and 100+ 'false friend' words in the KJV and Book of Mormon.",
     "full_desc": "Written for everyday scripture readers who want to read the King James Bible and Book of Mormon with immediate clarity. Explains why thou vs. ye matters, how -est and -eth work, how to untangle inverted clauses, and includes an alphabetical glossary of 100+ 'false friends'\u2014words whose meanings have changed since 1611/1830\u2014plus a one-page bookmark reference.",
@@ -1576,8 +1586,8 @@
     "badge": "Comprehensive Guide",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/early-modern-english-scripture-guide.epub",
     "cover": "covers/early-modern-english-scripture-guide.png",
-    "size_bytes": 504148,
-    "size_human": "492 KB",
+    "size_bytes": 515399,
+    "size_human": "503 KB",
     "creator": "Proteus Philological Series",
     "short_desc": "In-depth philological companion to the grammar, syntax, Hebraisms, and lexicon of the King James Bible and Book of Mormon.",
     "full_desc": "A comprehensive 9-chapter philological reference exploring the Early Modern English of the 1611/1769 King James Bible and the 1830/2013 Book of Mormon. Covers the pronoun system, verb morphology, subjunctive and imperative moods, syntactic inversion, Hebraisms (parataxis, cognates, 'and it came to pass'), a 100+ entry lexicon, and annotated side-by-side walkthroughs.",
