@@ -24,8 +24,8 @@ proteus/
 │       ├── bom-onomasticon/               # BYU Book of Mormon Onomasticon lexical database
 │       └── scripture-citation-index/      # BYU Pre-1960 Scripture Citation Index & full discourse texts
 ├── dist/
-│   ├── covers/                            # 27 High-DPI (1200×1920) Proteus Scriptorium PNG covers
-│   └── epubs/                             # 27 Validated EPUB3 volumes ready for Kindle Paperwhite / KFX
+│   ├── covers/                            # 29 High-DPI (1200×1920) Proteus Scriptorium PNG covers
+│   └── epubs/                             # 29 Validated EPUB3 volumes ready for Kindle Paperwhite / KFX
 ├── site/                                  # Static GitHub Pages portal (deployed via .github/workflows/deploy.yml)
 ├── scripts/
 │   ├── build_site.py                      # Static site & catalog generator (dist/ -> site/)
@@ -90,7 +90,7 @@ uv run proteus validate dist/epubs/
 
 ---
 
-## Complete Catalogue of 27 Generated EPUB3 Editions (`dist/epubs/`)
+## Complete Catalogue of 29 Generated EPUB3 Editions (`dist/epubs/`)
 
 ### Phase 1: Foundational Canon, Mega-Compendiums, Apocrypha & Restoration Classics
 | Edition Slug | Output File | Highlights |
@@ -126,9 +126,11 @@ uv run proteus validate dist/epubs/
 | `top-1000-cited-verses` | `dist/epubs/top-1000-cited-verses.epub` | The 1,000 most frequently quoted verses across the OT, NT, BoM, D&C, and PoGP in 19th-century LDS discourse (**1,100 pop-up dossiers with up to 3 extended multi-paragraph discourse excerpts per verse**). |
 | `book-of-mormon-onomasticon` | `dist/epubs/book-of-mormon-onomasticon.epub` | Links proper nouns on first occurrence per chapter to the BYU Book of Mormon Onomasticon (IPA pronunciation and ancient Hebrew/Egyptian etymologies; **3,604 pop-up entries**). |
 
-### Phase 4: Historical Variants, Intertextual Parallels, Poetics & Early Modern English Guides
+### Phase 4: Computational Data Science, Language Models, Historical Variants, Poetics & Guides
 | Edition Slug | Output File | Highlights |
 | :--- | :--- | :--- |
+| `lds-standard-works-data-science` | `dist/epubs/lds-standard-works-data-science.epub` | **The Data Science Standard Works**: Complete 5-volume computational edition (88 books, 1,587 chapters, 1.19M words, **12,079 pop-up notes**) featuring **6 embedded high-DPI PNG data visualization plates**, chapter-level NLP telemetry ribbons (Shannon Entropy $H$, MATTR lexical diversity, affect sparkbar, 8-factor NMF topics, TF-IDF signatures), SPPMI-SVD distributional word embeddings, inline **Named Entity Recognition** (`▲` Geo-Locations, `◈` Personal Names, `▪` Peoples/Artifacts), inline **Canon Hapax Legomena (`★1×` used once in all scripture)** and **Dis Legomena (`◆2×` used twice, quoting the other verse)**, and hyperlinked Master Concordances. |
+| `bom-language-model-correlations` | `dist/epubs/bom-language-model-correlations.epub` | **The Book of Mormon: Language Model Biblical Correlation Edition**: Powered by a 4-channel Scriptural Language Model (Stemmed Phrase TF-IDF, Focal Top-IDF Clause Containment, KJV Cadence Trigrams, and 96-d SPPMI-SVD + LSA Embeddings) trained across all 41,995 canonical verses and empirically calibrated across a 3-Tier threshold regime ($r \ge 0.45$). Highlights shared stems inline, provides **3,250 pop-up footnotes** with full KJV verses and model telemetry, includes 2 calibration/density plates and a Top 120 Embedded Correlations leaderboard, and links bidirectionally to a complete **Correlated Old & New Testament Parallel Treasury**. |
 | `book-of-mormon-historical-variants` | `dist/epubs/book-of-mormon-historical-variants.epub` | 8-Edition Collation (1830, 1837, 1840, 1841, 1879, 1920, 1981, 2013) with inline `<del>`/`<ins>` diffs and `[Δ Year]` chronological pop-up apparatuses. |
 | `bom-intertextual-parallels` | `dist/epubs/bom-intertextual-parallels.epub` | Word-level intertextual alignment of Book of Mormon Isaiah chapters vs. KJV Isaiah and the 3 Nephi 12–14 Sermon at the Temple vs. Matthew 5–7 (`[⇄ diffs]` pop-ups). |
 | `bom-poetic-and-chiasmus` | `dist/epubs/bom-poetic-and-chiasmus.epub` | Concentric structural typography for famous chiasms (including the 17-level Alma 36 masterwork, Mosiah 3:18–19, Mosiah 5:10–12, Alma 41:13–15, Helaman 6:10) plus 10 prophetic psalms and poems in indented parallel couplets. |

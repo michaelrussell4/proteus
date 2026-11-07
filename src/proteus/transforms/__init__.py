@@ -1,5 +1,9 @@
 """Text transformation filters and edition pipelines for Proteus."""
 
+from proteus.transforms.datascience import (
+    build_bom_language_model_correlations,
+    build_data_science_standard_works,
+)
 from proteus.transforms.diffs import (
     build_historical_variants_bom,
     build_intertextual_parallels_edition,
@@ -17,6 +21,8 @@ from proteus.transforms.narrative import (
 )
 
 __all__ = [
+    "build_bom_language_model_correlations",
+    "build_data_science_standard_works",
     "build_enriched_book_of_mormon",
     "build_historical_variants_bom",
     "build_intertextual_parallels_edition",

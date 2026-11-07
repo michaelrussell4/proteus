@@ -168,6 +168,10 @@ class Work(BaseModel):
     )
     books: list[Book] = Field(default_factory=list)
     css_theme: str = Field(default="classic.css", description="CSS theme filename in renderers/epub/styles/")
+    images: dict[str, bytes] = Field(
+        default_factory=dict,
+        description="Additional PNG images keyed by filename inside OEBPS/images/ (e.g. 'fig_01.png')",
+    )
     metadata: dict[str, Any] = Field(default_factory=dict)
 
     @property

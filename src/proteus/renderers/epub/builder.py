@@ -236,6 +236,10 @@ class EpubBuilder:
             front_matter_items=front_matter_items,
             book_nav_items=book_nav_items,
         )
+        extra_image_entries: list[tuple[str, str]] = []
+        for idx_img, img_fname in enumerate(sorted(work.images.keys()), start=1):
+            extra_image_entries.append((f"fig-img-{idx_img:02d}", img_fname))
+
         content_opf = opf_tpl.render(
             uid=uid,
             title=work.title,
@@ -249,6 +253,7 @@ class EpubBuilder:
             subjects=work.subjects,
             modified_timestamp=modified_timestamp,
             css_theme=work.css_theme,
+            extra_images=extra_image_entries,
             manifest_items=manifest_items,
             spine_items=manifest_items,
             start_reading_href=start_reading_href,
@@ -283,6 +288,8 @@ class EpubBuilder:
             _write_deflated("OEBPS/toc.ncx", toc_ncx)
             _write_deflated(f"OEBPS/styles/{work.css_theme}", css_content)
             _write_binary("OEBPS/images/cover.png", cover_png_bytes)
+            for img_fname in sorted(work.images.keys()):
+                _write_binary(f"OEBPS/images/{img_fname}", work.images[img_fname])
 
             for fname, xhtml_str in xhtml_files.items():
                 _write_deflated(f"OEBPS/text/{fname}", xhtml_str)

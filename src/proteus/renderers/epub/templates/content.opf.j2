@@ -25,6 +25,9 @@
     <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
     <item id="css-theme" href="styles/{{ css_theme }}" media-type="text/css" />
     <item id="cover-image" href="images/cover.png" media-type="image/png" properties="cover-image" />
+    {% for img_id, img_file in extra_images %}
+    <item id="{{ img_id }}" href="images/{{ img_file }}" media-type="image/png" />
+    {% endfor %}
     {% for item in manifest_items %}
     <item id="{{ item.id }}" href="text/{{ item.filename }}" media-type="application/xhtml+xml" />
     {% endfor %}

@@ -28,6 +28,8 @@ from proteus.ingest import (
 )
 from proteus.renderers.epub import EpubBuilder
 from proteus.transforms import (
+    build_bom_language_model_correlations,
+    build_data_science_standard_works,
     build_enriched_book_of_mormon,
     build_historical_variants_bom,
     build_intertextual_parallels_edition,
@@ -197,6 +199,14 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
         "[Phase 4] Reading Old English Scripture: A Plain-Language Quick Guide (thou/ye, -eth, old words)",
         lambda: build_early_modern_english_quick_guide(),
     ),
+    "lds-standard-works-data-science": (
+        "[Phase 4] The Data Science Standard Works (NLP, NER Geo/Names, ★1× Hapax Legomena, Charts & Indexes)",
+        lambda: build_data_science_standard_works(),
+    ),
+    "bom-language-model-correlations": (
+        "[Phase 4] The Book of Mormon: Language Model Biblical Correlation Edition (OT/NT Parallel Links)",
+        lambda: build_bom_language_model_correlations(),
+    ),
 }
 
 PHASE1_TARGETS = [
@@ -229,6 +239,8 @@ PHASE4_TARGETS = [
     "bom-poetic-and-chiasmus",
     "early-modern-english-scripture-guide",
     "early-modern-english-quick-guide",
+    "lds-standard-works-data-science",
+    "bom-language-model-correlations",
 ]
 
 

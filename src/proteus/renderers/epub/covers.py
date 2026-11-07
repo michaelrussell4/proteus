@@ -149,6 +149,20 @@ PALETTES: dict[str, CoverPalette] = {
         emblem_style="rose",
         series_banner="PHILOLOGY SERIES • SCRIPTURE READING GUIDES",
     ),
+    "datascience": CoverPalette(
+        bg_top=(14, 34, 48),
+        bg_bottom=(7, 18, 26),
+        glow_color=(26, 64, 88),
+        card_bg=None,
+        primary_accent=(226, 188, 92),
+        secondary_accent=(142, 122, 66),
+        title_color=(248, 245, 236),
+        subtitle_color=(206, 212, 204),
+        pill_bg=(22, 54, 74),
+        pill_text=(240, 206, 116),
+        emblem_style="liahona",
+        series_banner="STUDY SERIES • COMPUTATIONAL & NLP EDITIONS",
+    ),
 }
 
 
@@ -298,6 +312,20 @@ COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
         "The Book of Mormon",
         "POETRY & CHIASMUS",
         "Concentric Chiastic Structures, Parallelisms & Prophetic Psalms",
+        "collation",
+    ),
+    "lds-standard-works-data-science": (
+        "datascience",
+        "The Standard Works",
+        "DATA SCIENCE & NLP",
+        "Entity Recognition, Hapax Lexicon, Topic Models & Visual Atlas",
+        "liahona",
+    ),
+    "bom-language-model-correlations": (
+        "datascience",
+        "The Book of Mormon",
+        "BIBLICAL CORRELATIONS",
+        "Language Model Stylistic & Semantic Alignment with the Bible",
         "collation",
     ),
     # Reading Guides
