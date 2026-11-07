@@ -512,10 +512,16 @@ def main() -> None:
         shutil.copy2(src_epub, SITE / "downloads" / src_epub.name)
         src_cover = DIST_COVERS / f"{stem}.png"
         if src_cover.exists():
-            shutil.copy2(src_cover, SITE / "covers" / src_cover.name)
+            from PIL import Image
+            with Image.open(src_cover) as im:
+                web_im = im.resize((600, 960), resample=Image.Resampling.LANCZOS).quantize(
+                    colors=256, method=Image.Quantize.FASTOCTREE
+                )
+                web_im.save(SITE / "covers" / src_cover.name, format="PNG", optimize=True)
 
         size_bytes = src_epub.stat().st_size
         col_id = spec["collection"]
+        download_url = f"https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/{stem}.epub"
         entry = {
             "id": stem,
             "slug": stem,
@@ -524,7 +530,7 @@ def main() -> None:
             "collection": col_id,
             "collection_label": COLLECTION_LABELS.get(col_id, col_id),
             "badge": spec["badge"],
-            "file": f"downloads/{stem}.epub",
+            "file": download_url,
             "cover": f"covers/{stem}.png",
             "size_bytes": size_bytes,
             "size_human": human_size(size_bytes),

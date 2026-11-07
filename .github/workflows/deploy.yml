@@ -11,10 +11,10 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
+# Allow one concurrent deployment, canceling any stuck in-progress run
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -26,15 +26,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Prepare lightweight Pages bundle (EPUBs served via raw.githubusercontent CDN)
+        run: |
+          mkdir -p _pages_dist
+          cp site/index.html site/style.css site/app.js site/catalog.json site/.nojekyll _pages_dist/
+          cp -r site/covers _pages_dist/covers
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'site'
+          path: '_pages_dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
+        with:
+          timeout: 900000
