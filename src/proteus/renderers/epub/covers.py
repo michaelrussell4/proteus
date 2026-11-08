@@ -37,20 +37,6 @@ class CoverPalette:
 
 
 PALETTES: dict[str, CoverPalette] = {
-    "clean": CoverPalette(
-        bg_top=(246, 241, 230),
-        bg_bottom=(234, 226, 209),
-        glow_color=(253, 250, 244),
-        card_bg=(250, 246, 238),
-        primary_accent=(136, 38, 24),
-        secondary_accent=(168, 134, 72),
-        title_color=(26, 22, 18),
-        subtitle_color=(82, 74, 64),
-        pill_bg=(136, 38, 24),
-        pill_text=(250, 246, 238),
-        emblem_style="codex",
-        series_banner="STANDARD WORKS • CLEAN EDITION",
-    ),
     "canon": CoverPalette(
         bg_top=(15, 29, 48),
         bg_bottom=(8, 16, 28),
@@ -64,20 +50,6 @@ PALETTES: dict[str, CoverPalette] = {
         pill_text=(232, 198, 108),
         emblem_style="liahona",
         series_banner="STANDARD WORKS • CANONICAL SERIES",
-    ),
-    "narrative": CoverPalette(
-        bg_top=(18, 38, 46),
-        bg_bottom=(10, 22, 28),
-        glow_color=(32, 66, 78),
-        card_bg=None,
-        primary_accent=(222, 174, 96),
-        secondary_accent=(142, 112, 66),
-        title_color=(246, 242, 234),
-        subtitle_color=(204, 198, 184),
-        pill_bg=(28, 56, 68),
-        pill_text=(236, 194, 120),
-        emblem_style="tree",
-        series_banner="READER’S SERIES • NARRATIVE & JOURNAL EDITIONS",
     ),
     "enriched": CoverPalette(
         bg_top=(30, 18, 44),
@@ -169,50 +141,21 @@ PALETTES: dict[str, CoverPalette] = {
 # Explicit, standardized cover specification for each edition ID:
 # (palette_key, main_title, edition_pill, clean_subtitle, emblem_override)
 COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
-    # Clean Series (no appendations on the main title!)
-    "lds-standard-works-minimalist": (
-        "clean",
-        "The Standard Works",
-        "",
-        "Old Testament • New Testament • Book of Mormon • Doctrine and Covenants • Pearl of Great Price",
-        "codex",
-    ),
-    "old-testament-minimalist": (
-        "clean",
-        "The Old Testament",
-        "",
-        "The King James Version",
-        "codex",
-    ),
-    "new-testament-minimalist": (
-        "clean",
-        "The New Testament",
-        "",
-        "The King James Version",
-        "codex",
-    ),
-    "book-of-mormon-minimalist": (
-        "clean",
-        "The Book of Mormon",
-        "",
-        "Another Testament of Jesus Christ",
-        "codex",
-    ),
-    "doctrine-and-covenants-minimalist": (
-        "clean",
-        "The Doctrine and Covenants",
-        "",
-        "Of The Church of Jesus Christ of Latter-day Saints",
-        "codex",
-    ),
-    "pearl-of-great-price-minimalist": (
-        "clean",
-        "The Pearl of Great Price",
-        "",
-        "A Selection from the Revelations, Translations, and Narrations of Joseph Smith",
-        "codex",
-    ),
     # Canonical Series
+    "old-testament": (
+        "canon",
+        "The Old Testament",
+        "KING JAMES VERSION",
+        "The Canonical Hebrew Scriptures with Chapter Headnotes",
+        "codex",
+    ),
+    "new-testament": (
+        "canon",
+        "The New Testament",
+        "KING JAMES VERSION",
+        "The Four Gospels, Acts, Epistles, and the Apocalypse",
+        "tree",
+    ),
     "book-of-mormon": (
         "canon",
         "The Book of Mormon",
@@ -241,48 +184,12 @@ COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
         "Revelations, Translations, and Narrations of Joseph Smith",
         "liahona",
     ),
-    # Reader's & Narrative Series
-    "book-of-mormon-narrative": (
-        "narrative",
-        "The Book of Mormon",
-        "NARRATIVE EDITION",
-        "Flowing Literary Paragraphs with Pop-Up Verse Ranges",
-        "tree",
-    ),
-    "book-of-mormon-1830-narrative": (
-        "narrative",
-        "The Book of Mormon",
-        "1830 NARRATIVE",
-        "Original Palmyra Text in Continuous Literary Paragraphs",
-        "tree",
-    ),
-    "new-testament-narrative": (
-        "narrative",
-        "The New Testament",
-        "NARRATIVE EDITION",
-        "King James Version in Flowing Literary Paragraphs",
-        "tree",
-    ),
-    "book-of-mormon-study-notebook": (
-        "narrative",
-        "The Book of Mormon",
-        "STUDY NOTEBOOK",
-        "Wide-Margin Annotation Layout with Reflection Grids",
-        "codex",
-    ),
     # Enriched & Study Series
     "book-of-mormon-master-study": (
         "enriched",
         "The Book of Mormon",
         "MASTER STUDY",
         "BYU Onomasticon Etymologies & 19th-Century Sermon Citations",
-        "liahona",
-    ),
-    "book-of-mormon-onomasticon": (
-        "enriched",
-        "The Book of Mormon",
-        "ONOMASTICON",
-        "Interactive Name Etymologies, Semitic Roots & IPA Pronunciations",
         "liahona",
     ),
     "top-1000-cited-verses": (
@@ -292,7 +199,7 @@ COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
         "Ranked by 19th-Century Sermon Frequency with Discourse Excerpts",
         "arch",
     ),
-    # Variants, Parallels & Poetics
+    # Variants & Parallels
     "book-of-mormon-historical-variants": (
         "variants",
         "The Book of Mormon",
@@ -307,13 +214,6 @@ COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
         "Brass Plates Isaiah & 3 Nephi Aligned with the King James Bible",
         "collation",
     ),
-    "bom-poetic-and-chiasmus": (
-        "variants",
-        "The Book of Mormon",
-        "POETRY & CHIASMUS",
-        "Concentric Chiastic Structures, Parallelisms & Prophetic Psalms",
-        "collation",
-    ),
     "lds-standard-works-data-science": (
         "datascience",
         "The Standard Works",
@@ -321,21 +221,7 @@ COVER_SPECS: dict[str, tuple[str, str, str, str, str | None]] = {
         "Entity Recognition, Hapax Lexicon, Topic Models & Visual Atlas",
         "liahona",
     ),
-    "bom-language-model-correlations": (
-        "datascience",
-        "The Book of Mormon",
-        "BIBLICAL CORRELATIONS",
-        "Language Model Stylistic & Semantic Alignment with the Bible",
-        "collation",
-    ),
     # Reading Guides
-    "early-modern-english-quick-guide": (
-        "guides",
-        "Reading Old English Scripture",
-        "QUICK GUIDE",
-        "A Practical Companion to Thou, Ye, -eth & Archaic Vocabulary",
-        "rose",
-    ),
     "early-modern-english-scripture-guide": (
         "guides",
         "Early Modern English",
@@ -391,12 +277,6 @@ def _resolve_cover_spec(work: Work) -> tuple[CoverPalette, str, str, str, str]:
         return pal, main_title, pill, sub, (emb_ovr or pal.emblem_style)
 
     # Fallback resolution for any custom work
-    theme = work.css_theme.lower()
-    if "minimalist" in wid or "minimalist" in theme:
-        pal = PALETTES["clean"]
-        clean_t = re.sub(r"\s*\([^)]*\)", "", work.title).strip()
-        return pal, clean_t, "", work.subtitle or "", pal.emblem_style
-
     pal = PALETTES["canon"]
     clean_t = re.sub(r"\s*\([^)]*\)", "", work.title).strip()
     pill = (work.edition_label or "").upper()

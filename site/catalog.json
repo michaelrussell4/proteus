@@ -1,143 +1,53 @@
 [
   {
-    "id": "lds-standard-works-minimalist",
-    "slug": "lds-standard-works-minimalist",
-    "title": "The Standard Works",
-    "subtitle": "The Old Testament \u2022 The New Testament \u2022 The Book of Mormon \u2022 The Doctrine and Covenants \u2022 The Pearl of Great Price",
-    "collection": "clean-editions",
-    "collection_label": "Clean Editions",
-    "badge": "Complete Canon Quad",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/lds-standard-works-minimalist.epub",
-    "cover": "covers/lds-standard-works-minimalist.png",
-    "size_bytes": 4074779,
-    "size_human": "3.89 MB",
-    "creator": "The Church of Jesus Christ of Latter-day Saints",
-    "short_desc": "All five scriptural volumes in one clean, distraction-free file with full Book of Mormon Witness testimonies and zero footnote clutter.",
-    "full_desc": "The complete scriptural canon of The Church of Jesus Christ of Latter-day Saints formatted specifically for readers who want clean, distraction-free typography without study notes or cross-reference superscripts. Retains standard chapters, verse numbers, and the Book of Mormon Title Page and Testimonies of the Three and Eight Witnesses.",
-    "highlights": [
-      "All 5 Standard Works in a single lightweight file",
-      "Includes Book of Mormon Title Page & Testimonies of Three and Eight Witnesses",
-      "High-contrast typography tuned for Kindle Paperwhite e-ink displays",
-      "Zero footnote superscripts for pure immersion reading"
-    ],
-    "contents_summary": "Genesis through Malachi, Matthew through Revelation, 1 Nephi through Moroni (with Witnesses), D&C Sections 1\u2013138 & Official Declarations, Moses, Abraham, JS\u2014Matthew, JS\u2014History, and Articles of Faith."
-  },
-  {
-    "id": "book-of-mormon-minimalist",
-    "slug": "book-of-mormon-minimalist",
-    "title": "The Book of Mormon",
-    "subtitle": "Another Testament of Jesus Christ",
-    "collection": "clean-editions",
-    "collection_label": "Clean Editions",
-    "badge": "Clean Edition",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-minimalist.epub",
-    "cover": "covers/book-of-mormon-minimalist.png",
-    "size_bytes": 1015357,
-    "size_human": "992 KB",
-    "creator": "Translated by Joseph Smith, Jun.",
-    "short_desc": "Clean chapters and verses with the Title Page and Testimonies of the Three and Eight Witnesses\u2014no footnote superscripts.",
-    "full_desc": "A clean, distraction-free edition of the Book of Mormon featuring standard chapters and verse numbers, complete front matter (Origin, Title Page, Testimonies of the Three and Eight Witnesses), and normalized em-dash grammar\u2014without inline footnote markers.",
-    "highlights": [
-      "Includes Origin, Title Page, and Testimonies of the Three and Eight Witnesses",
-      "Standard chapters and verse numbers with zero footnote clutter",
-      "Normalized punctuation and mid-sentence em-dash capitalization",
-      "Fine-press parchment cover with crisp Constantia typography"
-    ],
-    "contents_summary": "Title Page, Testimony of Three Witnesses, Testimony of Eight Witnesses, and 1 Nephi through Moroni."
-  },
-  {
-    "id": "old-testament-minimalist",
-    "slug": "old-testament-minimalist",
+    "id": "old-testament",
+    "slug": "old-testament",
     "title": "The Old Testament",
-    "subtitle": "Authorized King James Version",
-    "collection": "clean-editions",
-    "collection_label": "Clean Editions",
-    "badge": "Clean Edition",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/old-testament-minimalist.epub",
-    "cover": "covers/old-testament-minimalist.png",
-    "size_bytes": 2266316,
-    "size_human": "2.16 MB",
-    "creator": "1769 Oxford King James Text",
-    "short_desc": "All 39 books of the Authorized King James Old Testament with clean chapters and verses and zero footnote clutter.",
-    "full_desc": "The complete 39-book Authorized King James Old Testament formatted for effortless e-reader navigation. Features clean chapter and verse numbering without superscript clutter.",
+    "subtitle": "The Authorized King James Version with Canonical 2013 Chapter Headnotes",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "39 Canonical Books",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/old-testament.epub",
+    "cover": "covers/old-testament.png",
+    "size_bytes": 2335196,
+    "size_human": "2.23 MB",
+    "creator": "King James Translators & Prophets of Ancient Israel",
+    "short_desc": "The complete 39-book King James Version Old Testament with canonical 2013 chapter headnotes.",
+    "full_desc": "The canonical 2013 Latter-day Saint edition of the Old Testament in the King James Version (Genesis through Malachi; 39 books, 929 chapters, 23,145 verses). Optimized for Kindle Paperwhite with clean chapter and verse typography and canonical chapter headnotes.",
     "highlights": [
-      "Complete 39 books from Genesis to Malachi",
-      "Clean chapters and verses with zero footnote distractions",
-      "Fast hierarchical Table of Contents for every book and chapter"
+      "Complete 39 books of the Old Testament (929 chapters, 610,000+ words)",
+      "Includes canonical 2013 chapter headnotes",
+      "Fine-press typography tuned for Kindle e-ink displays"
     ],
-    "contents_summary": "Genesis through Malachi (39 books, 929 chapters)."
+    "contents_summary": "The Law (Genesis\u2013Deuteronomy), History (Joshua\u2013Esther), Poetry & Wisdom (Job\u2013Song of Solomon), and the Prophets (Isaiah\u2013Malachi)."
   },
   {
-    "id": "new-testament-minimalist",
-    "slug": "new-testament-minimalist",
+    "id": "new-testament",
+    "slug": "new-testament",
     "title": "The New Testament",
-    "subtitle": "Of Our Lord and Saviour Jesus Christ",
-    "collection": "clean-editions",
-    "collection_label": "Clean Editions",
-    "badge": "Clean Edition",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament-minimalist.epub",
-    "cover": "covers/new-testament-minimalist.png",
-    "size_bytes": 927698,
-    "size_human": "906 KB",
-    "creator": "1769 Oxford King James Text",
-    "short_desc": "All 27 books of the Authorized King James New Testament with clean chapters and verses and zero footnote clutter.",
-    "full_desc": "The complete 27-book Authorized King James New Testament formatted for distraction-free reading on Kindle and modern e-readers, retaining standard chapters and verses without footnote markers.",
+    "subtitle": "The Authorized King James Version with Canonical 2013 Chapter Headnotes",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "27 Canonical Books",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament.epub",
+    "cover": "covers/new-testament.png",
+    "size_bytes": 1021340,
+    "size_human": "997 KB",
+    "creator": "King James Translators & Apostles of the Lord Jesus Christ",
+    "short_desc": "The complete 27-book King James Version New Testament with canonical 2013 chapter headnotes.",
+    "full_desc": "The canonical 2013 Latter-day Saint edition of the New Testament in the King James Version (Matthew through Revelation; 27 books, 260 chapters, 7,957 verses). Features the Four Gospels, the Acts of the Apostles, the Pauline and General Epistles, and the Revelation of St. John with full canonical headnotes.",
     "highlights": [
-      "Complete 27 books from Matthew to Revelation",
-      "Clean chapters and verses with zero footnote distractions",
-      "High-contrast e-ink typography"
+      "Complete 27 books of the New Testament (260 chapters, 180,000+ words)",
+      "The Four Gospels, Acts, Epistles, and Revelation",
+      "Canonical 2013 chapter headnotes and clean Kindle typesetting"
     ],
-    "contents_summary": "Matthew through Revelation (27 books, 260 chapters)."
-  },
-  {
-    "id": "doctrine-and-covenants-minimalist",
-    "slug": "doctrine-and-covenants-minimalist",
-    "title": "The Doctrine and Covenants",
-    "subtitle": "Of The Church of Jesus Christ of Latter-day Saints",
-    "collection": "clean-editions",
-    "collection_label": "Clean Editions",
-    "badge": "Clean Edition",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/doctrine-and-covenants-minimalist.epub",
-    "cover": "covers/doctrine-and-covenants-minimalist.png",
-    "size_bytes": 666812,
-    "size_human": "651 KB",
-    "creator": "Joseph Smith Jr., et al.",
-    "short_desc": "Sections 1\u2013138 and Official Declarations 1 & 2 with clean verse numbering and zero footnote distractions.",
-    "full_desc": "A clean reading edition of the Doctrine and Covenants containing Sections 1 through 138 and Official Declarations 1 and 2, with historical section headnotes and clean verse numbering.",
-    "highlights": [
-      "Complete Sections 1\u2013138 and Official Declarations 1 & 2",
-      "Historical section headnotes preserved",
-      "Zero footnote superscripts for uninterrupted reading"
-    ],
-    "contents_summary": "Introduction, Chronological Order of Contents, Sections 1\u2013138, Official Declarations 1 and 2."
-  },
-  {
-    "id": "pearl-of-great-price-minimalist",
-    "slug": "pearl-of-great-price-minimalist",
-    "title": "The Pearl of Great Price",
-    "subtitle": "Selections from the Revelations, Translations, and Narrations of Joseph Smith",
-    "collection": "clean-editions",
-    "collection_label": "Clean Editions",
-    "badge": "Clean Edition",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/pearl-of-great-price-minimalist.epub",
-    "cover": "covers/pearl-of-great-price-minimalist.png",
-    "size_bytes": 396159,
-    "size_human": "387 KB",
-    "creator": "Joseph Smith Jr.",
-    "short_desc": "Moses, Abraham, Joseph Smith\u2014Matthew, Joseph Smith\u2014History, and the Articles of Faith in a clean reading format.",
-    "full_desc": "A clean, distraction-free edition of the Pearl of Great Price featuring the Book of Moses, the Book of Abraham, Joseph Smith\u2014Matthew, Joseph Smith\u2014History, and the Articles of Faith.",
-    "highlights": [
-      "Complete text of Moses, Abraham, JS\u2014Matthew, JS\u2014History, and Articles of Faith",
-      "Clean chapters and verses without footnote markers",
-      "Lightweight and fast-loading on all e-readers"
-    ],
-    "contents_summary": "Introduction, Book of Moses, Book of Abraham, Joseph Smith\u2014Matthew, Joseph Smith\u2014History, Articles of Faith."
+    "contents_summary": "The Four Gospels (Matthew\u2013John), Acts of the Apostles, Pauline Epistles (Romans\u2013Hebrews), General Epistles (James\u2013Jude), and Revelation."
   },
   {
     "id": "book-of-mormon",
     "slug": "book-of-mormon",
-    "title": "The Book of Mormon (2013 Standard Edition)",
-    "subtitle": "Another Testament of Jesus Christ",
+    "title": "The Book of Mormon",
+    "subtitle": "Another Testament of Jesus Christ (2013 Standard Works Edition)",
     "collection": "standard-works",
     "collection_label": "Standard Works",
     "badge": "2013 Canonical Text",
@@ -180,8 +90,8 @@
   {
     "id": "doctrine-and-covenants",
     "slug": "doctrine-and-covenants",
-    "title": "The Doctrine and Covenants (2013 Standard Edition)",
-    "subtitle": "Of The Church of Jesus Christ of Latter-day Saints",
+    "title": "The Doctrine and Covenants",
+    "subtitle": "Of The Church of Jesus Christ of Latter-day Saints (2013 Standard Edition)",
     "collection": "standard-works",
     "collection_label": "Standard Works",
     "badge": "2013 Canonical Text",
@@ -202,8 +112,8 @@
   {
     "id": "pearl-of-great-price",
     "slug": "pearl-of-great-price",
-    "title": "The Pearl of Great Price (2013 Standard Edition)",
-    "subtitle": "Selections from the Revelations, Translations, and Narrations of Joseph Smith",
+    "title": "The Pearl of Great Price",
+    "subtitle": "Selections from the Revelations, Translations, and Narrations of Joseph Smith (2013 Standard Edition)",
     "collection": "standard-works",
     "collection_label": "Standard Works",
     "badge": "2013 Canonical Text",
@@ -221,96 +131,6 @@
     "contents_summary": "Introductory Note, Moses (8 chapters), Abraham (5 chapters), JS\u2014Matthew, JS\u2014History, Articles of Faith."
   },
   {
-    "id": "book-of-mormon-narrative",
-    "slug": "book-of-mormon-narrative",
-    "title": "The Book of Mormon (Continuous Narrative Edition)",
-    "subtitle": "Flowing Literary Paragraphs with Interactive Verse-Range Locators",
-    "collection": "reading-editions",
-    "collection_label": "Narrative & Journal",
-    "badge": "Continuous Narrative",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-narrative.epub",
-    "cover": "covers/book-of-mormon-narrative.png",
-    "size_bytes": 1166288,
-    "size_human": "1.11 MB",
-    "creator": "Translated by Joseph Smith, Jun.",
-    "short_desc": "Reads like a continuous novel with natural paragraphs, poetry stanzas, epistles, and tap-to-see verse ranges.",
-    "full_desc": "Reconstructs the Book of Mormon into flowing literary paragraphs, indented poetic parallelisms, and formal epistolary blocks\u2014removing mid-sentence verse breaks and automatically lowercasing mid-sentence verse continuations while preserving instant Kindle pop-up verse ranges at the start of every paragraph.",
-    "highlights": [
-      "Natural literary paragraphs, poetic stanzas, and epistle headers",
-      "Mid-sentence verse breaks seamlessly joined with corrected lowercase continuations",
-      "Includes Title Page and Testimonies of the Three and Eight Witnesses",
-      "Interactive pop-up verse range badges at the start of each paragraph"
-    ],
-    "contents_summary": "Title Page, Testimonies of the Three and Eight Witnesses, and 1 Nephi through Moroni in continuous narrative prose."
-  },
-  {
-    "id": "book-of-mormon-1830-narrative",
-    "slug": "book-of-mormon-1830-narrative",
-    "title": "The Book of Mormon (1830 Narrative Edition)",
-    "subtitle": "Original Palmyra Text in Continuous Literary Paragraphs",
-    "collection": "reading-editions",
-    "collection_label": "Narrative & Journal",
-    "badge": "1830 Narrative",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-1830-narrative.epub",
-    "cover": "covers/book-of-mormon-1830-narrative.png",
-    "size_bytes": 1160772,
-    "size_human": "1.11 MB",
-    "creator": "Joseph Smith, Jun.",
-    "short_desc": "The original 1830 Palmyra text formatted as a continuous literary narrative with Witnesses and pop-up verse ranges.",
-    "full_desc": "Experience the Book of Mormon as its first readers did in 1830. Rather than short two-sentence verses, the 1830 Palmyra text flows naturally in continuous paragraphs with the original Title Page and Witness testimonies, while discrete verse ranges remain accessible via bidirectional Kindle pop-up notes.",
-    "highlights": [
-      "Original 1830 Palmyra wording in continuous literary prose",
-      "Includes Title Page and Testimonies of the Three and Eight Witnesses",
-      "Bidirectional pop-up verse range references",
-      "Seamless mid-sentence capitalization normalization"
-    ],
-    "contents_summary": "Title Page, Testimonies of the Three and Eight Witnesses, and 1 Nephi through Moroni (1830 text in continuous paragraphs)."
-  },
-  {
-    "id": "new-testament-narrative",
-    "slug": "new-testament-narrative",
-    "title": "The New Testament (Continuous Narrative Edition)",
-    "subtitle": "Authorized King James Text in Flowing Literary Paragraphs",
-    "collection": "reading-editions",
-    "collection_label": "Narrative & Journal",
-    "badge": "Continuous Narrative",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament-narrative.epub",
-    "cover": "covers/new-testament-narrative.png",
-    "size_bytes": 1034502,
-    "size_human": "1010 KB",
-    "creator": "1769 Oxford King James Text",
-    "short_desc": "The King James New Testament formatted as a flowing narrative with epistolary headers and pop-up verse ranges.",
-    "full_desc": "Reads the Gospels, Acts, Epistles, and Revelation as continuous literary prose and letters rather than isolated numbered fragments, with tap-to-view verse range pop-up badges on every paragraph.",
-    "highlights": [
-      "Gospels and Acts formatted as flowing narrative prose",
-      "Pauline and General Epistles formatted as authentic letters",
-      "Interactive pop-up verse range locators on every paragraph"
-    ],
-    "contents_summary": "Matthew through Revelation (27 books) in continuous narrative and epistolary format."
-  },
-  {
-    "id": "book-of-mormon-study-notebook",
-    "slug": "book-of-mormon-study-notebook",
-    "title": "The Book of Mormon (Wide-Margin Study Notebook)",
-    "subtitle": "Generous Line-Height & Reflection Blocks for Digital Annotation",
-    "collection": "reading-editions",
-    "collection_label": "Narrative & Journal",
-    "badge": "Study Notebook",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-study-notebook.epub",
-    "cover": "covers/book-of-mormon-study-notebook.png",
-    "size_bytes": 1084237,
-    "size_human": "1.03 MB",
-    "creator": "Translated by Joseph Smith, Jun.",
-    "short_desc": "Designed for Kindle Scribe and active note-takers with wide margins, generous line spacing, and chapter reflection blocks.",
-    "full_desc": "A specialized wide-margin study edition of the Book of Mormon featuring spacious line-height, ruled chapter reflection and note-taking blocks, and full front matter including the Title Page and Testimonies of the Three and Eight Witnesses.",
-    "highlights": [
-      "Generous line spacing and margins for Kindle Scribe & highlight annotations",
-      "Dedicated reflection blocks at the close of every chapter",
-      "Includes Title Page and Testimonies of the Three and Eight Witnesses"
-    ],
-    "contents_summary": "Title Page, Testimonies of the Three and Eight Witnesses, and 1 Nephi through Moroni with study notebook spacing."
-  },
-  {
     "id": "lds-standard-works-data-science",
     "slug": "lds-standard-works-data-science",
     "title": "The Data Science Standard Works",
@@ -320,7 +140,7 @@
     "badge": "Data Science & NLP",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/lds-standard-works-data-science.epub",
     "cover": "covers/lds-standard-works-data-science.png",
-    "size_bytes": 7391029,
+    "size_bytes": 7391362,
     "size_human": "7.05 MB",
     "creator": "Proteus Computational Linguistics Lab",
     "short_desc": "Complete 5-volume Standard Works with inline NER (\u25b2 Geo, \u25c8 Names, \u25aa Peoples), \u26051\u00d7 Hapax Legomena, 6 data visual plates, and NLP chapter telemetry.",
@@ -333,29 +153,6 @@
       "Master hyperlinked NER Gazetteers and Rare-Word Concordances"
     ],
     "contents_summary": "Part I: Computational Scripture Atlas, 6 Data Visualization Plates & Master NER/Hapax Indexes; Parts II\u2013VI: Complete Old Testament, New Testament, Book of Mormon, Doctrine & Covenants, and Pearl of Great Price with inline NLP apparatus."
-  },
-  {
-    "id": "bom-language-model-correlations",
-    "slug": "bom-language-model-correlations",
-    "title": "The Book of Mormon (Language Model Biblical Correlations)",
-    "subtitle": "Stylistic, Phraseological & Distributional Semantic Alignment with the Old and New Testaments",
-    "collection": "study-editions",
-    "collection_label": "Study Editions",
-    "badge": "Language Model AI",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/bom-language-model-correlations.epub",
-    "cover": "covers/bom-language-model-correlations.png",
-    "size_bytes": 2184805,
-    "size_human": "2.08 MB",
-    "creator": "Proteus Computational Linguistics Lab",
-    "short_desc": "Trained 4-channel Scriptural Language Model highlighting Old and New Testament correlations with pop-up verses and a Parallel Treasury.",
-    "full_desc": "An analytical edition of the Book of Mormon powered by a 4-channel Scriptural Language Model (Stemmed Phrase TF-IDF, Focal Top-IDF Clause Containment, KJV Cadence Trigrams, and 96-d SPPMI-SVD Distributional Word Embeddings + 96-d LSA Semantic Space) trained across all 41,995 canonical verses. Empirically calibrated across a three-tier threshold regime (Tier I Verbatim r \u2265 0.62, Tier II High Stylistic Match 0.50\u20130.62, Tier III Embedded Theological Resonance 0.45\u20130.50) to surface both major prophetic quotations and subtle embedded biblical phrasing. Every correlated verse highlights shared stems inline, provides a native Kindle pop-up footnote with the full KJV biblical text and 4-channel score breakdown, and links bidirectionally to a complete Correlated Old & New Testament Parallel Treasury.",
-    "highlights": [
-      "3,250 interactive Language Model correlation pop-up footnotes with full KJV verse text",
-      "Empirically calibrated 3-Tier threshold study (r \u2265 0.45) with 2 high-DPI calibration & density plates",
-      "Top 120 Embedded Stylistic & Theological Correlations leaderboard (outside block quotations)",
-      "Bidirectional cross-links to Part III: Correlated Old & New Testament Parallel Treasury"
-    ],
-    "contents_summary": "Part I: Language Model Methodology, Threshold Calibration Plates & Top 120 Embedded Correlations Leaderboard; Part II: The Book of Mormon with Inline LM Apparatus; Part III: Correlated Old & New Testament Parallel Treasury."
   },
   {
     "id": "book-of-mormon-master-study",
@@ -379,29 +176,6 @@
       "Over 6,200 interactive Kindle pop-up footnotes with zero missing glyphs"
     ],
     "contents_summary": "Interactive Study Key, Title Page, Testimonies of the Three and Eight Witnesses, and complete 2013 canonical text with Onomasticon and Citation Index pop-up apparati."
-  },
-  {
-    "id": "book-of-mormon-onomasticon",
-    "slug": "book-of-mormon-onomasticon",
-    "title": "The Book of Mormon (Onomasticon Study Edition)",
-    "subtitle": "Interactive BYU Onomasticon Etymologies, IPA Pronunciations & Ancient Roots",
-    "collection": "study-editions",
-    "collection_label": "Study Editions",
-    "badge": "Lexical & Etymology",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-onomasticon.epub",
-    "cover": "covers/book-of-mormon-onomasticon.png",
-    "size_bytes": 2120664,
-    "size_human": "2.02 MB",
-    "creator": "BYU Onomasticon Project (ed. Paul Y. Hoskisson) & Proteus Engine",
-    "short_desc": "Tap the first occurrence of any proper name in a chapter to view its IPA pronunciation and ancient Semitic/Egyptian etymology.",
-    "full_desc": "Links the first occurrence of every Book of Mormon personal name and place name in each chapter to a native Kindle pop-up card containing its IPA pronunciation guide, proposed Hebrew/Semitic/Egyptian reconstructions, and scholarly etymology from the Brigham Young University Book of Mormon Onomasticon Project.",
-    "highlights": [
-      "3,604 interactive Onomasticon pop-up etymology cards across 239 chapters",
-      "IPA pronunciation guides and ancient Semitic/Egyptian root reconstructions",
-      "Includes Title Page and Testimonies of the Three and Eight Witnesses",
-      "Clean Kindle-compatible typography with zero unsupported Unicode glyphs"
-    ],
-    "contents_summary": "Interactive Study Key, Title Page, Testimonies of the Three and Eight Witnesses, and 1 Nephi through Moroni with Onomasticon lexical pop-ups."
   },
   {
     "id": "book-of-mormon-historical-variants",
@@ -447,28 +221,6 @@
       "Compares 3 Nephi 12\u201314 against the Sermon on the Mount (Matthew 5\u20137)"
     ],
     "contents_summary": "Part I: Brass Plates Isaiah Collation; Part II: The Sermon at the Temple vs. Matthew 5\u20137; Part III: Malachi & Pauline Parallels."
-  },
-  {
-    "id": "bom-poetic-and-chiasmus",
-    "slug": "bom-poetic-and-chiasmus",
-    "title": "The Book of Mormon (Poetic & Chiasmus Edition)",
-    "subtitle": "Hebraic Parallelisms, Prophetic Oracles & Structural Chiasms",
-    "collection": "study-editions",
-    "collection_label": "Study Editions",
-    "badge": "Poetics & Chiasmus",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/bom-poetic-and-chiasmus.epub",
-    "cover": "covers/bom-poetic-and-chiasmus.png",
-    "size_bytes": 431837,
-    "size_human": "422 KB",
-    "creator": "Proteus Structural Poetics Engine",
-    "short_desc": "Displays Book of Mormon prophetic poetry, the Psalm of Nephi, and landmark chiasms (including Alma 36) in indented stanzas.",
-    "full_desc": "Presents the Book of Mormon with its Hebraic poetic structures, prophetic speeches, and landmark chiastic compositions (such as Alma 36, Mosiah 3:18\u201319, Mosiah 5:10\u201312, Alma 41:13\u201315, and 2 Nephi 4:15\u201335) set in indented parallel stanzas with structural pop-up commentary.",
-    "highlights": [
-      "Indented chiastic structures with A\u2013B\u2013C\u2026C\u2032\u2013B\u2032\u2013A\u2032 pop-up structural keys",
-      "Poetic lineation for the Psalm of Nephi, Zenos's prayer, and Isaiah oracles",
-      "Includes Title Page and Testimonies of the Three and Eight Witnesses"
-    ],
-    "contents_summary": "Poetic & Chiastic Guide, Title Page, Testimonies of the Three and Eight Witnesses, and complete Book of Mormon with poetic stanzas."
   },
   {
     "id": "top-1000-cited-verses",
@@ -604,28 +356,6 @@
     "contents_summary": "Divisions I\u2013VII: Foundational Theology, Doctrinal Treatises, Church History, Biographies, Sermons & Discourses, Defense & Apologetics, and the Faith-Promoting Series."
   },
   {
-    "id": "early-modern-english-quick-guide",
-    "slug": "early-modern-english-quick-guide",
-    "title": "Reading Old English Scripture: A Quick Guide",
-    "subtitle": "A Practical Companion to Thou, Ye, -eth, Archaic Syntax & Vocabulary",
-    "collection": "reading-guides",
-    "collection_label": "Reading Guides",
-    "badge": "Quick Reference",
-    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/early-modern-english-quick-guide.epub",
-    "cover": "covers/early-modern-english-quick-guide.png",
-    "size_bytes": 466784,
-    "size_human": "456 KB",
-    "creator": "Proteus Scriptorium",
-    "short_desc": "Plain-language, 30-minute guide to thou/ye, -eth/-est, archaic syntax, and 100+ 'false friend' words in the KJV and Book of Mormon.",
-    "full_desc": "Written for everyday scripture readers who want to read the King James Bible and Book of Mormon with immediate clarity. Explains why thou vs. ye matters, how -est and -eth work, how to untangle inverted clauses, and includes an alphabetical glossary of 100+ 'false friends'\u2014words whose meanings have changed since 1611/1830\u2014plus a one-page bookmark reference.",
-    "highlights": [
-      "Plain-language explanations with zero academic jargon",
-      "Alphabetical glossary of 100+ archaic words & false friends",
-      "One-page quick reference cheat-sheet for daily study"
-    ],
-    "contents_summary": "1. Pronouns (Thou, Thee, Thy, Thine, Ye, You); 2. Verb Endings (-est, -eth, Wast, Wert); 3. Sentence Patterns; 4. 100+ Words That Changed Meaning; 5. One-Page Quick Reference."
-  },
-  {
     "id": "early-modern-english-scripture-guide",
     "slug": "early-modern-english-scripture-guide",
     "title": "Early Modern English Guide to the Scriptures",
@@ -635,8 +365,8 @@
     "badge": "Comprehensive Guide",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/early-modern-english-scripture-guide.epub",
     "cover": "covers/early-modern-english-scripture-guide.png",
-    "size_bytes": 515399,
-    "size_human": "503 KB",
+    "size_bytes": 515722,
+    "size_human": "504 KB",
     "creator": "Proteus Philological Series",
     "short_desc": "In-depth philological companion to the grammar, syntax, Hebraisms, and lexicon of the King James Bible and Book of Mormon.",
     "full_desc": "A comprehensive 9-chapter philological reference exploring the Early Modern English of the 1611/1769 King James Bible and the 1830/2013 Book of Mormon. Covers the pronoun system, verb morphology, subjunctive and imperative moods, syntactic inversion, Hebraisms (parataxis, cognates, 'and it came to pass'), a 100+ entry lexicon, and annotated side-by-side walkthroughs.",

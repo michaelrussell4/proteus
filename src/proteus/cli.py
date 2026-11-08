@@ -16,7 +16,6 @@ if hasattr(sys.stderr, "reconfigure"):
 
 from proteus.core.models import Work
 from proteus.ingest import (
-    build_early_modern_english_quick_guide,
     build_early_modern_english_scripture_guide,
     ingest_bom_historical_edition,
     ingest_complete_apocrypha_and_pseudepigrapha_compendium,
@@ -28,17 +27,11 @@ from proteus.ingest import (
 )
 from proteus.renderers.epub import EpubBuilder
 from proteus.transforms import (
-    build_bom_language_model_correlations,
     build_data_science_standard_works,
     build_enriched_book_of_mormon,
     build_historical_variants_bom,
     build_intertextual_parallels_edition,
-    build_poetic_and_chiasmus_bom,
     build_top_1000_cited_verses_anthology,
-    combine_works_into_quad,
-    transform_to_continuous_narrative,
-    transform_to_minimalist,
-    transform_to_study_notebook,
 )
 from proteus.validation import validate_epub
 
@@ -51,28 +44,16 @@ console = Console(legacy_windows=False)
 
 
 EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
-    # Phase 1 Targets
-    "kjv-apocrypha": (
-        "[Phase 1] The Complete KJV Apocrypha / Deuterocanon (15 books)",
-        lambda: ingest_kjv_apocrypha(),
+    # Phase 1: Canonical Editions & Historical Printings
+    "old-testament": (
+        "[Phase 1] The Old Testament (2013 KJV Standard Works Edition)",
+        lambda: ingest_standard_work("old-testament"),
     ),
-    "enoch-jubilees-jasher": (
-        "[Phase 1] Enoch (Charles & Laurence), Jubilees & Jasher Omnibus (with pop-up footnotes)",
-        lambda: ingest_patriarchs_and_prophets_apocrypha(),
+    "new-testament": (
+        "[Phase 1] The New Testament (2013 KJV Standard Works Edition)",
+        lambda: ingest_standard_work("new-testament"),
     ),
-    "lds-classics-anthology": (
-        "[Phase 1] Foundational Classics of the Restoration (9-book doctrinal omnibus with pop-up notes)",
-        lambda: ingest_foundational_lds_classics_anthology(),
-    ),
-    "complete-lds-literature-compendium": (
-        "[Phase 1] The Complete Restoration Literature Compendium (All 71 Historical Books, 6.0M words)",
-        lambda: ingest_complete_lds_literature_compendium(),
-    ),
-    "complete-apocrypha-pseudepigrapha-compendium": (
-        "[Phase 1] The Complete Apocrypha & Pseudepigrapha Compendium (Deduplicated + Provenance Dossiers)",
-        lambda: ingest_complete_apocrypha_and_pseudepigrapha_compendium(),
-    ),
-    "book-of-mormon-2013": (
+    "book-of-mormon": (
         "[Phase 1] The Book of Mormon (2013 Standard Works Edition)",
         lambda: ingest_standard_work("book-of-mormon"),
     ),
@@ -88,84 +69,28 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
         "[Phase 1] The Pearl of Great Price (2013 Standard Works Edition)",
         lambda: ingest_standard_work("pearl-of-great-price"),
     ),
-    # Phase 2 Targets: Canonical Transformations & Structural Formatting
-    "book-of-mormon-narrative": (
-        "[Phase 2] The Book of Mormon (2013 Continuous Narrative Edition with pop-up verse ranges)",
-        lambda: transform_to_continuous_narrative(
-            ingest_standard_work("book-of-mormon"),
-            edition_id_suffix="narrative",
-            include_verse_range_popups=True,
-        ),
+    # Phase 2: Apocrypha, Ancient Texts & Restoration Literature
+    "kjv-apocrypha": (
+        "[Phase 2] The Complete KJV Apocrypha / Deuterocanon (15 books)",
+        lambda: ingest_kjv_apocrypha(),
     ),
-    "book-of-mormon-1830-narrative": (
-        "[Phase 2] The Book of Mormon (1830 Original Reader's Continuous Narrative Edition)",
-        lambda: transform_to_continuous_narrative(
-            ingest_bom_historical_edition("1830"),
-            edition_id_suffix="narrative",
-            include_verse_range_popups=True,
-        ),
+    "enoch-jubilees-jasher": (
+        "[Phase 2] Enoch (Charles & Laurence), Jubilees & Jasher Omnibus (with pop-up footnotes)",
+        lambda: ingest_patriarchs_and_prophets_apocrypha(),
     ),
-    "old-testament-minimalist": (
-        "[Phase 2] The Old Testament (Clean chapters & verses, zero footnotes)",
-        lambda: transform_to_minimalist(ingest_standard_work("old-testament")),
+    "complete-apocrypha-pseudepigrapha-compendium": (
+        "[Phase 2] The Complete Apocrypha & Pseudepigrapha Compendium (Deduplicated + Provenance Dossiers)",
+        lambda: ingest_complete_apocrypha_and_pseudepigrapha_compendium(),
     ),
-    "new-testament-minimalist": (
-        "[Phase 2] The New Testament (Clean chapters & verses, zero footnotes)",
-        lambda: transform_to_minimalist(ingest_standard_work("new-testament")),
+    "foundational-lds-classics-anthology": (
+        "[Phase 2] Foundational Classics of the Restoration (9-book doctrinal omnibus with pop-up notes)",
+        lambda: ingest_foundational_lds_classics_anthology(),
     ),
-    "book-of-mormon-minimalist": (
-        "[Phase 2] The Book of Mormon (Clean chapters & verses, zero footnotes)",
-        lambda: transform_to_minimalist(ingest_standard_work("book-of-mormon")),
+    "complete-lds-literature-compendium": (
+        "[Phase 2] The Complete Restoration Literature Compendium (All 71 Historical Books, 6.0M words)",
+        lambda: ingest_complete_lds_literature_compendium(),
     ),
-    "doctrine-and-covenants-minimalist": (
-        "[Phase 2] The Doctrine and Covenants (Clean sections & verses, zero footnotes)",
-        lambda: transform_to_minimalist(ingest_standard_work("doctrine-and-covenants")),
-    ),
-    "pearl-of-great-price-minimalist": (
-        "[Phase 2] The Pearl of Great Price (Clean chapters & verses, zero footnotes)",
-        lambda: transform_to_minimalist(ingest_standard_work("pearl-of-great-price")),
-    ),
-    "lds-standard-works-minimalist": (
-        "[Phase 2] The Complete LDS Standard Works Quad (OT + NT + BoM + D&C + PoGP)",
-        lambda: combine_works_into_quad(
-            [
-                transform_to_minimalist(ingest_standard_work("old-testament")),
-                transform_to_minimalist(ingest_standard_work("new-testament")),
-                transform_to_minimalist(ingest_standard_work("book-of-mormon")),
-                transform_to_minimalist(ingest_standard_work("doctrine-and-covenants")),
-                transform_to_minimalist(ingest_standard_work("pearl-of-great-price")),
-            ]
-        ),
-    ),
-    "new-testament-narrative": (
-        "[Phase 2] The New Testament (KJV Continuous Narrative Reader's Edition with pop-up verse ranges)",
-        lambda: transform_to_continuous_narrative(
-            ingest_standard_work("new-testament"),
-            edition_id_suffix="narrative",
-            include_verse_range_popups=True,
-        ),
-    ),
-    "book-of-mormon-study-notebook": (
-        "[Phase 2] The Book of Mormon (Wide-Margin Study & Annotation Edition)",
-        lambda: transform_to_study_notebook(ingest_standard_work("book-of-mormon")),
-    ),
-    # Phase 3 Targets: Enriched & Relational Compilations
-    "top-1000-cited-verses": (
-        "[Phase 3] The Top 1,000 Cited Verses of the Restoration (1830–1886 Public-Domain Ranked Anthology)",
-        lambda: build_top_1000_cited_verses_anthology(),
-    ),
-    "book-of-mormon-onomasticon": (
-        "[Phase 3] The Book of Mormon Onomasticon Study Reader (◈ Etymology & IPA Pop-ups)",
-        lambda: build_enriched_book_of_mormon(
-            enable_divine_speech=False,
-            enable_onomasticon=True,
-            enable_citations=False,
-            custom_id="book-of-mormon-onomasticon",
-            custom_title="The Book of Mormon (Onomasticon Lexical Study Edition)",
-            custom_subtitle="With Interactive BYU Onomasticon Etymologies, IPA Pronunciations & Ancient Reconstructions",
-            custom_edition_label="Proteus Onomasticon Study Reader",
-        ),
-    ),
+    # Phase 3: Relational, Historical Variants & Citations
     "book-of-mormon-master-study": (
         "[Phase 3] The Master Study Book of Mormon (◈ Onomasticon + [★] Historical Citations)",
         lambda: build_enriched_book_of_mormon(
@@ -178,69 +103,53 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
             custom_edition_label="Proteus Relational Master Study Edition",
         ),
     ),
-    # Phase 4 Targets: Advanced NLP, Historical Variants, Intertextual Parallels & Poetics
+    "top-1000-cited-verses": (
+        "[Phase 3] The Top 1,000 Cited Verses of the Restoration (1830–1886 Public-Domain Ranked Anthology)",
+        lambda: build_top_1000_cited_verses_anthology(),
+    ),
     "book-of-mormon-historical-variants": (
-        "[Phase 4] The Historical Textual Variants Book of Mormon (1830–2013 8-Edition Collation)",
+        "[Phase 3] The Historical Textual Variants Book of Mormon (1830–2013 8-Edition Collation)",
         lambda: build_historical_variants_bom(),
     ),
     "bom-intertextual-parallels": (
-        "[Phase 4] Book of Mormon Intertextual Parallels (BoM Isaiah vs KJV & 3 Nephi vs Matthew)",
+        "[Phase 3] Book of Mormon Intertextual Parallels (BoM Isaiah vs KJV & 3 Nephi vs Matthew)",
         lambda: build_intertextual_parallels_edition(),
     ),
-    "bom-poetic-and-chiasmus": (
-        "[Phase 4] The Book of Mormon: Poetic & Chiasmus Study Edition (Alma 36, Psalms & Parallelisms)",
-        lambda: build_poetic_and_chiasmus_bom(),
-    ),
+    # Phase 4: Philology & Data Science
     "early-modern-english-scripture-guide": (
         "[Phase 4] An Early Modern English Guide to Reading the Scriptures (KJV & Book of Mormon Companion)",
         lambda: build_early_modern_english_scripture_guide(),
-    ),
-    "early-modern-english-quick-guide": (
-        "[Phase 4] Reading Old English Scripture: A Plain-Language Quick Guide (thou/ye, -eth, old words)",
-        lambda: build_early_modern_english_quick_guide(),
     ),
     "lds-standard-works-data-science": (
         "[Phase 4] The Data Science Standard Works (NLP, NER Geo/Names, ★1× Hapax Legomena, Charts & Indexes)",
         lambda: build_data_science_standard_works(),
     ),
-    "bom-language-model-correlations": (
-        "[Phase 4] The Book of Mormon: Language Model Biblical Correlation Edition (OT/NT Parallel Links)",
-        lambda: build_bom_language_model_correlations(),
-    ),
 }
 
 PHASE1_TARGETS = [
-    "kjv-apocrypha",
-    "enoch-jubilees-jasher",
-    "lds-classics-anthology",
-    "complete-lds-literature-compendium",
-    "complete-apocrypha-pseudepigrapha-compendium",
+    "old-testament",
+    "new-testament",
+    "book-of-mormon",
+    "book-of-mormon-1830",
+    "doctrine-and-covenants",
+    "pearl-of-great-price",
 ]
 PHASE2_TARGETS = [
-    "book-of-mormon-narrative",
-    "book-of-mormon-1830-narrative",
-    "old-testament-minimalist",
-    "new-testament-minimalist",
-    "book-of-mormon-minimalist",
-    "doctrine-and-covenants-minimalist",
-    "pearl-of-great-price-minimalist",
-    "lds-standard-works-minimalist",
-    "new-testament-narrative",
-    "book-of-mormon-study-notebook",
+    "kjv-apocrypha",
+    "enoch-jubilees-jasher",
+    "complete-apocrypha-pseudepigrapha-compendium",
+    "foundational-lds-classics-anthology",
+    "complete-lds-literature-compendium",
 ]
 PHASE3_TARGETS = [
-    "top-1000-cited-verses",
-    "book-of-mormon-onomasticon",
     "book-of-mormon-master-study",
-]
-PHASE4_TARGETS = [
+    "top-1000-cited-verses",
     "book-of-mormon-historical-variants",
     "bom-intertextual-parallels",
-    "bom-poetic-and-chiasmus",
+]
+PHASE4_TARGETS = [
     "early-modern-english-scripture-guide",
-    "early-modern-english-quick-guide",
     "lds-standard-works-data-science",
-    "bom-language-model-correlations",
 ]
 
 
@@ -265,6 +174,8 @@ def build_editions(
     validate: bool = typer.Option(True, "--validate/--no-validate", help="Run lxml & W3C epubcheck validation"),
 ) -> None:
     """Compile one or more normalized works into Kindle Paperwhite-ready EPUB3 volumes."""
+    if target == "lds-classics-anthology":
+        target = "foundational-lds-classics-anthology"
     if target == "phase1":
         targets = PHASE1_TARGETS
     elif target == "phase2":
