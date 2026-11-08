@@ -31,6 +31,12 @@ from proteus.transforms import (
     build_enriched_book_of_mormon,
     build_historical_variants_bom,
     build_intertextual_parallels_edition,
+    build_master_study_book_of_mormon,
+    build_master_study_doctrine_and_covenants,
+    build_master_study_new_testament,
+    build_master_study_old_testament,
+    build_master_study_pearl_of_great_price,
+    build_master_study_standard_works,
     build_top_1000_cited_verses_anthology,
 )
 from proteus.validation import validate_epub
@@ -91,17 +97,29 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
         lambda: ingest_complete_lds_literature_compendium(),
     ),
     # Phase 3: Relational, Historical Variants & Citations
+    "old-testament-master-study": (
+        "[Master Study] The Old Testament (BSB • ASV • BBE Parallel Translations + Citations)",
+        lambda: build_master_study_old_testament(),
+    ),
+    "new-testament-master-study": (
+        "[Master Study] The New Testament (BSB • ASV • BBE Parallel Translations + Citations)",
+        lambda: build_master_study_new_testament(),
+    ),
     "book-of-mormon-master-study": (
-        "[Phase 3] The Master Study Book of Mormon (◈ Onomasticon + [★] Historical Citations)",
-        lambda: build_enriched_book_of_mormon(
-            enable_divine_speech=False,
-            enable_onomasticon=True,
-            enable_citations=True,
-            custom_id="book-of-mormon-master-study",
-            custom_title="The Book of Mormon (Master Relational Study Edition)",
-            custom_subtitle="Uniting BYU Onomasticon Etymologies (◈) and 19th-Century Discourse Citations ([★])",
-            custom_edition_label="Proteus Relational Master Study Edition",
-        ),
+        "[Master Study] The Book of Mormon (◈ Onomasticon + [★] Historical Citations)",
+        lambda: build_master_study_book_of_mormon(),
+    ),
+    "doctrine-and-covenants-master-study": (
+        "[Master Study] The Doctrine and Covenants (◈ Onomasticon + [★] Historical Citations)",
+        lambda: build_master_study_doctrine_and_covenants(),
+    ),
+    "pearl-of-great-price-master-study": (
+        "[Master Study] The Pearl of Great Price (◈ Onomasticon [Kolob, Egyptus] + [★] Citations)",
+        lambda: build_master_study_pearl_of_great_price(),
+    ),
+    "lds-standard-works-master-study": (
+        "[Master Study] The Complete Standard Works (Parallel Bible, Onomasticon & Citations)",
+        lambda: build_master_study_standard_works(),
     ),
     "top-1000-cited-verses": (
         "[Phase 3] The Top 1,000 Cited Verses of the Restoration (1830–1886 Public-Domain Ranked Anthology)",
@@ -147,6 +165,14 @@ PHASE3_TARGETS = [
     "book-of-mormon-historical-variants",
     "bom-intertextual-parallels",
 ]
+MASTER_STUDY_TARGETS = [
+    "old-testament-master-study",
+    "new-testament-master-study",
+    "book-of-mormon-master-study",
+    "doctrine-and-covenants-master-study",
+    "pearl-of-great-price-master-study",
+    "lds-standard-works-master-study",
+]
 PHASE4_TARGETS = [
     "early-modern-english-scripture-guide",
     "lds-standard-works-data-science",
@@ -168,7 +194,7 @@ def list_editions() -> None:
 def build_editions(
     target: str = typer.Argument(
         "phase4",
-        help="Target ID to build ('phase1', 'phase2', 'phase3', 'phase4', 'all', or a specific ID)",
+        help="Target ID to build ('phase1', 'phase2', 'phase3', 'phase4', 'master-study', 'all', or a specific ID)",
     ),
     out_dir: Path = typer.Option(Path("dist/epubs"), "--out-dir", "-o", help="Output directory for compiled EPUBs"),
     validate: bool = typer.Option(True, "--validate/--no-validate", help="Run lxml & W3C epubcheck validation"),
@@ -182,6 +208,8 @@ def build_editions(
         targets = PHASE2_TARGETS
     elif target == "phase3":
         targets = PHASE3_TARGETS
+    elif target in ("master-study", "master_study", "masterstudy"):
+        targets = MASTER_STUDY_TARGETS
     elif target == "phase4":
         targets = PHASE4_TARGETS
     elif target == "all":

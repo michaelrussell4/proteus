@@ -21,13 +21,15 @@ proteus/
 │       ├── apocrypha-ista/                # 12 ISTA Apocrypha & Pseudepigrapha JSONL corpora
 │       ├── apocrypha-gutenberg/           # Laurence 1883 1 Enoch & Ante-Nicene Fathers Vol. 8 JSONL
 │       ├── apocrypha-pseudepigrapha-com/  # 40 Ancient works scraped from https://www.pseudepigrapha.com/
-│       ├── bom-onomasticon/               # BYU Book of Mormon Onomasticon lexical database
-│       └── scripture-citation-index/      # BYU Pre-1960 Scripture Citation Index & full discourse texts
+│       ├── bom-onomasticon/               # BYU Book of Mormon & PoGP Onomasticon lexical database
+│       ├── scripture-citation-index/      # BYU Pre-1942 Scripture Citation Index & full discourse texts
+│       └── bible-comparisons/             # BSB, ASV, BBE parallel texts & TSK cross-references
 ├── dist/
-│   ├── covers/                            # 17 High-DPI (1200×1920) Proteus Scriptorium PNG covers
-│   └── epubs/                             # 17 Validated EPUB3 volumes ready for Kindle Paperwhite / KFX
+│   ├── covers/                            # 22 High-DPI (1200×1920) Proteus Scriptorium PNG covers
+│   └── epubs/                             # 22 Validated EPUB3 volumes ready for Kindle Paperwhite / KFX
 ├── site/                                  # Static GitHub Pages portal (deployed via .github/workflows/deploy.yml)
 ├── scripts/
+│   ├── build_bible_comparisons.py         # Parallel Bible extractor (BSB, ASV, BBE) + TSK cross-references
 │   ├── build_site.py                      # Static site & catalog generator (dist/ -> site/)
 │   └── scrape_pseudepigrapha_com.py       # Reproducible scraper for https://www.pseudepigrapha.com/
 ├── src/
@@ -71,9 +73,10 @@ List all registered editions across Phases 1–4:
 uv run proteus list
 ```
 
-Build a single edition, an entire phase (`phase1`, `phase2`, `phase3`, `phase4`), or `all`:
+Build a single edition, a target group (`master-study`, `phase1`, `phase2`, `phase3`, `phase4`), or `all`:
 
 ```powershell
+uv run proteus build master-study
 uv run proteus build phase1
 uv run proteus build phase2
 uv run proteus build phase3
@@ -90,7 +93,17 @@ uv run proteus validate dist/epubs/
 
 ---
 
-## Complete Catalogue of 17 Generated EPUB3 Editions (`dist/epubs/`)
+## Complete Catalogue of 22 Generated EPUB3 Editions (`dist/epubs/`)
+
+### Master Study Editions (Standard Works Canon)
+| Edition Slug | Output File | Highlights |
+| :--- | :--- | :--- |
+| `lds-standard-works-master-study` | `dist/epubs/lds-standard-works-master-study.epub` | **The Grand Master Study Standard Works**: Complete 5-volume canon (87 books, 1,582 chapters, 1.195M words, **52,834 interactive pop-up notes**). Combines BSB/ASV/BBE parallel translations & TSK cross-references on every biblical verse (`[⇄]`), BYU Onomasticon etymology links (`◈`) across BoM & PoGP, and pre-1942 historical discourse citations (`[★ N]`) with multi-paragraph sermon excerpts across all 5 standard works. |
+| `old-testament-master-study` | `dist/epubs/old-testament-master-study.epub` | Complete 39-book KJV Old Testament (929 chapters, 23,145 verses, **30,295 pop-up notes**) featuring parallel translation pop-ups (`[⇄]`) with Berean Standard Bible (BSB), American Standard Version (ASV 1901), and Bible in Basic English (BBE) + Treasury of Scripture Knowledge (TSK) cross-references, plus **7,303 pre-1942 historical sermon citations** (`[★ N]`). |
+| `new-testament-master-study` | `dist/epubs/new-testament-master-study.epub` | Complete 27-book KJV New Testament (260 chapters, 7,957 verses, **12,999 pop-up notes**) featuring parallel translation pop-ups (`[⇄]`) with BSB, ASV, and BBE + TSK cross-references, plus **5,074 pre-1942 historical sermon citations** (`[★ N]`). |
+| `book-of-mormon-master-study` | `dist/epubs/book-of-mormon-master-study.epub` | Complete 2013 Book of Mormon text (239 chapters, 6,604 verses, **5,078 pop-up notes**) combining inline BYU Onomasticon linguistic etymology badges (`◈`) and **3,190 pre-1942 historical sermon citations** (`[★ N]`) with multi-paragraph discourse excerpts. |
+| `doctrine-and-covenants-master-study` | `dist/epubs/doctrine-and-covenants-master-study.epub` | Complete 2013 Doctrine and Covenants text (138 sections + 2 Official Declarations, 3,654 verses, **3,722 pop-up notes**) combining inline Onomasticon badges (`◈`) for Restoration proper names and **3,162 pre-1942 historical sermon citations** (`[★ N]`). |
+| `pearl-of-great-price-master-study` | `dist/epubs/pearl-of-great-price-master-study.epub` | Complete 2013 Pearl of Great Price text (Moses, Abraham, JS—Matthew, JS—History, Articles of Faith, 635 verses, **740 pop-up notes**) combining inline Onomasticon etymology badges (`◈`) for Pearl of Great Price proper names (*Kolob, Egyptus, Kokaubeam, Gnolaum, Elkenah, Olishem, Shinehah*) and **620 pre-1942 historical sermon citations** (`[★ N]`). |
 
 ### Phase 1: Canonical Standard Works
 | Edition Slug | Output File | Highlights |
@@ -114,7 +127,6 @@ uv run proteus validate dist/epubs/
 ### Phase 3: Relational, Historical Variants & Citations
 | Edition Slug | Output File | Highlights |
 | :--- | :--- | :--- |
-| `book-of-mormon-master-study` | `dist/epubs/book-of-mormon-master-study.epub` | **Relational Master Study Edition** combining `◈` BYU Onomasticon inline etymology links and `[★N]` 19th-century Historical Citation badges (1830–1886 *Journal of Discourses* & *Teachings of the Prophet Joseph Smith*) with **up to 4 extended multi-paragraph discourse excerpts** per verse (**6,214 total pop-up notes**). |
 | `top-1000-cited-verses` | `dist/epubs/top-1000-cited-verses.epub` | The 1,000 most frequently quoted verses across the OT, NT, BoM, D&C, and PoGP in 19th-century LDS discourse (**1,100 pop-up dossiers with up to 3 extended multi-paragraph discourse excerpts per verse**). |
 | `book-of-mormon-historical-variants` | `dist/epubs/book-of-mormon-historical-variants.epub` | 8-Edition Collation (1830, 1837, 1840, 1841, 1879, 1920, 1981, 2013) with inline `<del>`/`<ins>` diffs and `[Δ Year]` chronological pop-up apparatuses (3,581 pop-up notes). |
 | `bom-intertextual-parallels` | `dist/epubs/bom-intertextual-parallels.epub` | Word-level intertextual alignment of Book of Mormon Isaiah chapters vs. KJV Isaiah and the 3 Nephi 12–14 Sermon at the Temple vs. Matthew 5–7 (**395 diff pop-ups across 22 chapters**). |

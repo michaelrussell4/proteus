@@ -67,16 +67,55 @@ def _strip_deseret_references(text: str) -> str:
     return s.strip()
 
 
+def _clean_onomasticon_wikitext(wt: str) -> list[str]:
+    """Clean MediaWiki markup from BYU Onomasticon pages into fine-press prose paragraphs."""
+    s = re.sub(r"<ref[^>]*>.*?</ref>", "", wt, flags=re.S)
+    s = re.sub(r"<ref[^>]*/>", "", s)
+    s = re.sub(r"\{\|.*?\|\}", "", s, flags=re.S)
+    s = re.sub(r"\[\[Category:[^\]]+\]\]", "", s)
+    s = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", s)
+    s = re.sub(r"'{2,5}", "", s)
+    s = re.sub(r"==+[^=]+==+", "", s)
+    s = re.sub(r"\[https?://[^\s\]]+(?:\s+([^\]]+))?\]", r"\1", s)
+    s = re.sub(r"<[^>]+>", "", s)
+    paras = [clean_prose_text(_strip_deseret_references(p)) for p in s.split("\n\n")]
+    ignore_prefixes = ("Notes", "Bibliography", "----", "*", "index.php", "Category:", "See also")
+    return [p for p in paras if p and not p.startswith(ignore_prefixes) and len(p) > 20]
+
+
 def load_onomasticon_entries(
     onomasticon_dir: Path = Path("data/raw/bom-onomasticon"),
 ) -> dict[str, OnomasticonEntry]:
-    """Load and normalize the 419 canonical BYU Onomasticon name entries keyed by lowercase name."""
+    """Load and normalize canonical BYU Onomasticon name entries (Book of Mormon & Pearl of Great Price)
+    keyed by lowercase name.
+    """
     names_path = onomasticon_dir / "names.json"
     raw_names = json.loads(names_path.read_text(encoding="utf-8"))
 
+    # Load all_pages.jsonl to recover wikitext etymologies for Pearl of Great Price and unparsed entries
+    all_pages_path = onomasticon_dir / "all_pages.jsonl"
+    wiki_by_title: dict[str, str] = {}
+    if all_pages_path.exists():
+        for line in all_pages_path.open(encoding="utf-8"):
+            d = json.loads(line)
+            t = d.get("title", "").strip().upper()
+            wt = d.get("wikitext", "")
+            if t and wt:
+                wiki_by_title[t] = wt
+
+    # If KOLOB exists in all_pages.jsonl but missing in names.json, inject it
+    if "KOLOB" in wiki_by_title and "KOLOB" not in raw_names:
+        raw_names["KOLOB"] = {
+            "name": "KOLOB",
+            "classifications": ["Pearl of Great Price Names PN"],
+            "ipa_pronunciation": "koʊlɒb",
+            "etymology": {"clean_text": ""},
+        }
+
     entries: dict[str, OnomasticonEntry] = {}
     for key, rec in raw_names.items():
-        if not re.match(r"^[A-Za-z]{2,}$", key):
+        # Allow alphabetical names and hyphenated compound names (e.g. ENISH-GO-ON-DOSH, HAH-KO-KAU-BEAM)
+        if not re.match(r"^[A-Za-z]+(?:-[A-Za-z]+)*$", key):
             continue
 
         raw_ipa = rec.get("ipa_pronunciation")
@@ -102,13 +141,19 @@ def load_onomasticon_entries(
 
         ety_raw = rec.get("etymology", {}).get("clean_text", "")
         ety_paras: list[str] = []
-        for p in ety_raw.split("\n\n"):
-            p_scrubbed = _strip_deseret_references(p)
-            p_clean = clean_prose_text(p_scrubbed)
-            if p_clean and not p_clean.strip().startswith("----"):
-                ety_paras.append(p_clean)
+        if ety_raw:
+            for p in ety_raw.split("\n\n"):
+                p_scrubbed = _strip_deseret_references(p)
+                p_clean = clean_prose_text(p_scrubbed)
+                if p_clean and not p_clean.strip().startswith("----"):
+                    ety_paras.append(p_clean)
+
+        # Recover from wikitext if clean_text was missing (e.g. Pearl of Great Price entries)
+        if not ety_paras and key.upper() in wiki_by_title:
+            ety_paras = _clean_onomasticon_wikitext(wiki_by_title[key.upper()])
+
         if not ety_paras:
-            ety_paras = ["Included in the BYU Book of Mormon Onomasticon lexical database."]
+            ety_paras = ["Included in the BYU Book of Mormon & Scripture Onomasticon lexical database."]
 
         display_name = key.title()
         entries[key.lower()] = OnomasticonEntry(
@@ -185,7 +230,8 @@ RE_CITATION_SPAN = re.compile(
     r'<span\s+class="citation"\s+id="(\d+)">.*?onclick="gs\(\d+\)">([^<]+)</a>\s*</span>',
     re.S,
 )
-RE_COLBREAK = re.compile(r'<div\s+class="break\s+columnbreak"[^>]*>.*?</div>', re.S)
+RE_BREAK = re.compile(r'<div\s+class="break\s+(?:columnbreak|pagebreak)"[^>]*>.*?</div>', re.S)
+RE_PAGE_STUB = re.compile(r'\[\s*p\.\s*\d+[a-z]?\s*\]')
 RE_FOOTREF = re.compile(r'<span\s+class="footRef">(\d+)</span>')
 RE_TAGS = re.compile(r"<[^>]+>")
 
@@ -219,11 +265,13 @@ class DiscourseExcerptIndex:
                     parts = re.split(r'<div\s+class="paragraph\s+jod"[^>]*>', raw_html)[1:]
                     raw_p_blocks = []
                     for pt in parts:
-                        pt_nocol = RE_COLBREAK.sub(" ", pt)
-                        idx_close = pt_nocol.find("</div>")
+                        pt_nobreak = RE_BREAK.sub(" ", pt)
+                        idx_close = pt_nobreak.find("</div>")
                         if idx_close != -1:
-                            pt_nocol = pt_nocol[:idx_close]
-                        raw_p_blocks.append(pt_nocol)
+                            pt_nobreak = pt_nobreak[:idx_close]
+                        pt_clean = RE_PAGE_STUB.sub("", pt_nobreak)
+                        raw_p_blocks.append(pt_clean)
+                    is_cont_first = False
                 elif corpus == "T":
                     fn_blocks = re.findall(
                         r'<div\s+class="footnote">\s*(\d+)\.(.*?)</div>', raw_html, re.S
@@ -234,13 +282,20 @@ class DiscourseExcerptIndex:
                             fn_to_cids.setdefault(fn_num, []).append(
                                 (int(m_c.group(1)), m_c.group(2))
                             )
-                    raw_p_blocks = re.findall(
-                        r'<p\s+class="(?:cont|std)"[^>]*>(.*?)</p>', raw_html, re.S
+                    p_matches = re.findall(
+                        r'<p\s+class="(cont|std)"[^>]*>(.*?)</p>', raw_html, re.S
                     )
+                    raw_p_blocks = []
+                    is_cont_first = False
+                    for p_i, (p_cls, p_body) in enumerate(p_matches):
+                        if p_i == 0 and p_cls == "cont":
+                            is_cont_first = True
+                        raw_p_blocks.append(p_body)
                 else:
                     idx_body = raw_html.find('<div class="gcbody">')
                     body_html = raw_html[idx_body:] if idx_body != -1 else raw_html
                     raw_p_blocks = re.findall(r"<p[^>]*>(.*?)</p>", body_html, re.S)
+                    is_cont_first = False
 
                 clean_ps: list[str] = []
                 for p_raw in raw_p_blocks:
@@ -267,6 +322,15 @@ class DiscourseExcerptIndex:
                     p_txt = re.sub(r"\(\s*\(([^)]+)\)\s*\)", r"(\1)", p_txt)
                     if not p_txt:
                         continue
+
+                    # Stitch continuation across physical page breaks for TPJS
+                    if corpus == "T" and is_cont_first and len(clean_ps) == 0:
+                        prev_tid = tid - 1
+                        if prev_tid in self.talk_paras and self.talk_paras[prev_tid]:
+                            prev_tail = self.talk_paras[prev_tid][-1]
+                            p_txt = prev_tail + " " + p_txt
+                            self.talk_paras[prev_tid][-1] = p_txt
+
                     p_idx = len(clean_ps)
                     clean_ps.append(p_txt)
                     for cid in cids_in_p:
@@ -320,14 +384,30 @@ class DiscourseExcerptIndex:
 
         curr_words = sum(len(paras[i].split()) for i in range(start_idx, end_idx + 1))
 
-        # Include following paragraphs so the speaker's full exposition/application is captured (up to 5–6 paragraphs / ~260+ words)
-        while end_idx + 1 < len(paras) and curr_words < target_min_words and (end_idx - start_idx) < 5:
-            end_idx += 1
-            curr_words += len(paras[end_idx].split())
+        # Include following paragraphs so the speaker's full exposition/application is captured.
+        # For TPJS (talk_id >= 270000), each paragraph is often a distinct diary entry with a date/DHC attribution;
+        # do not bleed into unrelated subsequent entries if the current entry is already substantial.
+        is_tpjs = talk_id >= 270000
+        if not is_tpjs:
+            while end_idx + 1 < len(paras) and curr_words < target_min_words and (end_idx - start_idx) < 5:
+                end_idx += 1
+                curr_words += len(paras[end_idx].split())
+        else:
+            if curr_words < 60 and not re.search(r"DHC\s+\d+:\d+|\(\w+\.?\s+\d+,\s+\d{4}\.?\)", paras[end_idx]):
+                while end_idx + 1 < len(paras) and curr_words < 120 and (end_idx - start_idx) < 2:
+                    end_idx += 1
+                    curr_words += len(paras[end_idx].split())
 
         selected = [re.sub(r"^[\.\s…]+", "", p).strip() for p in paras[start_idx : end_idx + 1] if p.strip()]
         if not selected:
             return []
+
+        # Sentence-boundary guard: ensure selected[0] starts at the beginning of a complete sentence
+        first_p = selected[0]
+        if first_p and re.match(r"^[a-z]", first_p):
+            m_sent = re.search(r"[.!?]\s+([A-Z“\"‘])", first_p)
+            if m_sent:
+                selected[0] = first_p[m_sent.start(1):]
 
         # If a single 19th-century paragraph is huge (> max_single_para_words), extract a complete 8–10 sentence window
         if len(selected) == 1 and len(selected[0].split()) > max_single_para_words:
@@ -351,7 +431,7 @@ class DiscourseExcerptIndex:
 
         if start_idx > min_body_idx:
             selected[0] = "… " + selected[0]
-        if end_idx < len(paras) - 1:
+        if end_idx < len(paras) - 1 and not (is_tpjs and re.search(r"DHC\s+\d+:\d+|\(\w+\.?\s+\d+,\s+\d{4}\.?\)", selected[-1])):
             selected[-1] = selected[-1] + " …"
 
         return selected
@@ -372,21 +452,22 @@ def get_discourse_excerpt_index(
 
 def select_representative_citations(
     recs: list[HistoricalCitationRecord],
-    max_excerpts: int = 4,
+    max_excerpts: int = 6,
 ) -> list[HistoricalCitationRecord]:
-    """Prioritize historical citations so Joseph Smith (TPJS), early Journal of Discourses sermons,
-    and distinct speakers are chosen first, avoiding duplicate excerpts from the same talk.
+    """Prioritize historical citations chronologically (oldest first) so Joseph Smith (TPJS)
+    and the earliest 19th-century Journal of Discourses sermons are chosen first,
+    avoiding duplicate excerpts from the same talk.
     """
-    corpus_priority = {"T": 0, "J": 1, "E": 2}
-    sorted_recs = sorted(
-        recs,
-        key=lambda r: (
+    def _sort_key(r: HistoricalCitationRecord) -> tuple[int, int, int, int]:
+        eff_year = r.year if (r.year and r.year > 0) else (1838 if r.corpus == "T" else 1900)
+        return (
+            eff_year,
+            0 if r.corpus == "T" else 1,
             0 if "Joseph Smith" in r.speaker else 1,
-            corpus_priority.get(r.corpus, 3),
-            r.year if r.year > 0 else 9999,
             r.citation_id,
-        ),
-    )
+        )
+
+    sorted_recs = sorted(recs, key=_sort_key)
     chosen: list[HistoricalCitationRecord] = []
     seen_talks: set[int] = set()
     for r in sorted_recs:

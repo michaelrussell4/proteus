@@ -73,9 +73,9 @@
       <aside class="footnote" epub:type="footnote" id="fn-{{ ann.id }}">
         {% for p_text in ann.paragraphs %}
           {% if loop.first %}
-          <p><a href="#ref-{{ ann.id }}"><strong>[{{ ann.label }}]</strong></a>{% if ann.title %} <strong>{{ ann.title }}:</strong>{% endif %} {{ p_text }}</p>
+          <p><a href="#ref-{{ ann.id }}"><strong>[{{ ann.label }}]</strong></a>{% if ann.title %} <strong>{{ ann.title }}:</strong>{% endif %} {{ p_text | safe }}</p>
           {% else %}
-          <p>{{ p_text }}</p>
+          <p>{{ p_text | safe }}</p>
           {% endif %}
         {% endfor %}
       </aside>

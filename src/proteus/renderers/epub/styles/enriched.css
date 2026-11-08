@@ -194,7 +194,7 @@ sup.onoma-glyph {
 }
 
 /* ==========================================================================
-   Channel 3: Historical Citation Index Badges ([★N])
+   Channel 3: Historical Citation Index Badges ([★N]) & Parallel Comparisons ([⇄])
    ========================================================================== */
 sup.fn-sup {
   font-size: 0.72em;
@@ -207,6 +207,14 @@ a.cite-badge {
   font-weight: bold;
   font-variant: small-caps;
   letter-spacing: 0.02em;
+}
+
+a.compare-badge {
+  text-decoration: none;
+  font-weight: bold;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+  margin-right: 0.15em;
 }
 
 span.citation-rank-head {
@@ -239,6 +247,14 @@ aside.footnote p {
   text-align: left;
   margin: 0 0 0.38em 0;
   line-height: 1.45;
+}
+
+/* Interactive Scripture Cross-Reference & Discourse Links */
+a.scripture-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  font-weight: 500;
 }
 
 nav[epub|type~="toc"] ol {

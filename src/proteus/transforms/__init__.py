@@ -11,10 +11,26 @@ from proteus.transforms.enrichers import (
     build_enriched_book_of_mormon,
     build_top_1000_cited_verses_anthology,
 )
+from proteus.transforms.master_study import (
+    build_master_study_book_of_mormon,
+    build_master_study_doctrine_and_covenants,
+    build_master_study_edition,
+    build_master_study_new_testament,
+    build_master_study_old_testament,
+    build_master_study_pearl_of_great_price,
+    build_master_study_standard_works,
+)
 __all__ = [
     "build_data_science_standard_works",
     "build_enriched_book_of_mormon",
     "build_historical_variants_bom",
     "build_intertextual_parallels_edition",
+    "build_master_study_book_of_mormon",
+    "build_master_study_doctrine_and_covenants",
+    "build_master_study_edition",
+    "build_master_study_new_testament",
+    "build_master_study_old_testament",
+    "build_master_study_pearl_of_great_price",
+    "build_master_study_standard_works",
     "build_top_1000_cited_verses_anthology",
 ]
