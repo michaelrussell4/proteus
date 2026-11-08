@@ -80,15 +80,15 @@ class ScriptureCorpusLookup:
         label, text_2013 = self.verses_2013.get(ref, (f"{book} {chapter}:{verse}", ""))
         paras: list[str] = []
         if text_2013:
-            paras.append(f"“{text_2013}” ({label})")
+            paras.append(f"“{escape_xhtml(text_2013)}” ({escape_xhtml(label)})")
         if include_1830 and ref in self.verses_1830:
             t_1830 = self.verses_1830[ref]
             if t_1830 and t_1830 != text_2013:
-                paras.append(f"1830 Palmyra Reading: “{t_1830}”")
+                paras.append(f"1830 Palmyra Reading: “{escape_xhtml(t_1830)}”")
         if gloss:
-            paras.append(f"Linguistic Note: {gloss}")
+            paras.append(f"Linguistic Note: {escape_xhtml(gloss)}")
         if not paras:
-            paras.append(gloss or label)
+            paras.append(escape_xhtml(gloss or label))
         return label, paras
 
 
@@ -378,6 +378,18 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
         15,
         "Speaking to Moses alone: ‘Thou shalt speak unto him, and put words in his mouth: and I will be with thy mouth, and with his mouth, and will teach you [plural object: both Moses and Aaron] what ye [plural subject: both of you] shall do.’",
     )
+    fn_1cor3_16 = c1.cite(
+        "1 Corinthians",
+        3,
+        16,
+        "Paul addresses the entire Corinthian church community with plural ‘ye’: ‘Know ye not that ye are the temple of God, and that the Spirit of God dwelleth in you?’ In v. 17: ‘which temple ye are.’ The corporate congregation collectively is God’s holy sanctuary.",
+    )
+    fn_philem1_21 = c1.cite(
+        "Philemon",
+        1,
+        21,
+        "Paul writes to Philemon individually using singular ‘thee/thy/thou’ (‘Having confidence in thy obedience I wrote unto thee, knowing that thou wilt also do more than I say’), but concludes in v. 25 with plural ‘your’ (‘The grace of our Lord Jesus Christ be with your spirit. Amen’) to bless the entire household assembly.",
+    )
 
     c1.subheading("Case Division: Nominative Subject vs. Objective Complement")
     c1.para(
@@ -424,6 +436,22 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
         "together): <em>“<strong>Thou</strong> shalt speak unto him… and I will be with <strong>thy</strong> mouth, "
         "and with his mouth, and will teach <strong>you</strong> [both of you] what <strong>ye</strong> [both of you] "
         "shall do.”</em>"
+    )
+    c1.para(
+        f"4. <strong>The Corporate Temple of God ({fn_1cor3_16}):</strong> In modern culture, readers often treat "
+        "Paul’s temple metaphor as an individual physical health guideline. However, in 1 Corinthians 3:16–17, "
+        "Paul’s pronouns are strictly plural: <em>“Know <strong>ye</strong> not that <strong>ye</strong> are the temple "
+        "of God, and that the Spirit of God dwelleth in <strong>you</strong>?… for the temple of God is holy, which "
+        "temple <strong>ye</strong> are.”</em> Paul is declaring that the entire covenant community, built upon the "
+        "foundation of the apostles, constitutes God’s corporate dwelling place."
+    )
+    c1.para(
+        f"5. <strong>From Individual Appeal to Congregational Benediction ({fn_philem1_21}):</strong> In his brief "
+        "epistle to Philemon, Paul writes to his friend in the intimate singular: <em>“Having confidence in "
+        "<strong>thy</strong> obedience I wrote unto <strong>thee</strong>, knowing that <strong>thou</strong> wilt "
+        "also do more than I say.”</em> But in the very last verse, Paul widens his gaze to include the whole church "
+        "gathered in Philemon’s house: <em>“The grace of our Lord Jesus Christ be with <strong>your</strong> spirit”</em> "
+        "(plural <em>your</em>, not singular <em>thy</em>)."
     )
     chapters.append(c1.build())
 
@@ -498,12 +526,18 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
         9,
         "In the Lord’s Prayer, Jesus instructs disciples to address the Father in the intimate, familial second-person singular (‘Our Father which art in heaven, Hallowed be thy name’), translating Koine Greek singular sou (‘thy’) rather than plural hymōn.",
     )
+    fn_mark12_32 = c2.cite(
+        "Mark",
+        12,
+        32,
+        "The scribe addresses Jesus in the intimate singular: ‘Well, Master, thou hast said the truth: for there is one God; and there is none other but he.’ In v. 34, Jesus replies in reciprocal singular intimacy: ‘Thou art not far from the kingdom of God.’",
+    )
 
     c2.callout(
         "Two Foundational Reasons Scriptural Translators Chose ‘Thou’ for Deity",
         [
-            f"1. <strong>Linguistic &amp; Theological Fidelity (Grammatical Singular):</strong> Both Biblical Hebrew (<em>’attāh</em>, אַתָּה) and Koine Greek (<em>sý</em>, σύ) possess strictly distinct singular and plural second-person pronouns—and neither ancient language ever used a plural pronoun as a polite singular honorific! When Tyndale and the 1611 scholars translated the Bible, their supreme rule was morphological accuracy: Hebrew and Greek singulars <strong>must</strong> be rendered with English singulars (<em>thou/thee/thy</em>), and Hebrew and Greek plurals <strong>must</strong> be rendered with English plurals (<em>ye/you/your</em>). To address God with plural <em>ye/you</em> would falsify the underlying ancient text and obscure the foundational monotheistic witness that God is an individual Person {fn_deut6}.",
-            f"2. <strong>Covenantal Intimacy &amp; Familial Communion:</strong> In Early Modern English, the T-form (<em>thou/thee</em>) was the language of the hearth, the marriage covenant, and the bond between parent and child. Addressing God as <em>thou</em> {fn_matt6_9} placed the worshipper in the position of a beloved child speaking directly to an accessible, loving Father—rather than a distant subject petitioning an aloof earthly monarch through bureaucratic court etiquette.",
+            f"1. <strong>Linguistic &amp; Theological Fidelity (Grammatical Singular):</strong> Both Biblical Hebrew (<em>’attāh</em>, אַתָּה) and Koine Greek (<em>sý</em>, σύ) possess strictly distinct singular and plural second-person pronouns—and neither ancient language ever used a plural pronoun as a polite singular honorific! When Tyndale and the 1611 scholars translated the Bible, their supreme rule was morphological accuracy: Hebrew and Greek singulars <strong>must</strong> be rendered with English singulars (<em>thou/thee/thy</em>), and Hebrew and Greek plurals <strong>must</strong> be rendered with English plurals (<em>ye/you/your</em>). To address God with plural <em>ye/you</em> would falsify the underlying ancient text and obscure the foundational monotheistic witness that God is an individual Person {fn_deut6} {fn_mark12_32}.",
+            f"2. <strong>Covenantal Intimacy &amp; Familial Communion:</strong> In Early Modern English, the T-form (<em>thou/thee</em>) was the language of the hearth, the marriage covenant, and the bond between parent and child. Addressing God as <em>thou</em> {fn_matt6_9} placed the worshipper in the position of a beloved child speaking directly to an accessible, loving Father—rather than a distant subject petitioning an aloof earthly monarch through bureaucratic court etiquette. As William Tyndale defended his translation in <em>The Obedience of a Christian Man</em> (1528): <em>“For who saith unto his father, Come ye, and go ye? or hath he not rather say, Come thou, and go thou? For it is a manner of speaking of love and of reverence.”</em>",
         ],
     )
     c2.para(
@@ -553,11 +587,18 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
         10,
         "Independent (predicative/absolute) possessive usage: ‘And all mine are thine, and thine are mine; and I am glorified in them.’",
     )
-    fn_mosiah4_16 = c3.cite(
-        "Mosiah",
+    fn_enos1_4 = c3.cite(
+        "Enos",
+        1,
         4,
-        16,
-        "King Benjamin’s speech preserves prevocalic ‘thine’ and ‘mine’: ‘ye will not suffer that the beggar putteth up his petition to you in vain, and turn him out to perish.’ Compare Mosiah 4:11–12 and Enos 1:4 (‘my soul hungered… before my Maker… in mighty prayer and supplication for mine own soul’).",
+        "Prevocalic ‘mine’ triggered by the vowel of ‘own’: ‘my soul hungered; and I kneeled down before my Maker, and I cried unto him in mighty prayer and supplication for mine own soul.’ Contrast ‘my soul’ and ‘my Maker’ (before consonants) with ‘mine own soul’ (before vowel) in the exact same verse!",
+        include_1830=True,
+    )
+    fn_2ne4_25 = c3.cite(
+        "2 Nephi",
+        4,
+        25,
+        "Nephi’s Psalm: ‘And upon the wings of his Spirit hath my body been carried away upon exceeding high mountains. And mine eyes have beheld great things, yea, even too great for man.’ Observe ‘my body’ (consonant) vs. ‘mine eyes’ (vowel)!",
         include_1830=True,
     )
 
@@ -588,7 +629,7 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
                 "<strong>2. Before a Vowel Sound</strong><br/>(or silent / weak <em>h-</em>)",
                 "<strong>mine</strong>",
                 "<strong>thine</strong>",
-                f"<em>thine eye</em> {fn_matt6_22}, <em>thine ear</em>, <em>thine inheritance</em>, <em>thine heart</em> {fn_prov3_5}, <em>thine honor</em>, <em>mine eyes</em>, <em>mine enemies</em> {fn_ps23}, <em>mine iniquity</em>, <em>mine own hand</em>, <em>mine house</em>",
+                f"<em>thine eye</em> {fn_matt6_22}, <em>thine ear</em>, <em>thine inheritance</em>, <em>thine heart</em> {fn_prov3_5}, <em>thine honor</em>, <em>mine eyes</em> {fn_2ne4_25}, <em>mine enemies</em> {fn_ps23}, <em>mine iniquity</em>, <em>mine own hand</em>, <em>mine house</em>",
             ],
             [
                 "<strong>3. Independent / Predicative</strong><br/>(Standing alone without a following noun)",
@@ -605,7 +646,7 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
         "unstressed prosodic environments (just as modern English still says <em>an hour</em>, <em>an heir</em>, and "
         "often <em>an historical</em>). Whenever the adjective <em>own</em> intervened between the possessive and a "
         "consonant-initial noun, the vowel of <em>own</em> immediately triggered <em>mine/thine</em>: hence "
-        f"<em>“mine own soul”</em> and <em>“thine own understanding”</em> {fn_mosiah4_16}."
+        f"<em>“mine own soul”</em> {fn_enos1_4} and <em>“thine own understanding”</em> (Proverbs 3:5)."
     )
     chapters.append(c3.build())
 
@@ -651,6 +692,26 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
         "At the Temple in Bountiful, the risen Christ addresses the 2,500 Nephites collectively with plural ‘ye/you’ (‘Arise and come forth unto me, that ye may thrust your hands into my side’), inviting each individual within the multitude to come forward one by one.",
         include_1830=True,
     )
+    fn_moro10_3 = c4.cite(
+        "Moroni",
+        10,
+        3,
+        "Moroni addresses all future Gentile and Lamanite readers across history using plural ‘ye/you’ (‘Behold, I would exhort you that when ye shall read these things… that ye would remember… and ponder it in your hearts’).",
+        include_1830=True,
+    )
+    fn_moro10_4 = c4.cite(
+        "Moroni",
+        10,
+        4,
+        "Continuing his universal closing promise: ‘And when ye shall receive these things, I would exhort you that ye would ask God, the Eternal Father, in the name of Christ, if these things are not true; and if ye shall ask with a sincere heart, with real intent, having faith in Christ, he will manifest the truth of it unto you by the power of the Holy Ghost.’",
+        include_1830=True,
+    )
+    fn_dc9_7 = c4.cite(
+        "Doctrine and Covenants",
+        9,
+        7,
+        "The Lord counsels Oliver Cowdery personally regarding his attempt to translate: ‘Behold, you have not understood; you have supposed that I would give it unto you, when you took no thought save it was to ask me.’ In early revelations, second-person address reflects specific personal guidance.",
+    )
 
     c4.para(
         "Attentive readers of the Book of Mormon often notice passages where a prophet addresses an audience using "
@@ -661,11 +722,12 @@ def _build_book_1_pronouns(corpus: ScriptureCorpusLookup) -> Book:
         "(shifting grammatical number for rhetorical focus)—is a hallmark of both Deuteronomy and prophetic discourse."
     )
     c4.callout(
-        "Three Exegetical Patterns of Pronoun Shifting in the Book of Mormon",
+        "Four Exegetical Patterns of Pronoun Shifting in Scripture",
         [
             f"1. <strong>Crowd-to-Spokesman / Challenger Pivot ({fn_mosiah12_27} {fn_mosiah12_30}):</strong> During Abinadi’s trial before King Noah’s priests, Abinadi indicts the entire council in the plural: <em>“<strong>Ye</strong> have not applied <strong>your</strong> hearts to understand… Therefore, what teach <strong>ye</strong> this people?”</em> Moments later, when one priest challenges him or when he confronts the king directly, he narrows the beam to the singular: <em>“Knowest <strong>thou</strong> not that I speak the truth? Yea, <strong>thou</strong> knowest that I speak the truth; and <strong>you</strong> [plural: the whole court] ought to tremble before God.”</em>",
             f"2. <strong>Public Exhortation to Personal Spiritual Experiment ({fn_alma32_27}):</strong> In Alma 32–33, Alma addresses the poor Zoramites collectively as <em>ye/you</em> while inviting them to plant the word in their hearts, then shifts to singular <em>thou/thy</em> when describing the deeply personal, solitary act of nourishing the tree of faith and quoting Zenos’s intimate personal prayer (<em>“O God, <strong>thou</strong> art merciful…”</em>).",
             f"3. <strong>Deuteronomic Corporate Singular (Hebraic Enallage):</strong> In Biblical Hebrew (especially throughout Deuteronomy 4–28 and Isaiah), Moses and the prophets constantly alternate between addressing Israel as plural <em>‘attem</em> (<em>ye</em>—all the individual citizens) and singular <em>‘attāh</em> (<em>thou</em>—Israel personified as a single covenant bride or son) {fn_3ne11_14}. The Book of Mormon mirrors this exact Semitic oscillation between collective plurality and covenantal singularity.",
+            f"4. <strong>Universal Plural Exhortation vs. Individual Personal Counsel ({fn_moro10_3} {fn_moro10_4} vs. {fn_dc9_7}):</strong> When Moroni closes the golden plates, he deliberately frames his parting testament to the entire world using plural <em>ye / you</em> (<em>“when ye shall read these things… he will manifest the truth of it unto you”</em>), ensuring that every reader understands the promise is addressed to the collective family of Adam. By contrast, when individual disciples seek personal direction in early Restoration revelations (such as Oliver Cowdery in D&amp;C 9), the revelation singles out the individual heart.",
         ],
     )
     chapters.append(c4.build())
@@ -707,11 +769,24 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
         4,
         "Paul’s hymn to Charity uses a continuous chain of 3rd-person singular present indicative ‘-eth’ verbs (‘Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself…’) describing habitual, timeless present action.",
     )
+    fn_rev3_20 = c1.cite(
+        "Revelation",
+        3,
+        20,
+        "Notice how in conditional/hypothetical clauses, the 3rd-person singular present drops ‘-eth’ entirely, taking the subjunctive base: ‘Behold, I stand at the door, and knock: if any man hear my voice, and open the door, I will come in to him, and will sup with him, and he with me.’ (Not ‘heareth’ or ‘openeth’!).",
+    )
     fn_mosiah2_21 = c1.cite(
         "Mosiah",
         2,
         21,
-        "Note how ‘-eth’ attaches ONLY to 3rd-person singular subjects (‘God, who has created you, and has kept and preserved you… doth require that ye should do as he hath commanded you’), never to plural ‘ye’ or ‘they’ in standard EME.",
+        "Note how in standard literary EME, ‘-eth’ attaches to 3rd-person singular subjects (‘God, who has created you, and has kept and preserved you… doth require that ye should do as he hath commanded you’), contrasting with plural subjects.",
+        include_1830=True,
+    )
+    fn_alma60_11 = c1.cite(
+        "Alma",
+        60,
+        11,
+        "In the 1830 Palmyra text (and Printer’s Manuscript), Captain Moroni laments: ‘for the Lord suffereth the righteous to be slain that his justice and judgment may come upon the wicked; therefore ye need not suppose that the righteous are lost because they are slain; but behold, they are had in the peace of the Lord their God.’ And later in the same epistle: ‘all these great abominations doth come upon us’—preserving the historical Southern English plural ‘-eth’.",
         include_1830=True,
     )
 
@@ -751,8 +826,9 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
             "• <em>He walketh</em> = “He walks” &#160;|&#160; <em>She saith</em> (pronounced <em>seth</em>) = “She says”",
             "• <em>It cometh</em> = “It comes” &#160;|&#160; <em>The wind bloweth</em> = “The wind blows”",
             "• <em>He hath</em> = “He has” &#160;|&#160; <em>He doth</em> (pronounced <em>duth</em>) = “He does”",
-            "• <strong>Pronunciation &amp; Historical Transition Note:</strong> In older Tudor verse and deliberate liturgical reading, <em>-eth</em> was pronounced as a full syllable (<em>lov-eth</em>, <em>mak-eth</em>). However, by 1611 in everyday London speech (and throughout Shakespeare’s late plays), the Northern/Midland suffix <em>-s</em> (<em>walks, says, comes</em>) had largely replaced <em>-eth</em> in spoken pronunciation, even when scribes and printers continued writing <em>-eth</em> on the page as the dignified literary spelling.",
-            "• <strong>Plural Caution:</strong> Standard KJV grammar uses <em>-eth</em> only for singular subjects (<em>“the wicked man flee<strong>th</strong>”</em>) and uses zero ending for plural subjects (<em>“the wicked flee”</em>). However, in broader Southern and West Country Early Modern English (and occasionally in the 1830 Book of Mormon), <em>-eth</em> could also function as a historic plural suffix (from Old English plural <em>-aþ</em>), as in 1830 passages where a plural subject takes <em>doth</em> or <em>hath</em>.",
+            f"• <strong>Subjunctive Drop in Conditional Clauses ({fn_rev3_20}):</strong> Crucially, <em>-eth</em> attaches only in <strong>indicative</strong> statements of fact. Whenever a clause expresses condition, hypothesis, or uncertainty after <em>if, except, whether,</em> or <em>though</em>, the suffix is completely dropped: <em>“If any man <strong>hear</strong> my voice, and <strong>open</strong> the door”</em> (not <em>*heareth</em> or <em>*openeth</em>).",
+            "• <strong>Pronunciation &amp; Historical Transition:</strong> In older Tudor verse and deliberate liturgical reading, <em>-eth</em> was pronounced as a full syllable (<em>lov-eth</em>, <em>mak-eth</em>). However, by 1611 in everyday London speech (and throughout Shakespeare’s late plays), the Northern/Midland suffix <em>-s</em> (<em>walks, says, comes</em>) had largely replaced <em>-eth</em> in spoken pronunciation, even while printers retained <em>-eth</em> on the page as the reverent literary spelling.",
+            f"• <strong>The Historical Southern Plural -eth ({fn_alma60_11}):</strong> In standard KJV editorial practice, <em>-eth</em> marks singular subjects. However, in Middle and Early Modern English dialect geography, southern dialects inherited Old English plural <em>-aþ</em> as plural <strong>-eth</strong>, whereas northern dialects used plural <strong>-s</strong>. Consequently, in 16th-century writers and in the Original/Printer’s Manuscripts and 1830 edition of the Book of Mormon, plural subjects occasionally take <em>-eth</em> (e.g. Alma 60:11, <em>“all these great abominations <strong>doth</strong> come upon us”</em>; Alma 9:30). Royal Skousen and Stanford Carmack have demonstrated that these are authentic dialectal survivals of early English grammar.",
         ],
     )
     chapters.append(c1.build())
@@ -803,11 +879,23 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
         7,
         "Full lexical action verb ‘doest’: ‘If thou doest well [i.e., if you act righteously], shalt thou not be accepted? and if thou doest not well, sin lieth at the door.’",
     )
+    fn_john13_27 = c2.cite(
+        "John",
+        13,
+        27,
+        "Jesus addresses Judas at the Last Supper with the lexical action verb ‘doest’: ‘That thou doest, do quickly.’ Here ‘doest’ is a full transitive verb denoting an intentional deed, not an auxiliary.",
+    )
     fn_1jn3_7 = c2.cite(
         "1 John",
         3,
         7,
         "Full lexical action verb ‘doeth’: ‘Little children, let no man deceive you: he that doeth righteousness [performs/practices righteousness] is righteous.’",
+    )
+    fn_rom14_10 = c2.cite(
+        "Romans",
+        14,
+        10,
+        "Paul challenges the Roman church using the auxiliary helper verb ‘dost’: ‘But why dost thou judge thy brother? or why dost thou set at nought thy brother? for we shall all stand before the judgment seat of Christ.’",
     )
     fn_john20_15 = c2.cite(
         "John",
@@ -827,8 +915,8 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
     c2.callout(
         "Auxiliary Helper (Dost / Doth) vs. Lexical Action Verb (Doest / Doeth)",
         [
-            f"• <strong>Dost</strong> and <strong>Doth</strong> (pronounced <em>dust</em> and <em>duth</em>, one syllable) function almost exclusively as <strong>auxiliary (helping) verbs</strong> coupled with another verb’s infinitive: <em>“Why <strong>dost</strong> thou weep?”</em> {fn_john20_15}, <em>“He <strong>doth</strong> lead me,”</em> <em>“The Lord <strong>doth</strong> grant unto them.”</em>",
-            f"• <strong>Doest</strong> and <strong>Doeth</strong> (pronounced <em>doo-est</em> and <em>doo-eth</em>, two full syllables) function as <strong>full lexical main verbs</strong> denoting the performance of a deed or action: <em>“If thou <strong>doest</strong> well”</em> {fn_gen4_7} (= “If you perform well”), <em>“What <strong>doest</strong> thou?”</em> (= “What action are you performing?”), <em>“He that <strong>doeth</strong> righteousness is righteous”</em> {fn_1jn3_7} {fn_mosiah4_10}.",
+            f"• <strong>Dost</strong> and <strong>Doth</strong> (pronounced <em>dust</em> and <em>duth</em>, one syllable) function almost exclusively as <strong>auxiliary (helping) verbs</strong> coupled with another verb’s infinitive: <em>“Why <strong>dost</strong> thou judge thy brother?”</em> {fn_rom14_10}, <em>“Why <strong>dost</strong> thou weep?”</em> {fn_john20_15}, <em>“He <strong>doth</strong> lead me,”</em> <em>“The Lord <strong>doth</strong> grant unto them.”</em>",
+            f"• <strong>Doest</strong> and <strong>Doeth</strong> (pronounced <em>doo-est</em> and <em>doo-eth</em>, two full syllables) function as <strong>full lexical main verbs</strong> denoting the performance of a deed or action: <em>“That thou <strong>doest</strong>, do quickly”</em> {fn_john13_27}, <em>“If thou <strong>doest</strong> well”</em> {fn_gen4_7} (= “If you perform well”), <em>“What <strong>doest</strong> thou?”</em> (= “What action are you performing?”), <em>“He that <strong>doeth</strong> righteousness is righteous”</em> {fn_1jn3_7} {fn_mosiah4_10}.",
         ],
     )
 
@@ -880,6 +968,18 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
         24,
         "Optative (blessing/prayer) subjunctive in the main clause: ‘The Lord bless thee, and keep thee’ (not ‘blesseth’ or ‘keepeth’—it is a priestly invocation: ‘May the Lord bless thee!’).",
     )
+    fn_dan3_18 = c3.cite(
+        "Daniel",
+        3,
+        18,
+        "Third-person imperative / optative subjunctive: Shadrach, Meshach, and Abed-nego declare to King Nebuchadnezzar: ‘But if not, be it known unto thee, O king, that we will not serve thy gods, nor worship the golden image which thou hast set up.’",
+    )
+    fn_luke1_38 = c3.cite(
+        "Luke",
+        1,
+        38,
+        "Optative subjunctive of holy acquiescence at the Annunciation: ‘And Mary said, Behold the handmaid of the Lord; be it unto me according to thy word.’",
+    )
     fn_ether12_27 = c3.cite(
         "Ether",
         12,
@@ -925,9 +1025,9 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
                 "“Take heed <strong>lest</strong> he <strong>fall</strong>.” (= “so that he may not fall”)",
             ],
             [
-                "<strong>Optative Blessing / Petition</strong>",
-                "“The Lord <strong>blesseth</strong> thee.”",
-                f"“The Lord <strong>bless</strong> thee, and <strong>keep</strong> thee.” {fn_num6_24}<br/>“Hallowed <strong>be</strong> thy name. Thy kingdom <strong>come</strong>.”",
+                "<strong>Optative Blessing / Petition / Jussive</strong>",
+                "“The Lord <strong>blesseth</strong> thee.”<br/>“It <strong>is</strong> known.”",
+                f"“The Lord <strong>bless</strong> thee, and <strong>keep</strong> thee.” {fn_num6_24}<br/>“<strong>Be it known</strong> unto thee…” {fn_dan3_18}<br/>“<strong>Be it</strong> unto me according to thy word.” {fn_luke1_38}<br/>“Hallowed <strong>be</strong> thy name. Thy kingdom <strong>come</strong>.”",
             ],
         ],
     )
@@ -958,11 +1058,29 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
         6,
         "‘He is not here: for he is risen, as he said.’ In EME, ‘is risen’ is the active present perfect of the intransitive motion verb ‘rise’ (= ‘He has risen, and now stands in a risen state’).",
     )
+    fn_gen19_23 = c4.cite(
+        "Genesis",
+        19,
+        23,
+        "‘The sun was risen upon the earth when Lot entered into Zoar.’ In EME, ‘was risen’ is the past perfect (pluperfect) of motion/astronomical rising (= ‘the sun had risen’).",
+    )
     fn_mark4_35 = c4.cite(
         "Mark",
         4,
         35,
         "Pluperfect of change-of-state with ‘to be’: ‘when the even was come’ (= ‘when evening had arrived’).",
+    )
+    fn_luke15_24 = c4.cite(
+        "Luke",
+        15,
+        24,
+        "In the Parable of the Prodigal Son, the father rejoices: ‘For this my son was dead, and is alive again; he was lost, and is found.’ Here ‘is found’ functions statively alongside ‘is alive again’.",
+    )
+    fn_acts1_11 = c4.cite(
+        "Acts",
+        1,
+        11,
+        "At the Mount of Olives: ‘this same Jesus, which is taken up from you into heaven, shall so come in like manner as ye have seen him go into heaven.’ ‘Is taken up’ expresses completed ascension.",
     )
     fn_exod32_1 = c4.cite(
         "Exodus",
@@ -1005,9 +1123,11 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
             ["<em>“He <strong>is come</strong> unto the city.”</em>", "Present Perfect of Motion", "<strong>“He has arrived / has come to the city.”</strong>"],
             [f"<em>“He is not here: for he <strong>is risen</strong>.”</em> {fn_matt28_6}", "Present Perfect (Resultative)", "<strong>“He has risen (and is now alive).”</strong>"],
             ["<em>“They <strong>are fallen</strong> to the ground.”</em>", "Present Perfect of Motion", "<strong>“They have fallen to the ground.”</strong>"],
-            ["<em>“The sun <strong>was risen</strong> upon the earth.”</em>", "Past Perfect (Pluperfect)", "<strong>“The sun had risen upon the earth.”</strong>"],
+            [f"<em>“The sun <strong>was risen</strong> upon the earth.”</em> {fn_gen19_23}", "Past Perfect (Pluperfect)", "<strong>“The sun had risen upon the earth.”</strong>"],
             [f"<em>“When the even <strong>was come</strong>…”</em> {fn_mark4_35}", "Past Perfect (Pluperfect)", "<strong>“When evening had come / had arrived…”</strong>"],
             [f"<em>“We wot not what <strong>is become</strong> of him.”</em> {fn_exod32_1}", "Present Perfect of Change-of-State", "<strong>“We do not know what has become of him.”</strong>"],
+            [f"<em>“He was lost, and <strong>is found</strong>.”</em> {fn_luke15_24}", "Resultative State of Recovery", "<strong>“He was lost, and has now been recovered.”</strong>"],
+            [f"<em>“Jesus, which <strong>is taken up</strong> from you…”</em> {fn_acts1_11}", "Completed Perfect of Ascension", "<strong>“Jesus, who has been received up from you…”</strong>"],
             ["<em>“Miriam <strong>was</strong> leprous, <strong>grown</strong> white as snow.”</em>", "Resultative Perfect", "<strong>“Miriam had turned white as snow.”</strong>"],
         ],
     )
@@ -1032,11 +1152,23 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
         corpus=corpus,
     )
 
+    fn_gen5_3 = c5.cite(
+        "Genesis",
+        5,
+        3,
+        "‘And Adam lived an hundred and thirty years, and begat a son in his own likeness, after his image; and called his name Seth.’ ‘Begat’ is the archaic strong preterite of ‘beget’ (later leveled to ‘begot’).",
+    )
     fn_luke1_54 = c5.cite(
         "Luke",
         1,
         54,
         "In the Magnificat, Mary sings: ‘He hath holpen his servant Israel, in remembrance of his mercy.’ ‘Holpen’ is the historic Germanic strong past participle of ‘help’ (Old English holpen).",
+    )
+    fn_rev14_20 = c5.cite(
+        "Revelation",
+        14,
+        20,
+        "‘And the winepress was trodden without the city, and blood came out of the winepress, even unto the horse bridles.’ ‘Trodden’ is the strong past participle of ‘tread’ (retained in scriptural English where modern speech uses ‘trod’ or ‘trampled’).",
     )
     fn_2ne18_21 = c5.cite(
         "2 Nephi",
@@ -1049,7 +1181,7 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
         "Mosiah",
         10,
         15,
-        "In the 1830 Palmyra edition of the Book of Mormon (and Original/Printer’s Manuscripts), Zeniff records: ‘thus when we had arriven in the land of Lehi-Nephi…’ ‘Arriven’ is an authentic 16th/17th-century Early Modern English strong past participle (modeled on driven/striven) that was later edited to ‘arrived’ in 1837.",
+        "In the 1830 Palmyra edition of the Book of Mormon (and Original/Printer’s Manuscripts), Zeniff records: ‘thus when we had arriven in the land of Lehi-Nephi…’ ‘Arriven’ is an authentic 16th/17th-century Early Modern English strong past participle (modeled on driven/striven, attested in Sir Francis Walsingham’s 1570 state dispatches and Geoffrey Fenton’s 1579 translation of Guicciardini) that was later edited to ‘arrived’ in 1837.",
         include_1830=True,
     )
 
@@ -1068,6 +1200,7 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
             "Modern English Equivalent &amp; Scriptural Usage",
         ],
         rows=[
+            [f"<strong>Begat</strong> {fn_gen5_3}", "Past tense of <em>beget</em>", "<strong>Begot / Fathered</strong> (<em>“and begat a son”</em>)"],
             ["<strong>Spake</strong>", "Past tense of <em>speak</em>", "<strong>Spoke</strong> (<em>“And the Lord spake unto Moses”</em>)"],
             ["<strong>Brake</strong>", "Past tense of <em>break</em>", "<strong>Broke</strong> (<em>“Jesus took bread, and blessed it, and brake it”</em>)"],
             ["<strong>Bare</strong>", "Past tense of <em>bear</em>", "<strong>Bore / Carried / Gave birth to</strong> (<em>“She bare a son”</em>; <em>“He bare the sin of many”</em>)"],
@@ -1075,8 +1208,10 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
             ["<strong>Tare</strong>", "Past tense of <em>tear</em>", "<strong>Tore</strong> (<em>“The spirit tare him”</em>)"],
             ["<strong>Clave</strong>", "Past tense of <em>cleave</em>", "<strong>Clung / Adhered to</strong> OR <strong>Split apart</strong> (<em>“Ruth clave unto her”</em>; <em>“He clave the rock”</em>)"],
             ["<strong>Drave</strong>", "Past tense of <em>drive</em>", "<strong>Drove</strong> (<em>“He drave them all out of the temple”</em>)"],
+            ["<strong>Clomb</strong>", "Past tense of <em>climb</em>", "<strong>Climbed</strong> (Middle/Early Modern English strong preterite; cf. Spenser and Milton)"],
             ["<strong>Gat</strong>", "Past tense of <em>get</em>", "<strong>Got / Obtained / Went</strong> (<em>“He gat him up into the mount”</em>)"],
             ["<strong>Smote / Smitten</strong>", "Past &amp; participle of <em>smite</em>", "<strong>Struck / Afflicted / Defeated</strong>"],
+            [f"<strong>Trodden</strong> {fn_rev14_20}", "Past participle of <em>tread</em>", "<strong>Trampled / Walked upon</strong> (<em>“the winepress was trodden”</em>, Rev. 14:20; 2 Ne. 28:16)"],
             [f"<strong>Holpen</strong> {fn_luke1_54}", "Past participle of <em>help</em>", "<strong>Helped / Succored</strong> (<em>“He hath holpen his servant Israel,”</em> Luke 1:54; Ps. 83:8; Dan. 11:34)"],
             ["<strong>Holden</strong>", "Past participle of <em>hold</em>", "<strong>Held / Restrained / Bound</strong> (<em>“It was not possible that he should be holden of it,”</em> Acts 2:24)"],
             ["<strong>Waxen</strong>", "Past participle of <em>wax</em>", "<strong>Grown / Become</strong> (<em>“This people’s heart is waxen gross,”</em> Matt. 13:15)"],
@@ -1085,7 +1220,7 @@ def _build_book_2_verbs(corpus: ScriptureCorpusLookup) -> Book:
             ["<strong>Laden / Laded</strong>", "Participle &amp; past of <em>lade</em>", "<strong>Loaded / Burdened</strong> (<em>“Come unto me, all ye that labour and are heavy laden”</em>)"],
             ["<strong>Molten</strong>", "Past participle of <em>melt</em>", "<strong>Cast in melted metal</strong> (<em>“a molten calf,”</em> <em>“molten plates of ore”</em>)"],
             [f"<strong>Bestead</strong> {fn_2ne18_21}", "Past participle of <em>bested</em>", "<strong>Situated / Beset / Hard-pressed</strong> (<em>“hardly bestead and hungry,”</em> Isa. 8:21; 2 Ne. 18:21)"],
-            [f"<strong>Arriven</strong> {fn_mosiah10_15}", "1830 BoM strong participle of <em>arrive</em>", "<strong>Arrived</strong> (<em>“when we had arriven,”</em> 1830 Mosiah 10:15; 16th/17th-c. EME strong participle)"],
+            [f"<strong>Arriven</strong> {fn_mosiah10_15}", "1830 BoM strong participle of <em>arrive</em>", "<strong>Arrived</strong> (<em>“when we had arriven,”</em> 1830 Mosiah 10:15; authentic 16th-c. strong participle documented in Walsingham [1570] and Guicciardini [1579])"],
         ],
     )
     chapters.append(c5.build())
@@ -1230,11 +1365,12 @@ def _build_book_3_syntax(corpus: ScriptureCorpusLookup) -> Book:
     c2.callout(
         "How to Read Affirmative ‘Did + Infinitive’ in the Book of Mormon",
         [
-            f"• In 16th- and early 17th-century Early Modern English (peaking between c. 1530 and 1610 in writers like William Tyndale, John Bourchier, and Robert Fabian), <strong>affirmative periphrastic <em>do / did</em></strong> functioned as a completely neutral, <strong>unemphatic tense carrier</strong> {fn_1ne2_14} {fn_mosiah1_6}:",
+            f"• In 16th- and early 17th-century Early Modern English (peaking between c. 1530 and 1580 in writers like William Tyndale, Lord Berners’ translation of Froissart, Robert Fabyan’s chronicles, and Edward Hall), <strong>affirmative periphrastic <em>do / did</em></strong> functioned as a completely neutral, <strong>unemphatic tense carrier</strong> {fn_1ne2_14} {fn_mosiah1_6}:",
             "• <em>“And they <strong>did travel</strong> in the wilderness”</em> = <strong>“And they traveled in the wilderness.”</strong>",
             "• <em>“The Lord <strong>did speak</strong> unto them”</em> = <strong>“The Lord spoke unto them.”</strong>",
             "• <em>“We <strong>did pitch</strong> our tents”</em> = <strong>“We pitched our tents.”</strong>",
-            "• Why did Early Modern English use unemphatic <em>did + verb</em>? First, for <strong>rhythmic and prosodic balance</strong> in oral reading; second, to place the tense marker right after the subject so the main lexical verb could sit in clause-prominent position without awkward consonant clusters (such as <em>*pitch’d</em> or <em>*prophesy’d</em>).",
+            "• <strong>Quantitative Corpus Evidence:</strong> Stanford Carmack’s extensive studies of the Early English Books Online (EEBO) database demonstrate that in mid-16th-century Tudor historical chronicles, between 25% and 40% of all affirmative past-tense narrative verbs used periphrastic <em>did</em>. After 1600, its frequency declined steadily; by 1700 it was rare; and by 1830 it was virtually extinct in American vernacular speech. The Book of Mormon’s heavy narrative use of periphrastic <em>did</em> precisely matches the syntactic profile of 16th-century English prose, not Joseph Smith’s 19th-century New England dialect.",
+            "• Why did Early Modern English use unemphatic <em>did + verb</em>? First, for <strong>rhythmic and prosodic cadence</strong> in public liturgical and oral reading; second, to place the tense marker immediately after the subject so the main lexical verb could sit in clause-prominent position without harsh consonant clusters (such as <em>*pitch’d</em> or <em>*prophesy’d</em>).",
         ],
     )
     chapters.append(c2.build())
@@ -1344,7 +1480,35 @@ def _build_book_3_syntax(corpus: ScriptureCorpusLookup) -> Book:
         "Helaman",
         6,
         21,
-        "‘The more part’ (= ‘the majority,’ matching Acts 19:32 & 27:12 and 16th-century English chronicles): ‘But behold, Satan did stir up the hearts of the more part of the Nephites, insomuch that they did unite with those bands of robbers.’",
+        "‘The more part’ (= ‘the majority,’ matching Acts 19:32 and 27:12 and 16th-century English chronicles): ‘But behold, Satan did stir up the hearts of the more part of the Nephites, insomuch that they did unite with those bands of robbers.’",
+        include_1830=True,
+    )
+    fn_alma9_32 = c4.cite(
+        "Alma",
+        9,
+        32,
+        "In the 1830 Palmyra edition (and Printer’s Manuscript), Alma 9:32 read: ‘And now I, Alma, after having spoken these words, behold, the people was wroth with me.’ Plural/collective ‘was’ (e.g. ‘the people was’, ‘the plates was’) was common in 16th-century English.",
+        include_1830=True,
+    )
+    fn_mosiah26_29 = c4.cite(
+        "Mosiah",
+        26,
+        29,
+        "In the 1830 edition, Alma is given the divine law of forgiveness with an authentic apodotic ‘and’: ‘and if he confess his sins before thee and me, and repenteth in the sincerity of his heart, him shall ye forgive, and I will forgive him also.’",
+        include_1830=True,
+    )
+    fn_alma24_19 = c4.cite(
+        "Alma",
+        24,
+        19,
+        "In the 1830 edition of Alma 24:19, the converted Anti-Nephi-Lehies ‘were convinced that they had ought to bury their weapons of peace.’ ‘Had ought’ was a standard 16th-century auxiliary verb construction attested in Sir Thomas More and William Tyndale.",
+        include_1830=True,
+    )
+    fn_hel7_24 = c4.cite(
+        "Helaman",
+        7,
+        24,
+        "In the 1830 text of Helaman 7:24, Nephi proclaims: ‘it shall be better for the Lamanites than for you, because of their steadfastness when they are once enlightened.’ In EME, ‘because of’ could introduce finite verbal clauses, not just simple nouns.",
         include_1830=True,
     )
     fn_alma24_18 = c4.cite(
@@ -1409,6 +1573,26 @@ def _build_book_3_syntax(corpus: ScriptureCorpusLookup) -> Book:
                 "<strong>“Marred”</strong> (1 Ne. 13:34), <strong>“Deranged”</strong> (Alma 56:16) &amp; <strong>“Give away to”</strong> (Alma 27:9)",
                 "1540–1690",
                 "In 16th-century English, <em>mar</em> meant ‘to hinder, balk, or stop one’s progress’; military <em>deranged</em> (from French <em>déranger</em>) meant ‘thrown out of battle rank/array’ (not mentally insane!); and <em>give away to</em> meant ‘yield / give way to’.",
+            ],
+            [
+                f"<strong>Plural “Was” / Plural “Were”</strong><br/>(1830 Alma 9:32) {fn_alma9_32}",
+                "1500–1650",
+                "In the 1830 text, collective and plural subjects frequently took <em>was</em> (<em>“the people was wroth”</em>, <em>“the plates was”</em>). While 19th-century grammarians condemned this as rustic speech, corpus studies demonstrate it was standard in 16th-century English documents.",
+            ],
+            [
+                f"<strong>Apodotic “And” (If … And)</strong><br/>(1830 Mosiah 26:29; Alma 42:13) {fn_mosiah26_29}",
+                "1500–1611",
+                "Connecting a conditional <em>if</em> clause to its consequence with an untranslated <em>and</em> mirrors both early English syntax and Biblical Hebrew <em>waw</em> apodosis.",
+            ],
+            [
+                f"<strong>“Had ought”</strong><br/>(1830 Alma 24:19) {fn_alma24_19}",
+                "1520–1600",
+                "The phrase <em>had ought</em> (as in <em>“they had ought to bury their weapons”</em>) was an authentic 16th-century modal auxiliary combination found in Tyndale and More before prescriptivists purged it in the 18th century.",
+            ],
+            [
+                f"<strong>“Because of” with Finite Clauses</strong><br/>(1830 Helaman 7:24) {fn_hel7_24}",
+                "1530–1620",
+                "In modern English, <em>because of</em> is strictly followed by a noun phrase. In 16th-century English and the 1830 Book of Mormon, <em>because of</em> could introduce a full clause with a subject and verb.",
             ],
         ],
     )
@@ -1561,6 +1745,24 @@ def _build_book_4_glossary(corpus: ScriptureCorpusLookup) -> Book:
         corpus=corpus,
     )
 
+    fn_acts1_3 = c2.cite(
+        "Acts",
+        1,
+        3,
+        "‘To whom also he shewed himself alive after his passion by many infallible proofs, being seen of them forty days.’ In EME, ‘passion’ (Latin passio, ‘suffering’) meant His sacrificial suffering, agony, and death—not romantic passion or emotional heat!",
+    )
+    fn_matt5_29 = c2.cite(
+        "Matthew",
+        5,
+        29,
+        "‘And if thy right eye offend thee, pluck it out, and cast it from thee.’ Translating Greek skandalizō, ‘offend’ means ‘to cause to stumble, ensnare, or lead into sin’—not to hurt someone’s feelings or cause emotional grievance!",
+    )
+    fn_heb10_24 = c2.cite(
+        "Hebrews",
+        10,
+        24,
+        "‘And let us consider one another to provoke unto love and to good works.’ ‘Provoke’ (from Latin provocare, ‘to call forth / challenge’) means ‘to stimulate, incite, or stir up’ toward righteousness—not to irritate or anger!",
+    )
     fn_matt19_14 = c2.cite(
         "Matthew",
         19,
@@ -1705,6 +1907,31 @@ def _build_book_4_glossary(corpus: ScriptureCorpusLookup) -> Book:
                 "<strong>To descend voluntarily from high estate to dwell with or rescue the lowly</strong>",
                 "In 1 Nephi 11:16–26, the <em>“condescension of God”</em> has zero modern taint of patronizing arrogance; it celebrates the infinite grace of the Eternal Father and the Son descending into mortality to redeem humanity.",
             ],
+            [
+                f"<strong>Passion</strong> {fn_acts1_3}",
+                "<strong>Suffering, agony, martyrdom, sacrificial death</strong>",
+                "From Latin <em>passio</em> (‘suffering’). In Acts 1:3, <em>“after his passion”</em> means after Christ’s suffering in Gethsemane and death on Calvary. In modern English, <em>passion</em> has shifted to denote intense romantic or enthusiastic emotion.",
+            ],
+            [
+                f"<strong>Offend / Offence</strong> {fn_matt5_29}",
+                "<strong>To cause to stumble, entrap, or ensnare into sin</strong>",
+                "Translating Greek <em>skandalizō / skandalon</em> (the trigger-stick of a trap). In Matt. 5:29 (<em>“if thy right eye offend thee”</em>) and Ps. 119:165 (<em>“nothing shall offend them”</em>), it means causing spiritual downfall or moral entrapment—never hurt feelings.",
+            ],
+            [
+                f"<strong>Provoke</strong> {fn_heb10_24}",
+                "<strong>To stimulate, spur onward, summon forth, or challenge</strong>",
+                "From Latin <em>pro-</em> (‘forth’) + <em>vocare</em> (‘to call’). While modern English uses <em>provoke</em> almost exclusively for inciting wrath, in Hebrews 10:24 believers are commanded to <em>“provoke unto love and to good works.”</em>",
+            ],
+            [
+                "<strong>Discover</strong>",
+                "<strong>To uncover, lay bare, strip naked, or reveal</strong>",
+                "From Old French <em>descouvrir</em> (‘to un-cover’). In Psalm 29:9, <em>“The voice of the Lord… discovereth the forests”</em> means strips the trees bare of leaves; in Isaiah 22:8, <em>“he discovered the covering of Judah”</em> means he laid bare the defense.",
+            ],
+            [
+                "<strong>Replenish</strong>",
+                "<strong>To fill, stock abundantly, or populate</strong>",
+                "From Old French <em>replenir</em> (from Latin <em>plenus</em>, ‘full’). In Genesis 1:28 and 9:1, <em>“replenish the earth”</em> meant simply <strong>fill the earth</strong>—not ‘re-fill an earth previously depopulated.’",
+            ],
         ],
     )
     chapters.append(c2.build())
@@ -1722,6 +1949,18 @@ def _build_book_4_glossary(corpus: ScriptureCorpusLookup) -> Book:
         corpus=corpus,
     )
 
+    fn_matt27_50 = c3.cite(
+        "Matthew",
+        27,
+        50,
+        "‘Jesus, when he had cried again with a loud voice, yielded up the ghost.’ ‘Ghost’ (from Old English gāst, ‘breath/spirit’) meant the human spirit or vital breath. (Compare Jacob 7:21 in the Book of Mormon: ‘he gave up the ghost’.)",
+    )
+    fn_matt7_13 = c3.cite(
+        "Matthew",
+        7,
+        13,
+        "‘Enter ye in at the strait gate: for wide is the gate, and broad is the way, that leadeth to destruction, and many there be which go in thereat.’ ‘Strait’ (spelled without ‘gh’, from Latin strictus) means narrow, confined, or close-fitting.",
+    )
     fn_1pet2_9 = c3.cite(
         "1 Peter",
         2,
@@ -1840,6 +2079,16 @@ def _build_book_4_glossary(corpus: ScriptureCorpusLookup) -> Book:
                 "<strong>Dissolute, prodigal wastefulness and drunken revelry</strong>",
                 "Not a violent street protest! In Luke 15:13, the Prodigal Son <em>“wasted his substance with <strong>riotous</strong> living”</em> (= extravagant, dissolute living). See also Romans 13:13 and 2 Peter 2:13.",
             ],
+            [
+                f"<strong>Ghost</strong> {fn_matt27_50}",
+                "<strong>The human spirit, soul, or breath of mortal life</strong>",
+                "From Old English <em>gāst</em> (‘spirit/breath’). In Matt. 27:50, Gen. 25:8, and Jacob 7:21, <em>“yielded up the ghost”</em> or <em>“gave up the ghost”</em> means breathed his last / expired—having zero modern Halloween connotations of a disembodied spook.",
+            ],
+            [
+                f"<strong>Strait vs. Straight</strong> {fn_matt7_13}",
+                "<strong>Strait</strong> = narrow, constricted, close-fitting, difficult;<br/><strong>Straight</strong> = direct, unswerving, not crooked",
+                "Two distinct words often conflated by modern readers! <em>Strait</em> (without <em>gh</em>, from Latin <em>strictus</em>) refers to width (<em>“strait is the gate”</em>, Matt. 7:14; 2 Ne. 9:41). <em>Straight</em> (with <em>gh</em>, from OE <em>streht</em>) refers to alignment (<em>“make his paths straight”</em>, Matt. 3:3; 2 Ne. 31:9).",
+            ],
         ],
     )
     chapters.append(c3.build())
@@ -1900,6 +2149,24 @@ def _build_book_4_glossary(corpus: ScriptureCorpusLookup) -> Book:
         14,
         2,
         "‘In my Father’s house are many mansions: if it were not so, I would have told you. I go to prepare a place for you.’ Tyndale’s ‘mansions’ (from Vulgate mansiones, translating Greek monai) meant ‘dwelling rooms, abiding places, or suites within the Father’s royal household’—not separate suburban estates.",
+    )
+    fn_matt18_17 = c4.cite(
+        "Matthew",
+        18,
+        17,
+        "‘And if he shall neglect to hear them, tell it unto the church: but if he neglect to hear the church, let him be unto thee as an heathen man and a publican.’ ‘Publican’ (Latin publicanus) = an official Roman tax farmer or toll collector, despised by Jewish contemporaries.",
+    )
+    fn_luke2_46 = c4.cite(
+        "Luke",
+        2,
+        46,
+        "‘And it came to pass, that after three days they found him in the temple, sitting in the midst of the doctors, both hearing them, and asking them questions.’ ‘Doctors’ (Latin doctor, ‘teacher’, from docere) = authorized rabbinic teachers and doctors of the Mosaic Law—not medical practitioners.",
+    )
+    fn_exod22_25 = c4.cite(
+        "Exodus",
+        22,
+        25,
+        "‘If thou lend money to any of my people that is poor by thee, thou shalt not be to him as an usurer, neither shalt thou lay upon him usury.’ In EME, ‘usury’ meant ANY lending interest whatsoever—not merely exorbitant or extortionate rates.",
     )
 
     c4.table(
@@ -1970,6 +2237,21 @@ def _build_book_4_glossary(corpus: ScriptureCorpusLookup) -> Book:
                 "<strong>Venomous viper / adder</strong> (<em>cockatrice</em>); <strong>jackal, serpent, or sea monster</strong> (<em>dragon</em>); <strong>wild ox / aurochs</strong> (<em>unicorn</em>)",
                 "KJV translators used heraldic European fauna terms for Hebrew animal names: <em>tannîn / tannîm</em> (‘serpent/jackal’ → <em>dragon</em>), <em>ṣepa‘</em> (‘horned viper’ → <em>cockatrice</em>, 2 Ne. 24:29; 30:14), and <em>rə’ēm</em> (‘two-horned wild ox’ → <em>unicorn</em>, Num. 23:22).",
             ],
+            [
+                f"<strong>Publican</strong> {fn_matt18_17}",
+                "<strong>A Roman tax collector, contractor, or toll gatherer</strong>",
+                "From Latin <em>publicanus</em> (one who contracts for public revenues). Despised by 1st-century Jews as extortionate collaborators with the Roman occupation. Never means a tavern owner or bartender!",
+            ],
+            [
+                f"<strong>Doctor</strong> {fn_luke2_46}",
+                "<strong>A learned teacher and rabbinic master of the Mosaic Law</strong>",
+                "From Latin <em>doctor</em> (‘teacher’, from <em>docere</em> ‘to teach’). In Luke 2:46, the twelve-year-old Jesus conversed in the temple with authorized scribal rabbis and legal scholars—not physicians treating the sick.",
+            ],
+            [
+                f"<strong>Usury</strong> {fn_exod22_25}",
+                "<strong>Any lending interest or fee charged on borrowed money</strong>",
+                "In Early Modern English (and Mosaic law), <em>usury</em> meant <strong>any interest payment whatsoever</strong> charged to a brother in need. Only in late modern commerce did it narrow to mean excessively high or extortionate rates.",
+            ],
         ],
     )
     chapters.append(c4.build())
@@ -2027,6 +2309,14 @@ def _build_book_5_hebraisms(corpus: ScriptureCorpusLookup) -> Book:
         "(like <em>“my father’s house”</em>). Instead, Northwest Semitic languages bind two or more nouns together in "
         "the <strong>construct state</strong> (Hebrew <em>smikhut</em>, סְמִיכוּת), where the first noun is phonetically "
         "shortened and bound directly to the following genitive noun—indicating material, quality, origin, or possession."
+    )
+    c1.para(
+        "In his landmark 1528 treatise <em>The Obedience of a Christian Man</em>, English translator William Tyndale "
+        "defended the direct word-for-word rendering of Hebrew idioms into English with a celebrated linguistic insight: "
+        "<em>“The Greek tongue agreeth more with the English than with the Latin. And the properties of the Hebrew tongue "
+        "agreeth a thousand times more with the English than with the Latin. The manner of speaking of an hundred places "
+        "in the Hebrew is such thou canst not translate it into the Latin, as that it should have any sensible "
+        "understanding: and yet when it is translated into English, it will agree with the Hebrew word for word.”</em>"
     )
     c1.callout(
         "Structural Comparison: Standard English Adjectival Syntax vs. Hebraic Construct State",
@@ -2095,6 +2385,20 @@ def _build_book_5_hebraisms(corpus: ScriptureCorpusLookup) -> Book:
         "‘wherefore, if iniquity shall abound cursed shall be the land for their sakes, but unto the righteous it shall be blessed forever.’ Compare Jacob 2:29 and Alma 37:28 (‘cursed with a sore curse’).",
         include_1830=True,
     )
+    fn_mosiah26_29 = c2.cite(
+        "Mosiah",
+        26,
+        29,
+        "In the 1830 edition, Alma is given the divine law of forgiveness with an authentic apodotic ‘and’ introducing the main clause: ‘and if he confess his sins before thee and me, and repenteth in the sincerity of his heart, him shall ye forgive, AND I will forgive him also.’",
+        include_1830=True,
+    )
+    fn_alma42_13 = c2.cite(
+        "Alma",
+        42,
+        13,
+        "In the 1830 text of Alma 42:13, Alma deploys classic apodotic conditional syntax: ‘Now the work of justice could not be destroyed; if so, AND God would cease to be God.’",
+        include_1830=True,
+    )
 
     c2.subheading("1. The Narrative Temporal Anchor: ‘And It Came to Pass’ (Wayəhî)")
     c2.para(
@@ -2129,6 +2433,22 @@ def _build_book_5_hebraisms(corpus: ScriptureCorpusLookup) -> Book:
             ["<em>“<strong>Work a work</strong> in your days”</em>", "Verb <em>work</em> + Noun <em>work</em>", "Hab. 1:5; Acts 13:41; 1 Ne. 14:7; 3 Ne. 21:9"],
             ["<em>“<strong>Sinned a great sin</strong>”</em>", "Verb <em>sin</em> + Noun <em>sin</em>", "Exod. 32:30–31"],
             ["<em>“<strong>Dying thou shalt die</strong>”</em> → <em>“Thou shalt <strong>surely die</strong>”</em>", "Hebrew <strong>Infinitive Absolute</strong> (<em>môt tāmût</em>) preceding finite verb of same root", "Gen. 2:17; 2 Ne. 2:15; Heb. 6:14 (<em>“Blessing I will bless thee”</em>)"],
+        ],
+    )
+
+    c2.subheading("3. Apodotic ‘And’ (Hebrew Waw-Apodosis in Conditional Clauses)")
+    c2.para(
+        "In Biblical Hebrew grammar, when a conditional clause (the <em>protasis</em>, introduced by <em>’im</em>, "
+        "“if”) sets up a condition, the main conclusion clause (the <em>apodosis</em>, “then…”) is regularly introduced "
+        "by the coordinating conjunction <strong>וְ</strong> (<em>waw</em>, “and”)—a structural syntactic feature "
+        f"known to Semitic philologists as <strong>waw apodosis</strong> {fn_mosiah26_29} {fn_alma42_13}:"
+    )
+    c2.callout(
+        "Conditional Protasis and Apodotic ‘And’ in the 1830 Book of Mormon",
+        [
+            f"• <strong>Mosiah 26:29 (1830 Text):</strong> <em>“and <strong>if</strong> he confess his sins before thee and me, and repenteth in the sincerity of his heart, him shall ye forgive, <strong>AND</strong> I will forgive him also.”</em> In 1837 and subsequent editions, this extra <em>and</em> was edited out to conform to modern English rules, but the Original Manuscript preserves the exact Semitic structure.",
+            f"• <strong>Alma 42:13 (1830 Text):</strong> <em>“Now the work of justice could not be destroyed; <strong>if so, AND</strong> God would cease to be God.”</em> (Later edited to <em>“if so, God would cease to be God”</em>).",
+            "• This phenomenon also appeared in 16th-century Tudor English under the influence of early biblical translation, making it an extraordinary intersection of Early Modern syntax and authentic Northwest Semitic grammar.",
         ],
     )
     chapters.append(c2.build())
@@ -2172,6 +2492,13 @@ def _build_book_5_hebraisms(corpus: ScriptureCorpusLookup) -> Book:
         2,
         11,
         "Compound body-part prepositions (‘by the hand of the Lord’, translating Hebrew bəyad YHWH): ‘I was chosen by this people, and consecrated by my father, and was suffered by the hand of the Lord that I should be a ruler and a king over this people.’",
+        include_1830=True,
+    )
+    fn_mosiah12_3 = c3.cite(
+        "Mosiah",
+        12,
+        3,
+        "Abinadi pronounces an authentic Northwest Semitic simile curse against King Noah: ‘And it shall come to pass that the life of King Noah shall be valued even as a garment in a hot furnace; for he shall know that I am the Lord.’ Compare 1 Kings 14:10 and 2 Kings 9:8.",
         include_1830=True,
     )
 
@@ -2222,6 +2549,21 @@ def _build_book_5_hebraisms(corpus: ScriptureCorpusLookup) -> Book:
             ["<strong>Out of the mouth of</strong>", "<em>mippî</em> (מִפִּי)", "<strong>Spoken / testified by</strong>"],
         ],
     )
+
+    c3.subheading("4. Prophetic Simile Curses")
+    c3.para(
+        "In ancient Israelite covenant lawsuits and prophetic proclamations, divine judgments were frequently framed "
+        "as <strong>simile curses</strong>: the fate of the covenant-breaker is compared to the destruction of a "
+        f"vivid physical object (e.g. burning chaff, trampled clay, or a burned garment) {fn_mosiah12_3}:"
+    )
+    c3.callout(
+        "The Anatomy of a Biblical / Nephite Simile Curse",
+        [
+            "• <strong>Standard Near Eastern Formula:</strong> <em>“Even as this [object] is [destroyed/burned], so shall [the transgressor] be [consumed/destroyed].”</em>",
+            f"• <strong>Abinadi’s Indictment of King Noah (Mosiah 12:3):</strong> <em>“And it shall come to pass that <strong>the life of King Noah shall be valued even as a garment in a hot furnace</strong>; for he shall know that I am the Lord.”</em> When Noah is later put to death by fire at the hands of his own priests (Mosiah 19:20), this prophetic simile curse is fulfilled to the letter.",
+            "• Compare 1 Kings 14:10 (<em>“as a man taketh away dung, till it be all gone”</em>) and 2 Kings 9:8. This rhetorical device is rooted in ancient Near Eastern treaty oaths, reinforcing the profound antiquity of the text.",
+        ],
+    )
     chapters.append(c3.build())
 
     return Book(
@@ -2241,7 +2583,7 @@ def _build_book_6_matrices_and_walkthroughs(corpus: ScriptureCorpusLookup) -> Bo
         chapter_id="eme-bk6-ch1",
         number=1,
         title="Chapter 1: Master Quick-Reference Matrix — Common Errors at a Glance",
-        subtitle="Thirty-Two High-Frequency Scriptural Expressions Decoded Side by Side",
+        subtitle="Forty-Five High-Frequency Scriptural Expressions Decoded Side by Side",
         headnote=(
             "Use this rapid-lookup diagnostic matrix whenever a familiar word or clause in the King James Bible or "
             "Book of Mormon seems puzzling or counterintuitive."
@@ -2288,6 +2630,19 @@ def _build_book_6_matrices_and_walkthroughs(corpus: ScriptureCorpusLookup) -> Bo
             ["<strong>“Jonathan’s artillery”</strong>", "Cannons or heavy weaponry", "<strong>“Jonathan’s bow, quiver, and arrows”</strong> (1 Sam. 20:40)"],
             ["<strong>“Condescension of God”</strong>", "Patronizing superiority", "<strong>“God’s gracious voluntary descent from heaven to redeem the lowly”</strong>"],
             ["<strong>“If thou be / Though he slay”</strong>", "Uninflected grammar error", "<strong>Early Modern English Subjunctive Mood</strong> in conditional/concessive clauses"],
+            ["<strong>“After his passion”</strong>", "After his intense emotional zeal or anger", "<strong>“After his suffering, agony, and death”</strong> (Acts 1:3; Latin <em>passio</em>)"],
+            ["<strong>“If thine eye offend thee”</strong>", "If it hurts your feelings or annoys you", "<strong>“If it causes you to stumble, sin, or fall”</strong> (Matt. 5:29; Greek <em>skandalizō</em>)"],
+            ["<strong>“Provoke unto love”</strong>", "Anger or irritate people to make them love", "<strong>“Stimulate, spur, or summon forth toward love”</strong> (Heb. 10:24; Latin <em>provocare</em>)"],
+            ["<strong>“Strait gate”</strong>", "A perfectly straight, uncurving highway", "<strong>“A narrow, close-fitting, difficult entrance”</strong> (Latin <em>strictus</em>; distinct from <em>straight</em>)"],
+            ["<strong>“Yielded up the ghost”</strong>", "Gave up or saw a phantom", "<strong>“Breathed his last / expired”</strong> (<em>ghost</em> = human spirit / vital breath)"],
+            ["<strong>“Replenish the earth”</strong>", "Re-fill an earth previously depopulated", "<strong>“Fill / populate the earth”</strong> (Old French <em>replenir</em> = to fill)"],
+            ["<strong>“Heathen and publican”</strong>", "Owner of a public tavern or bar", "<strong>“A Roman tax collector / contractor”</strong> (despised for extortion)"],
+            ["<strong>“Doctors in the temple”</strong>", "Medical doctors treating the sick", "<strong>“Authorized teachers / scribal rabbis of the Law”</strong> (Latin <em>doctor</em> = teacher)"],
+            ["<strong>“Lay upon him usury”</strong>", "Charge excessively predatory interest", "<strong>“Charge ANY lending interest whatsoever”</strong> to a poor brother"],
+            ["<strong>“Discovereth the forests”</strong>", "Finds uncharted forests", "<strong>“Strips the forest bare of leaves”</strong> (Ps. 29:9; Latin <em>discooperire</em>)"],
+            ["<strong>“Life valued as a garment”</strong>", "Worth very little clothing or money", "<strong>Prophetic Simile Curse:</strong> Ancient formula comparing a ruler’s fate to a burned robe (Mosiah 12:3)"],
+            ["<strong>“If so, and God…”</strong>", "Redundant or broken conjunction in 1830 BoM", "<strong>Apodotic “And” (Waw Apodosis):</strong> Authentic Northwest Semitic conditional logic"],
+            ["<strong>“The people was wroth”</strong>", "Grammar mistake with plural noun in 1830 BoM", "<strong>Southern EME Dialect:</strong> Collective and plural subjects regularly took <em>was</em> in 16th c."],
         ],
     )
     chapters.append(c1.build())
@@ -2299,7 +2654,7 @@ def _build_book_6_matrices_and_walkthroughs(corpus: ScriptureCorpusLookup) -> Bo
         title="Chapter 2: Line-by-Line Linguistic Walkthroughs of Famous Passages",
         subtitle="Applying Pronominal, Verbal, Lexical & Hebraic Analysis to Canonical Texts",
         headnote=(
-            "To see how every principle in this manual works together in real time, let us walk through four "
+            "To see how every principle in this manual works together in real time, let us walk through five "
             "landmark scriptural passages with interactive pop-up annotations."
         ),
         corpus=corpus,
@@ -2330,6 +2685,12 @@ def _build_book_6_matrices_and_walkthroughs(corpus: ScriptureCorpusLookup) -> Bo
         13,
         4,
         "‘Charity [pure covenant love of Christ, Greek agapē] suffereth long [endures patiently], and is kind; charity envieth not [post-verbal negation without do-support]; charity vaunteth not itself, is not puffed up.’ And in v. 12: ‘For now we see through a glass [polished bronze mirror], darkly; but then face to face: now I know in part; but then shall I know even as also I am known.’",
+    )
+    fn_w5 = c2.cite(
+        "Deuteronomy",
+        6,
+        5,
+        "The Great Shema covenant obligation: ‘And thou shalt love the Lord thy God with all thine heart, and with all thy soul, and with all thy might.’ Preserves singular covenant address ‘thou/thy/thine’ and exact prevocalic phonological conditioning (‘thine heart’ before weak h-; ‘thy soul’ before consonant s-). Quoted by Christ in Mark 12:29–30.",
     )
 
     c2.subheading("Walkthrough 1: Secret Prayer & The Sermon on the Mount (Matthew 6:6 / 3 Nephi 13:6)")
@@ -2372,6 +2733,17 @@ def _build_book_6_matrices_and_walkthroughs(corpus: ScriptureCorpusLookup) -> Bo
             "• <strong>Charity:</strong> Pure, covenantal Christlike love (Greek <em>agapē</em>), not merely donating to the poor (which v. 3 explicitly contrasts with charity: <em>“though I bestow all my goods to feed the poor… and have not charity, it profiteth me nothing”</em>!).",
             "• <strong>Envieth not / Vaunteth not:</strong> EME third-person singular <em>-eth</em> combined with post-verbal negation (no <em>does not</em>).",
             "• <strong>Through a glass, darkly:</strong> In 1611, a <em>glass</em> meant a <strong>looking-glass (mirror)</strong> made of polished Corinthian bronze, not a windowpane or magnifying lens! And <em>darkly</em> translates Greek <em>en ainigmati</em> (‘in a riddle / dim reflection’).",
+        ],
+    )
+
+    c2.subheading("Walkthrough 5: The Shema, the Great Commandment & Personal Covenant Address (Deuteronomy 6:5 & Mark 12:28–34)")
+    c2.callout(
+        "Annotated Text & Grammatical Breakdown",
+        [
+            f"<strong>Text:</strong> <em>“And <strong>thou shalt love</strong> the Lord <strong>thy</strong> God with all <strong>thine heart</strong>, and with all <strong>thy soul</strong>, and with all <strong>thy might</strong>.”</em> {fn_w5}",
+            "• <strong>Thou shalt love:</strong> Prophetic future modal of divine decree (<em>shall / shalt</em>) inflected with 2nd-person singular <em>-st</em>. Moses does not address the nation as an anonymous collective crowd; the commandment singles out each individual soul in solitary covenant allegiance.",
+            "• <strong>Thine heart vs. Thy soul / Thy might:</strong> The prevocalic phonological rule in perfect action! <em>Thine</em> is selected before the vowel/weak aspirate in <em>heart</em> (just as EME wrote <em>mine eye</em>), while <em>thy</em> is selected before the consonants in <em>soul</em> (<em>s-</em>) and <em>might</em> (<em>m-</em>).",
+            "• <strong>Reciprocal Singular Address (Mark 12:32):</strong> When the questioning scribe responds to Jesus, he says: <em>“Well, Master, <strong>thou hast said</strong> the truth: for there is one God; and there is none other but he.”</em> Both Christ and the scribe address each other with mutual respect and direct personal intimacy.",
         ],
     )
     chapters.append(c2.build())
