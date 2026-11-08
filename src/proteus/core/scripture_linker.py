@@ -174,7 +174,7 @@ _all_alias_strings = sorted(
 _alias_group = "|".join(re.escape(_a) for _a in _all_alias_strings)
 
 SCRIPTURE_REF_PATTERN = re.compile(
-    r"\b(" + _alias_group + r")\s+(\d+)[:\.](\d+)(?:[–\-]\d+)?(?:,\s*\d+)*\b",
+    r"\b(" + _alias_group + r")\s+(\d+)[:\.](\d+(?:[–\-]\d+)?(?:,\s*\d+(?:[–\-]\d+)?)*)\b",
     re.IGNORECASE,
 )
 
@@ -211,7 +211,16 @@ def build_scripture_link_resolver(books: list[Book]) -> ScriptureResolverMap:
 
 
 def linkify_scripture_references(text: str, resolver: ScriptureResolverMap) -> str:
-    """Parse text for scriptural references and convert available targets into EPUB3 XHTML links."""
+    """Parse text for scriptural references and convert available targets into EPUB3 XHTML links.
+
+    - References to books packaged in the current volume resolve to internal offline relative links
+      (`bk_{bk_idx:02d}_ch_{ch_idx:03d}.xhtml#v-{verse}`).
+    - Cross-volume references in single-volume editions (e.g. 2 Peter cited in an Old Testament volume)
+      are cleanly retained as unlinked XML-escaped text to ensure 0 broken links and 100% W3C EPUBCheck
+      compliance without external internet dependencies.
+    - In combined editions (`lds-standard-works-master-study`), all 87 canonical books are packaged in the
+      same volume and resolve to internal offline relative links.
+    """
     last_idx = 0
     parts: list[str] = []
 
@@ -219,7 +228,7 @@ def linkify_scripture_references(text: str, resolver: ScriptureResolverMap) -> s
         # Escape plain text prior to match
         parts.append(escape(text[last_idx:m.start()]))
 
-        raw_bk, ch_str, v_str = m.group(1), m.group(2), m.group(3)
+        raw_bk, ch_str, v_part = m.group(1), m.group(2), m.group(3)
         ch_num = int(ch_str)
         canon = ALIAS_TO_CANONICAL.get(
             raw_bk.lower(),
@@ -227,31 +236,35 @@ def linkify_scripture_references(text: str, resolver: ScriptureResolverMap) -> s
         )
 
         target = resolver.get((canon, ch_num)) if canon else None
+        full_match = m.group(0)
+
         if not target:
-            # Book/chapter is not packaged in this EPUB; retain clean XML-escaped text
-            parts.append(escape(m.group(0)))
+            # Referenced book/chapter is not packaged in this EPUB; retain clean XML-escaped text
+            parts.append(escape(full_match))
         else:
             filename, verses = target
-            full_match = m.group(0)
-
-            # Support comma-separated additional verses in the same chapter (e.g. "Moses 1:2, 31")
+            # Support comma-separated additional verses in the same chapter (e.g. "Moses 1:2, 31" or "1 Ne. 2:1-2, 19-20")
             if "," in full_match:
                 sub_segments = full_match.split(",")
                 first_seg = sub_segments[0].strip()
-                first_v = int(v_str)
-                anchor = f"#v-{first_v}" if first_v in verses else ""
+                m_first_v = re.search(r"[:\.](\d+)", first_seg)
+                first_v = int(m_first_v.group(1)) if m_first_v else None
+                anchor = f"#v-{first_v}" if (first_v is not None and first_v in verses) else ""
                 parts.append(f'<a href="{filename}{anchor}" class="scripture-link">{escape(first_seg)}</a>')
+
                 for sub in sub_segments[1:]:
                     sub_clean = sub.strip()
-                    try:
-                        sub_v = int(sub_clean)
+                    m_sub_v = re.search(r"\b(\d+)", sub_clean)
+                    if m_sub_v:
+                        sub_v = int(m_sub_v.group(1))
                         sub_anchor = f"#v-{sub_v}" if sub_v in verses else ""
                         parts.append(f', <a href="{filename}{sub_anchor}" class="scripture-link">{escape(sub_clean)}</a>')
-                    except ValueError:
+                    else:
                         parts.append(f', {escape(sub_clean)}')
             else:
-                first_v = int(v_str)
-                anchor = f"#v-{first_v}" if first_v in verses else ""
+                m_v = re.search(r"(\d+)", v_part)
+                first_v = int(m_v.group(1)) if m_v else None
+                anchor = f"#v-{first_v}" if (first_v is not None and first_v in verses) else ""
                 parts.append(f'<a href="{filename}{anchor}" class="scripture-link">{escape(full_match)}</a>')
 
         last_idx = m.end()

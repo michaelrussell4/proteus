@@ -31,7 +31,7 @@ COLLECTIONS = [
 
 COLLECTION_LABELS = dict(COLLECTIONS)
 
-# Detailed metadata for all 17 active Proteus editions
+# Detailed metadata for all 22 active Proteus editions
 EDITION_CATALOG_SPECS: list[dict] = [
     # --- Standard Works (Canonical & 1830 Historical) ---
     {
