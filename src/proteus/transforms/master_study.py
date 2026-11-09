@@ -228,6 +228,7 @@ def enrich_books_master_study(
     comparisons_by_urn: dict[str, VerseComparison] | None = None,
     excerpt_index: DiscourseExcerptIndex | None = None,
     link_resolver: ScriptureResolverMap | None = None,
+    is_combined_edition: bool = False,
 ) -> None:
     """Enrich a list of canonical `Book` objects in-place with parallel comparisons, Onomasticon, and citations."""
     if link_resolver is None:
@@ -369,9 +370,15 @@ def enrich_books_master_study(
                             f"Primary References: {escape_xhtml(ref_line, smart_typography=False)}.",
                         ]
                         if excerpt_index is not None:
-                            # Dynamic Tiered Sizing (Option A): up to 6 excerpts, oldest first
-                            max_ex = min(total_c, 6)
-                            rep_recs = select_representative_citations(sorted_recs, max_excerpts=max_ex)
+                            if is_combined_edition:
+                                # User formula for Combined Standard Works edition:
+                                # total_citations // 10 to a maximum of 3 citations
+                                # (<10: 0 excerpts; 10–19: 1 excerpt; 20–29: 2 excerpts; 30+: 3 excerpts)
+                                max_ex = min(total_c // 10, 3)
+                            else:
+                                # Individual editions: up to 6 excerpts, oldest first
+                                max_ex = min(total_c, 6)
+                            rep_recs = select_representative_citations(sorted_recs, max_excerpts=max_ex) if max_ex > 0 else []
                             for rep in rep_recs:
                                 ex_paras = excerpt_index.extract_excerpt_paragraphs(rep.citation_id, rep.talk_id)
                                 if ex_paras:
@@ -521,6 +528,7 @@ def build_master_study_standard_works() -> Work:
             comparisons_by_urn=comparisons_by_urn,
             excerpt_index=excerpt_index,
             link_resolver=combined_resolver,
+            is_combined_edition=True,
         )
 
     legend = _create_master_study_legend_chapter(
