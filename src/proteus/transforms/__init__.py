@@ -20,6 +20,15 @@ from proteus.transforms.master_study import (
     build_master_study_pearl_of_great_price,
     build_master_study_standard_works,
 )
+from proteus.transforms.narrative import (
+    build_narrative_book_of_mormon,
+    build_narrative_doctrine_and_covenants,
+    build_narrative_edition,
+    build_narrative_new_testament,
+    build_narrative_old_testament,
+    build_narrative_pearl_of_great_price,
+    build_narrative_standard_works,
+)
 __all__ = [
     "build_data_science_standard_works",
     "build_enriched_book_of_mormon",
@@ -32,5 +41,12 @@ __all__ = [
     "build_master_study_old_testament",
     "build_master_study_pearl_of_great_price",
     "build_master_study_standard_works",
+    "build_narrative_book_of_mormon",
+    "build_narrative_doctrine_and_covenants",
+    "build_narrative_edition",
+    "build_narrative_new_testament",
+    "build_narrative_old_testament",
+    "build_narrative_pearl_of_great_price",
+    "build_narrative_standard_works",
     "build_top_1000_cited_verses_anthology",
 ]

@@ -24,7 +24,7 @@ from proteus.core.models import (
     Work,
 )
 from proteus.core.references import make_canonical_ref, slugify
-from proteus.core.typography import clean_prose_text, escape_xhtml
+from proteus.core.typography import capitalize_verse_start, clean_prose_text, escape_xhtml
 
 
 KJV_APOCRYPHA_ORDER: list[tuple[str, str, str]] = [
@@ -73,7 +73,7 @@ def ingest_kjv_apocrypha(
             verses: list[Verse] = []
             for vr in v_records:
                 v_num = int(vr["verse"])
-                v_text = clean_prose_text(vr["text"])
+                v_text = capitalize_verse_start(clean_prose_text(vr["text"]))
                 verses.append(
                     Verse(
                         verse=v_num,
@@ -263,7 +263,7 @@ def ingest_ista_jsonl_book(
             verses = [
                 Verse(
                     verse=v["verse"],
-                    text=clean_prose_text(v["text"]),
+                    text=capitalize_verse_start(clean_prose_text(v["text"])),
                     canonical_ref=f"pseud:{book_id}:{rec.get('chapter', idx)}:{v['verse']}",
                     citation_label=f"{book_title} {rec.get('chapter', idx)}:{v['verse']}",
                 )

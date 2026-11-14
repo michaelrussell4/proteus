@@ -23,6 +23,7 @@ from proteus.ingest import (
     ingest_foundational_lds_classics_anthology,
     ingest_kjv_apocrypha,
     ingest_patriarchs_and_prophets_apocrypha,
+    ingest_pseudepigrapha,
     ingest_standard_work,
 )
 from proteus.renderers.epub import EpubBuilder
@@ -37,6 +38,12 @@ from proteus.transforms import (
     build_master_study_old_testament,
     build_master_study_pearl_of_great_price,
     build_master_study_standard_works,
+    build_narrative_book_of_mormon,
+    build_narrative_doctrine_and_covenants,
+    build_narrative_new_testament,
+    build_narrative_old_testament,
+    build_narrative_pearl_of_great_price,
+    build_narrative_standard_works,
     build_top_1000_cited_verses_anthology,
 )
 from proteus.validation import validate_epub
@@ -79,6 +86,10 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
     "kjv-apocrypha": (
         "[Phase 2] The Complete KJV Apocrypha / Deuterocanon (15 books)",
         lambda: ingest_kjv_apocrypha(),
+    ),
+    "pseudepigrapha": (
+        "[Phase 2] The Complete Pseudepigrapha (30 OT Pseudepigrapha, Enochic, Patriarchal & Second Temple Works)",
+        lambda: ingest_pseudepigrapha(),
     ),
     "enoch-jubilees-jasher": (
         "[Phase 2] Enoch (Charles & Laurence), Jubilees & Jasher Omnibus (with pop-up footnotes)",
@@ -142,6 +153,31 @@ EDITION_BUILDERS: dict[str, tuple[str, Callable[[], Work]]] = {
         "[Phase 4] The Data Science Standard Works (NLP, NER Geo/Names, ★1× Hapax Legomena, Charts & Indexes)",
         lambda: build_data_science_standard_works(),
     ),
+    # Narrative Editions
+    "old-testament-narrative": (
+        "[Narrative] The Old Testament (Narrative Edition — Flowing Paragraph Prose)",
+        lambda: build_narrative_old_testament(),
+    ),
+    "new-testament-narrative": (
+        "[Narrative] The New Testament (Narrative Edition — Flowing Paragraph Prose)",
+        lambda: build_narrative_new_testament(),
+    ),
+    "book-of-mormon-narrative": (
+        "[Narrative] The Book of Mormon (Narrative Edition — Flowing Paragraph Prose)",
+        lambda: build_narrative_book_of_mormon(),
+    ),
+    "doctrine-and-covenants-narrative": (
+        "[Narrative] The Doctrine and Covenants (Narrative Edition — Flowing Paragraph Prose)",
+        lambda: build_narrative_doctrine_and_covenants(),
+    ),
+    "pearl-of-great-price-narrative": (
+        "[Narrative] The Pearl of Great Price (Narrative Edition — Flowing Paragraph Prose)",
+        lambda: build_narrative_pearl_of_great_price(),
+    ),
+    "lds-standard-works-narrative": (
+        "[Narrative] The Standard Works (Narrative Edition — All 5 Canonical Volumes)",
+        lambda: build_narrative_standard_works(),
+    ),
 }
 
 PHASE1_TARGETS = [
@@ -154,6 +190,7 @@ PHASE1_TARGETS = [
 ]
 PHASE2_TARGETS = [
     "kjv-apocrypha",
+    "pseudepigrapha",
     "enoch-jubilees-jasher",
     "complete-apocrypha-pseudepigrapha-compendium",
     "foundational-lds-classics-anthology",

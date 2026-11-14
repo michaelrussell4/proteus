@@ -729,18 +729,15 @@ def _consolidate_book_into_single_chapter_if_needed(book: Book, max_chapters: in
     return book
 
 
-def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
-    extra_canon_dir: Path = Path("data/raw/kjv-apocrypha"),
-    apocrypha_dir: Path = Path("data/raw/apocrypha-ista"),
-    gutenberg_dir: Path = Path("data/raw/apocrypha-gutenberg"),
-    pseudepigrapha_com_path: Path = Path("data/raw/apocrypha-pseudepigrapha-com/pseudepigrapha_com.jsonl"),
-) -> Work:
-    """Build the Complete Apocrypha & Pseudepigrapha Mega-Compendium uniting all non-canonical
-    biblical, Second Temple, Enochic, Ethiopian Orthodox, Dead Sea Scrolls, Nag Hammadi,
-    New Testament Apocrypha, and Apostolic Fathers texts across `extra-canon/`, `apocrypha/`,
-    `gutenberg-apocrypha/`, and `pseudepigrapha-com/` with zero duplication and a scholarly
-    Source, Provenance & Veracity dossier for every work.
-    """
+def _collect_compendium_books(
+    extra_canon_dir: Path,
+    apocrypha_dir: Path,
+    gutenberg_dir: Path,
+    pseudepigrapha_com_path: Path,
+    divisions: set[str] | None = None,
+) -> list[Book]:
+    """Collect deduplicated extra-canonical books for the requested compendium divisions (`I`–`VII`)."""
+    active_divs = divisions or {"I", "II", "III", "IV", "V", "VI", "VII"}
     books: list[Book] = []
 
     # Pre-load verified Public Domain / Free Non-Commercial works from `pseudepigrapha_com.jsonl`
@@ -856,43 +853,46 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
     # ==========================================================================
     # DIVISION I: THE 15 KJV DEUTEROCANONICAL BOOKS (`extra-canon/`)
     # ==========================================================================
-    kjv_work = ingest_kjv_apocrypha(extra_canon_dir)
-    for bk in kjv_work.books:
-        bk.title = f"[I. Deuterocanon] {bk.title}"
-        _attach_dossier_to_book(bk, bk.id)
-        _consolidate_book_into_single_chapter_if_needed(bk, max_chapters=2)
-        books.append(bk)
-    books.extend(_build_pcom_books_for_div("I"))
+    if "I" in active_divs:
+        kjv_work = ingest_kjv_apocrypha(extra_canon_dir)
+        for bk in kjv_work.books:
+            bk.title = f"[I. Deuterocanon] {bk.title}"
+            _attach_dossier_to_book(bk, bk.id)
+            _consolidate_book_into_single_chapter_if_needed(bk, max_chapters=2)
+            books.append(bk)
+        books.extend(_build_pcom_books_for_div("I"))
+
+    # Load `forgotten_books_of_eden.jsonl` records grouped by book (used in Divisions II, III, IV)
+    fbe_by_book: dict[str, list[dict]] = defaultdict(list)
+    if active_divs & {"II", "III", "IV"}:
+        with open(apocrypha_dir / "forgotten_books_of_eden.jsonl", "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    r = json.loads(line)
+                    fbe_by_book[r.get("book", "Unknown")].append(r)
 
     # ==========================================================================
     # DIVISION II: MAJOR OLD TESTAMENT PSEUDEPIGRAPHA & REWRITTEN BIBLE
     # ==========================================================================
-    # 1. 1 Enoch (R. H. Charles)
-    b_enoch_ch = ingest_ista_jsonl_book(
-        apocrypha_dir / "book_of_enoch_charles.jsonl",
-        "1-enoch-charles",
-        "[II. OT Pseudepigrapha] 1 Enoch (R. H. Charles Critical Translation)",
-        "The Book of Enoch (Ethiopic Apocalypse of Enoch — R. H. Charles Edition)",
-        "R. H. Charles (tr., 1917)",
-    )
-    _attach_dossier_to_book(b_enoch_ch, "1-enoch-charles")
-    _consolidate_book_into_single_chapter_if_needed(b_enoch_ch, max_chapters=3)
-    books.append(b_enoch_ch)
+    if "II" in active_divs:
+        # 1. 1 Enoch (R. H. Charles)
+        b_enoch_ch = ingest_ista_jsonl_book(
+            apocrypha_dir / "book_of_enoch_charles.jsonl",
+            "1-enoch-charles",
+            "[II. OT Pseudepigrapha] 1 Enoch (R. H. Charles Critical Translation)",
+            "The Book of Enoch (Ethiopic Apocalypse of Enoch — R. H. Charles Edition)",
+            "R. H. Charles (tr., 1917)",
+        )
+        _attach_dossier_to_book(b_enoch_ch, "1-enoch-charles")
+        _consolidate_book_into_single_chapter_if_needed(b_enoch_ch, max_chapters=3)
+        books.append(b_enoch_ch)
 
-    # 2. 1 Enoch (Richard Laurence 1883 105-chapter Gutenberg edition)
-    b_enoch_laur = ingest_gutenberg_enoch_laurence(gutenberg_dir / "book_of_enoch_laurence.jsonl")
-    b_enoch_laur.title = "[II. OT Pseudepigrapha] 1 Enoch (Richard Laurence 1821/1883 Translation)"
-    _attach_dossier_to_book(b_enoch_laur, "enoch-laurence")
-    _consolidate_book_into_single_chapter_if_needed(b_enoch_laur, max_chapters=3)
-    books.append(b_enoch_laur)
-
-    # Load `forgotten_books_of_eden.jsonl` records grouped by book
-    fbe_by_book: dict[str, list[dict]] = defaultdict(list)
-    with open(apocrypha_dir / "forgotten_books_of_eden.jsonl", "r", encoding="utf-8") as f:
-        for line in f:
-            if line.strip():
-                r = json.loads(line)
-                fbe_by_book[r.get("book", "Unknown")].append(r)
+        # 2. 1 Enoch (Richard Laurence 1883 105-chapter Gutenberg edition)
+        b_enoch_laur = ingest_gutenberg_enoch_laurence(gutenberg_dir / "book_of_enoch_laurence.jsonl")
+        b_enoch_laur.title = "[II. OT Pseudepigrapha] 1 Enoch (Richard Laurence 1821/1883 Translation)"
+        _attach_dossier_to_book(b_enoch_laur, "enoch-laurence")
+        _consolidate_book_into_single_chapter_if_needed(b_enoch_laur, max_chapters=3)
+        books.append(b_enoch_laur)
 
     def _build_fbe_book(raw_bk_name: str, display_title: str, dossier_key: str, max_ch: int = 2) -> Book:
         recs = fbe_by_book.get(raw_bk_name, [])
@@ -915,90 +915,91 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
         _attach_dossier_to_book(bk_obj, dossier_key)
         return _consolidate_book_into_single_chapter_if_needed(bk_obj, max_chapters=max_ch)
 
-    # 3. 2 Enoch (Book of the Secrets of Enoch)
-    books.append(
-        _build_fbe_book(
-            "The Book of the Secrets of Enoch",
-            "[II. OT Pseudepigrapha] 2 Enoch (Book of the Secrets of Enoch / Slavonic Enoch)",
-            "the-book-of-the-secrets-of-enoch",
-            max_ch=2,
+    if "II" in active_divs:
+        # 3. 2 Enoch (Book of the Secrets of Enoch)
+        books.append(
+            _build_fbe_book(
+                "The Book of the Secrets of Enoch",
+                "[II. OT Pseudepigrapha] 2 Enoch (Book of the Secrets of Enoch / Slavonic Enoch)",
+                "the-book-of-the-secrets-of-enoch",
+                max_ch=2,
+            )
         )
-    )
 
-    # 4. Book of Jubilees
-    b_jub = ingest_ista_jsonl_book(
-        apocrypha_dir / "book_of_jubilees.jsonl",
-        "book-of-jubilees",
-        "[II. OT Pseudepigrapha] The Book of Jubilees (R. H. Charles Edition)",
-        "The Book of Jubilees, or the Little Genesis",
-        "R. H. Charles (tr., 1917)",
-    )
-    _attach_dossier_to_book(b_jub, "book-of-jubilees")
-    _consolidate_book_into_single_chapter_if_needed(b_jub, max_chapters=4)
-    books.append(b_jub)
-
-    # 5. Book of Jasher
-    b_jash = ingest_ista_jsonl_book(
-        apocrypha_dir / "book_of_jasher.jsonl",
-        "book-of-jasher",
-        "[II. OT Pseudepigrapha] The Book of Jasher (1840 Translation of 1625 Venice Midrash)",
-        "The Book of Jasher (Sefer ha-Yashar)",
-        "Mordecai Manuel Noah & Moses Samuel (tr., 1840)",
-    )
-    _attach_dossier_to_book(b_jash, "book-of-jasher")
-    _consolidate_book_into_single_chapter_if_needed(b_jash, max_chapters=4)
-    books.append(b_jash)
-
-    # 6. Biblical Antiquities of Philo (Pseudo-Philo)
-    b_philo = ingest_ista_jsonl_book(
-        apocrypha_dir / "biblical_antiquities_of_philo.jsonl",
-        "biblical-antiquities-of-philo",
-        "[II. OT Pseudepigrapha] The Biblical Antiquities of Pseudo-Philo (Liber Antiquitatum Biblicarum)",
-        "The Biblical Antiquities of Philo (Pseudo-Philo)",
-        "M. R. James (tr., 1917)",
-    )
-    _attach_dossier_to_book(b_philo, "biblical-antiquities-of-philo")
-    _consolidate_book_into_single_chapter_if_needed(b_philo, max_chapters=3)
-    books.append(b_philo)
-
-    # 7 & 8. First & Second Books of Adam and Eve (deduplicated: loaded once from Forgotten Books of Eden)
-    books.append(
-        _build_fbe_book(
-            "The First Book of Adam and Eve",
-            "[II. OT Pseudepigrapha] The First Book of Adam and Eve (Conflict of Adam and Eve with Satan, Part I)",
-            "the-first-book-of-adam-and-eve",
-            max_ch=2,
+        # 4. Book of Jubilees
+        b_jub = ingest_ista_jsonl_book(
+            apocrypha_dir / "book_of_jubilees.jsonl",
+            "book-of-jubilees",
+            "[II. OT Pseudepigrapha] The Book of Jubilees (R. H. Charles Edition)",
+            "The Book of Jubilees, or the Little Genesis",
+            "R. H. Charles (tr., 1917)",
         )
-    )
-    books.append(
-        _build_fbe_book(
-            "The Second Book of Adam and Eve",
-            "[II. OT Pseudepigrapha] The Second Book of Adam and Eve (Conflict of Adam and Eve with Satan, Part II)",
-            "the-second-book-of-adam-and-eve",
-            max_ch=1,
+        _attach_dossier_to_book(b_jub, "book-of-jubilees")
+        _consolidate_book_into_single_chapter_if_needed(b_jub, max_chapters=4)
+        books.append(b_jub)
+
+        # 5. Book of Jasher
+        b_jash = ingest_ista_jsonl_book(
+            apocrypha_dir / "book_of_jasher.jsonl",
+            "book-of-jasher",
+            "[II. OT Pseudepigrapha] The Book of Jasher (1840 Translation of 1625 Venice Midrash)",
+            "The Book of Jasher (Sefer ha-Yashar)",
+            "Mordecai Manuel Noah & Moses Samuel (tr., 1840)",
         )
-    )
+        _attach_dossier_to_book(b_jash, "book-of-jasher")
+        _consolidate_book_into_single_chapter_if_needed(b_jash, max_chapters=4)
+        books.append(b_jash)
 
-    # 9 & 10. Latin & Slavonic Lives of Adam and Eve
-    b_vita = ingest_ista_jsonl_book(
-        apocrypha_dir / "books_of_adam_and_eve.jsonl",
-        "books-of-adam-and-eve",
-        "[II. OT Pseudepigrapha] The Latin Life of Adam and Eve (Vita Adae et Evae)",
-        "The Books of Adam and Eve (Latin Recension)",
-        "R. H. Charles (tr., 1913)",
-    )
-    _attach_dossier_to_book(b_vita, "books-of-adam-and-eve")
-    books.append(b_vita)
+        # 6. Biblical Antiquities of Philo (Pseudo-Philo)
+        b_philo = ingest_ista_jsonl_book(
+            apocrypha_dir / "biblical_antiquities_of_philo.jsonl",
+            "biblical-antiquities-of-philo",
+            "[II. OT Pseudepigrapha] The Biblical Antiquities of Pseudo-Philo (Liber Antiquitatum Biblicarum)",
+            "The Biblical Antiquities of Philo (Pseudo-Philo)",
+            "M. R. James (tr., 1917)",
+        )
+        _attach_dossier_to_book(b_philo, "biblical-antiquities-of-philo")
+        _consolidate_book_into_single_chapter_if_needed(b_philo, max_chapters=3)
+        books.append(b_philo)
 
-    b_slav_ae = ingest_ista_jsonl_book(
-        apocrypha_dir / "slavonic_life_of_adam_and_eve.jsonl",
-        "slavonic-life-of-adam-and-eve",
-        "[II. OT Pseudepigrapha] The Slavonic Life of Adam and Eve",
-        "The Slavonic Vita Adae et Evae",
-        "W. R. Morfill & R. H. Charles (tr., 1913)",
-    )
-    _attach_dossier_to_book(b_slav_ae, "slavonic-life-of-adam-and-eve")
-    books.append(b_slav_ae)
+        # 7 & 8. First & Second Books of Adam and Eve (deduplicated: loaded once from Forgotten Books of Eden)
+        books.append(
+            _build_fbe_book(
+                "The First Book of Adam and Eve",
+                "[II. OT Pseudepigrapha] The First Book of Adam and Eve (Conflict of Adam and Eve with Satan, Part I)",
+                "the-first-book-of-adam-and-eve",
+                max_ch=2,
+            )
+        )
+        books.append(
+            _build_fbe_book(
+                "The Second Book of Adam and Eve",
+                "[II. OT Pseudepigrapha] The Second Book of Adam and Eve (Conflict of Adam and Eve with Satan, Part II)",
+                "the-second-book-of-adam-and-eve",
+                max_ch=1,
+            )
+        )
+
+        # 9 & 10. Latin & Slavonic Lives of Adam and Eve
+        b_vita = ingest_ista_jsonl_book(
+            apocrypha_dir / "books_of_adam_and_eve.jsonl",
+            "books-of-adam-and-eve",
+            "[II. OT Pseudepigrapha] The Latin Life of Adam and Eve (Vita Adae et Evae)",
+            "The Books of Adam and Eve (Latin Recension)",
+            "R. H. Charles (tr., 1913)",
+        )
+        _attach_dossier_to_book(b_vita, "books-of-adam-and-eve")
+        books.append(b_vita)
+
+        b_slav_ae = ingest_ista_jsonl_book(
+            apocrypha_dir / "slavonic_life_of_adam_and_eve.jsonl",
+            "slavonic-life-of-adam-and-eve",
+            "[II. OT Pseudepigrapha] The Slavonic Life of Adam and Eve",
+            "The Slavonic Vita Adae et Evae",
+            "W. R. Morfill & R. H. Charles (tr., 1913)",
+        )
+        _attach_dossier_to_book(b_slav_ae, "slavonic-life-of-adam-and-eve")
+        books.append(b_slav_ae)
 
     # Load `early_church_fathers.jsonl` where `author == "Apocrypha"` for unique ANF Vol. 8 works
     anf_apoc_by_work: dict[str, list[dict]] = defaultdict(list)
@@ -1042,135 +1043,133 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
         return _consolidate_book_into_single_chapter_if_needed(bk_obj, max_chapters=2)
 
     # 11. Apocalypse of Moses (Greek Life of Adam and Eve)
-    for b_opt in [
-        _build_anf_work(
-            ["Apocalypse of Moses (unknown date)"],
-            "apocalypse-of-moses",
-            "[II. OT Pseudepigrapha] The Apocalypse of Moses (Greek Life of Adam and Eve)",
-            "apocalypse-of-moses",
-        ),
-        _build_anf_work(
-            ["Testament of Abraham (unknown date)"],
-            "testament-of-abraham",
-            "[II. OT Pseudepigrapha] The Testament of Abraham (Recensions A & B)",
-            "testament-of-abraham",
-        ),
-        _build_anf_work(
-            ["Narrative of Zosimus (unknown date)"],
-            "narrative-of-zosimus",
-            "[II. OT Pseudepigrapha] The Narrative of Zosimus (History of the Rechabites / Blessed Ones)",
-            "narrative-of-zosimus",
-        ),
-    ]:
-        if b_opt:
-            books.append(b_opt)
-    books.extend(_build_pcom_books_for_div("II"))
-    books.extend(_build_pcom_books_for_div("III"))
+    if "II" in active_divs:
+        for b_opt in [
+            _build_anf_work(
+                ["Apocalypse of Moses (unknown date)"],
+                "apocalypse-of-moses",
+                "[II. OT Pseudepigrapha] The Apocalypse of Moses (Greek Life of Adam and Eve)",
+                "apocalypse-of-moses",
+            ),
+            _build_anf_work(
+                ["Testament of Abraham (unknown date)"],
+                "testament-of-abraham",
+                "[II. OT Pseudepigrapha] The Testament of Abraham (Recensions A & B)",
+                "testament-of-abraham",
+            ),
+            _build_anf_work(
+                ["Narrative of Zosimus (unknown date)"],
+                "narrative-of-zosimus",
+                "[II. OT Pseudepigrapha] The Narrative of Zosimus (History of the Rechabites / Blessed Ones)",
+                "narrative-of-zosimus",
+            ),
+        ]:
+            if b_opt:
+                books.append(b_opt)
+        books.extend(_build_pcom_books_for_div("II"))
+        books.extend(_build_pcom_books_for_div("III"))
 
     # ==========================================================================
     # DIVISION III: THE TESTAMENTS OF THE TWELVE PATRIARCHS (Consolidated into 1 12-Part Book)
     # ==========================================================================
-    patriarch_names = [
-        "The Testaments of the Twelve Patriarchs",
-        "Testament of Reuben",
-        "Testament of Simeon",
-        "Testament of Levi",
-        "The Testament of Judah",
-        "The Testament of Issachar",
-        "The Testament of Zebulun",
-        "The Testament of Dan",
-        "The Testament of Naphtali",
-        "The Testament Of Gad",
-        "The Testament of Asher",
-        "The Testament of Joseph",
-        "The Testament of Benjamin",
-    ]
-    pat_chapters: list[Chapter] = []
-    for p_idx, pname in enumerate(patriarch_names, start=1):
-        recs = fbe_by_book.get(pname, [])
-        if not recs:
-            continue
-        p_blocks: list[ContentBlock] = []
-        for r in recs:
-            sub_t = clean_prose_text(r.get("chapter_title", ""))
-            if sub_t and sub_t.lower() != pname.lower():
-                p_blocks.append(ContentBlock(block_type=BlockType.SUBHEADING, text=sub_t, level=3))
-            for p_str in r.get("paragraphs", []):
-                pc = clean_prose_text(p_str)
-                if pc and pc.lower() != sub_t.lower():
-                    p_blocks.append(ContentBlock(block_type=BlockType.PARAGRAPH, text=pc))
-        pat_chapters.append(
-            Chapter(
-                id=f"twelve-patriarchs-{p_idx:02d}",
-                title=clean_prose_text(pname),
-                blocks=p_blocks,
+    if "III" in active_divs:
+        patriarch_names = [
+            "The Testaments of the Twelve Patriarchs",
+            "Testament of Reuben",
+            "Testament of Simeon",
+            "Testament of Levi",
+            "The Testament of Judah",
+            "The Testament of Issachar",
+            "The Testament of Zebulun",
+            "The Testament of Dan",
+            "The Testament of Naphtali",
+            "The Testament Of Gad",
+            "The Testament of Asher",
+            "The Testament of Joseph",
+            "The Testament of Benjamin",
+        ]
+        pat_chapters: list[Chapter] = []
+        for p_idx, pname in enumerate(patriarch_names, start=1):
+            recs = fbe_by_book.get(pname, [])
+            if not recs:
+                continue
+            p_blocks: list[ContentBlock] = []
+            for r in recs:
+                sub_t = clean_prose_text(r.get("chapter_title", ""))
+                if sub_t and sub_t.lower() != pname.lower():
+                    p_blocks.append(ContentBlock(block_type=BlockType.SUBHEADING, text=sub_t, level=3))
+                for p_str in r.get("paragraphs", []):
+                    pc = clean_prose_text(p_str)
+                    if pc and pc.lower() != sub_t.lower():
+                        p_blocks.append(ContentBlock(block_type=BlockType.PARAGRAPH, text=pc))
+            pat_chapters.append(
+                Chapter(
+                    id=f"twelve-patriarchs-{p_idx:02d}",
+                    title=clean_prose_text(pname),
+                    blocks=p_blocks,
+                )
             )
+        b_patriarchs = Book(
+            id="testaments-of-the-twelve-patriarchs",
+            title="[III. Twelve Patriarchs] The Testaments of the Twelve Patriarchs (Reuben through Benjamin)",
+            full_title="The Testaments of the Twelve Patriarchs, the Sons of Jacob",
+            author="R. H. Charles (tr., 1908)",
+            chapters=pat_chapters,
         )
-    b_patriarchs = Book(
-        id="testaments-of-the-twelve-patriarchs",
-        title="[III. Twelve Patriarchs] The Testaments of the Twelve Patriarchs (Reuben through Benjamin)",
-        full_title="The Testaments of the Twelve Patriarchs, the Sons of Jacob",
-        author="R. H. Charles (tr., 1908)",
-        chapters=pat_chapters,
-    )
-    _attach_dossier_to_book(b_patriarchs, "testaments-of-the-twelve-patriarchs")
-    _consolidate_book_into_single_chapter_if_needed(b_patriarchs, max_chapters=3)
-    books.append(b_patriarchs)
+        _attach_dossier_to_book(b_patriarchs, "testaments-of-the-twelve-patriarchs")
+        _consolidate_book_into_single_chapter_if_needed(b_patriarchs, max_chapters=3)
+        books.append(b_patriarchs)
 
     # ==========================================================================
     # DIVISION IV: SECOND TEMPLE WISDOM, ODES, APOCALYPSES & ORACLES
     # ==========================================================================
-    for raw_n, disp_t, d_key in [
-        ("The Psalms of Solomon", "[IV. Wisdom & Oracles] The Psalms of Solomon (19 Psalms)", "the-psalms-of-solomon"),
-        ("The Odes of Solomon", "[IV. Wisdom & Oracles] The Odes of Solomon (42 Early Christian Odes)", "the-odes-of-solomon"),
-        ("The Letter of Aristeas", "[IV. Wisdom & Oracles] The Letter of Aristeas (Origin of the Septuagint)", "the-letter-of-aristeas"),
-        ("Fourth Book of Maccabees", "[IV. Wisdom & Oracles] The Fourth Book of Maccabees", "fourth-book-of-maccabees"),
-        ("The Story of Ahikar", "[IV. Wisdom & Oracles] The Story and Wisdom of Ahikar", "the-story-of-ahikar"),
-    ]:
-        books.append(_build_fbe_book(raw_n, disp_t, d_key, max_ch=2))
+    if "IV" in active_divs:
+        for raw_n, disp_t, d_key in [
+            ("The Psalms of Solomon", "[IV. Wisdom & Oracles] The Psalms of Solomon (19 Psalms)", "the-psalms-of-solomon"),
+            ("The Odes of Solomon", "[IV. Wisdom & Oracles] The Odes of Solomon (42 Early Christian Odes)", "the-odes-of-solomon"),
+            ("The Letter of Aristeas", "[IV. Wisdom & Oracles] The Letter of Aristeas (Origin of the Septuagint)", "the-letter-of-aristeas"),
+            ("Fourth Book of Maccabees", "[IV. Wisdom & Oracles] The Fourth Book of Maccabees", "fourth-book-of-maccabees"),
+            ("The Story of Ahikar", "[IV. Wisdom & Oracles] The Story and Wisdom of Ahikar", "the-story-of-ahikar"),
+        ]:
+            books.append(_build_fbe_book(raw_n, disp_t, d_key, max_ch=2))
 
-    b_sib = ingest_ista_jsonl_book(
-        apocrypha_dir / "sibylline_oracles.jsonl",
-        "sibylline-oracles",
-        "[IV. Wisdom & Oracles] The Sibylline Oracles (Books I–XIV)",
-        "The Sibylline Oracles: Translated from the Greek into English Blank Verse",
-        "Milton S. Terry (tr., 1899)",
-    )
-    _attach_dossier_to_book(b_sib, "sibylline-oracles")
-    _consolidate_book_into_single_chapter_if_needed(b_sib, max_chapters=3)
-    books.append(b_sib)
+        b_sib = ingest_ista_jsonl_book(
+            apocrypha_dir / "sibylline_oracles.jsonl",
+            "sibylline-oracles",
+            "[IV. Wisdom & Oracles] The Sibylline Oracles (Books I–XIV)",
+            "The Sibylline Oracles: Translated from the Greek into English Blank Verse",
+            "Milton S. Terry (tr., 1899)",
+        )
+        _attach_dossier_to_book(b_sib, "sibylline-oracles")
+        _consolidate_book_into_single_chapter_if_needed(b_sib, max_chapters=3)
+        books.append(b_sib)
 
-    for b_opt in [
-        _build_anf_work(
-            ["Apocalypse of Esdras (unknown date)"],
-            "apocalypse-of-esdras",
-            "[IV. Wisdom & Oracles] The Greek Apocalypse of Esdras",
-            "apocalypse-of-esdras",
-        ),
-        _build_anf_work(
-            ["Apocalypse of Sedrach (unknown date; very late)"],
-            "apocalypse-of-sedrach",
-            "[IV. Wisdom & Oracles] The Apocalypse of Sedrach",
-            "apocalypse-of-sedrach",
-        ),
-    ]:
-        if b_opt:
-            books.append(b_opt)
-    books.extend(_build_pcom_books_for_div("IV"))
+        for b_opt in [
+            _build_anf_work(
+                ["Apocalypse of Esdras (unknown date)"],
+                "apocalypse-of-esdras",
+                "[IV. Wisdom & Oracles] The Greek Apocalypse of Esdras",
+                "apocalypse-of-esdras",
+            ),
+            _build_anf_work(
+                ["Apocalypse of Sedrach (unknown date; very late)"],
+                "apocalypse-of-sedrach",
+                "[IV. Wisdom & Oracles] The Apocalypse of Sedrach",
+                "apocalypse-of-sedrach",
+            ),
+        ]:
+            if b_opt:
+                books.append(b_opt)
+        books.extend(_build_pcom_books_for_div("IV"))
 
-    # ==========================================================================
-    # DIVISION V: NEW TESTAMENT APOCRYPHAL GOSPELS & INFANCY NARRATIVES
-    # (Note: Post-1929 copyrighted Nag Hammadi translations of Gospel of Thomas
-    #  and Gospel of Mary are excluded so this volume remains 100% Public Domain.)
-    # ==========================================================================
-
-    # Load `lost_books_of_the_bible.jsonl` records keyed by `book`
+    # Load `lost_books_of_the_bible.jsonl` records keyed by `book` (used in Divisions V, VI, VII)
     lbob_by_book: dict[str, list[dict]] = defaultdict(list)
-    with open(apocrypha_dir / "lost_books_of_the_bible.jsonl", "r", encoding="utf-8") as f:
-        for line in f:
-            if line.strip():
-                r = json.loads(line)
-                lbob_by_book[r.get("book", "Unknown")].append(r)
+    if active_divs & {"V", "VI", "VII"}:
+        with open(apocrypha_dir / "lost_books_of_the_bible.jsonl", "r", encoding="utf-8") as f:
+            for line in f:
+                if line.strip():
+                    r = json.loads(line)
+                    lbob_by_book[r.get("book", "Unknown")].append(r)
 
     def _build_lbob_book(
         raw_names: list[str],
@@ -1201,211 +1200,241 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
         _attach_dossier_to_book(bk_obj, dossier_key)
         return _consolidate_book_into_single_chapter_if_needed(bk_obj, max_chapters=2)
 
-    for b_opt in [
-        _build_lbob_book(
-            ["The Lost Gospel According to Peter"],
-            "the-lost-gospel-according-to-peter",
-            "[V. Apocryphal Gospels] The Lost Gospel According to Peter (Akhmim Fragment)",
-            "the-lost-gospel-according-to-peter",
-        ),
-        _build_lbob_book(
-            ["The Protevangelion"],
-            "the-protevangelion",
-            "[V. Apocryphal Gospels] The Protevangelion of James",
-            "the-protevangelion",
-        ),
-        _build_anf_work(
-            ["Gospel of Pseudo-Matthew (c. 400)"],
-            "gospel-of-pseudo-matthew",
-            "[V. Apocryphal Gospels] The Gospel of Pseudo-Matthew",
-            "gospel-of-pseudo-matthew",
-        ),
-        _build_lbob_book(
-            ["The Gospel of the Birth of Mary"],
-            "the-gospel-of-the-birth-of-mary",
-            "[V. Apocryphal Gospels] The Gospel of the Birth of Mary",
-            "the-gospel-of- the-birth-of-mary",
-        ),
-        _build_anf_work(
-            ["History of Joseph the Carpenter (c. 400)"],
-            "history-of-joseph-the-carpenter",
-            "[V. Apocryphal Gospels] The History of Joseph the Carpenter",
-            "history-of-joseph-the-carpenter",
-        ),
-        _build_lbob_book(
-            ["The First Gospel of the Infancy of Jesus Christ"],
-            "the-first-gospel-of-the-infancy-of-jesus-christ",
-            "[V. Apocryphal Gospels] The First Gospel of the Infancy of Jesus Christ (Arabic Infancy Gospel)",
-            "the-first-gospel-of-the-infancy-of-jesus-christ",
-        ),
-        _build_lbob_book(
-            ["Thomas's Gospel of the Infancy of Jesus Christ"],
-            "thomass-gospel-of-the-infancy-of-jesus-christ",
-            "[V. Apocryphal Gospels] Thomas’s Gospel of the Infancy of Jesus Christ",
-            "thomass-gospel-of-the-infancy-of-jesus-christ",
-        ),
-        _build_lbob_book(
-            ["The Gospel of Nicodemus, Formerly Called the Acts of Pontius Pilate"],
-            "the-gospel-of-nicodemus-formerly-called-the-acts-of-pontius-pilate",
-            "[V. Apocryphal Gospels] The Gospel of Nicodemus (Acts of Pontius Pilate & Descent into Hades)",
-            "the-gospel-of-nicodemus-formerly-called-the-acts-of-pontius-pilate",
-        ),
-        _build_anf_work(
-            [
-                "Report of Pontius Pilate (unknown date; late)",
-                "Giving Up of Pontius Pilate (unknown date; late)",
-                "Letter of Pontius Pilate (unknown date; late)",
-                "Death of Pilate (unknown date; late)",
-                "Narrative of Joseph of Arimathea (unknown date; late)",
-                "Avenging of the Saviour (c. 700)",
-            ],
-            "pilate-passion-cycle",
-            "[V. Apocryphal Gospels] The Pontius Pilate & Joseph of Arimathea Cycle",
-            "pilate-passion-cycle",
-        ),
-        _build_anf_work(
-            ["Assumption of Mary (c. 400)"],
-            "assumption-of-mary",
-            "[V. Apocryphal Gospels] The Assumption (Dormition) of Mary",
-            "assumption-of-mary",
-        ),
-    ]:
-        if b_opt:
-            books.append(b_opt)
-    books.extend(_build_pcom_books_for_div("V"))
+    # ==========================================================================
+    # DIVISION V: NEW TESTAMENT APOCRYPHAL GOSPELS & INFANCY NARRATIVES
+    # (Note: Post-1929 copyrighted Nag Hammadi translations of Gospel of Thomas
+    #  and Gospel of Mary are excluded so this volume remains 100% Public Domain.)
+    # ==========================================================================
+    if "V" in active_divs:
+        for b_opt in [
+            _build_lbob_book(
+                ["The Lost Gospel According to Peter"],
+                "the-lost-gospel-according-to-peter",
+                "[V. Apocryphal Gospels] The Lost Gospel According to Peter (Akhmim Fragment)",
+                "the-lost-gospel-according-to-peter",
+            ),
+            _build_lbob_book(
+                ["The Protevangelion"],
+                "the-protevangelion",
+                "[V. Apocryphal Gospels] The Protevangelion of James",
+                "the-protevangelion",
+            ),
+            _build_anf_work(
+                ["Gospel of Pseudo-Matthew (c. 400)"],
+                "gospel-of-pseudo-matthew",
+                "[V. Apocryphal Gospels] The Gospel of Pseudo-Matthew",
+                "gospel-of-pseudo-matthew",
+            ),
+            _build_lbob_book(
+                ["The Gospel of the Birth of Mary"],
+                "the-gospel-of-the-birth-of-mary",
+                "[V. Apocryphal Gospels] The Gospel of the Birth of Mary",
+                "the-gospel-of- the-birth-of-mary",
+            ),
+            _build_anf_work(
+                ["History of Joseph the Carpenter (c. 400)"],
+                "history-of-joseph-the-carpenter",
+                "[V. Apocryphal Gospels] The History of Joseph the Carpenter",
+                "history-of-joseph-the-carpenter",
+            ),
+            _build_lbob_book(
+                ["The First Gospel of the Infancy of Jesus Christ"],
+                "the-first-gospel-of-the-infancy-of-jesus-christ",
+                "[V. Apocryphal Gospels] The First Gospel of the Infancy of Jesus Christ (Arabic Infancy Gospel)",
+                "the-first-gospel-of-the-infancy-of-jesus-christ",
+            ),
+            _build_lbob_book(
+                ["Thomas's Gospel of the Infancy of Jesus Christ"],
+                "thomass-gospel-of-the-infancy-of-jesus-christ",
+                "[V. Apocryphal Gospels] Thomas’s Gospel of the Infancy of Jesus Christ",
+                "thomass-gospel-of-the-infancy-of-jesus-christ",
+            ),
+            _build_lbob_book(
+                ["The Gospel of Nicodemus, Formerly Called the Acts of Pontius Pilate"],
+                "the-gospel-of-nicodemus-formerly-called-the-acts-of-pontius-pilate",
+                "[V. Apocryphal Gospels] The Gospel of Nicodemus (Acts of Pontius Pilate & Descent into Hades)",
+                "the-gospel-of-nicodemus-formerly-called-the-acts-of-pontius-pilate",
+            ),
+            _build_anf_work(
+                [
+                    "Report of Pontius Pilate (unknown date; late)",
+                    "Giving Up of Pontius Pilate (unknown date; late)",
+                    "Letter of Pontius Pilate (unknown date; late)",
+                    "Death of Pilate (unknown date; late)",
+                    "Narrative of Joseph of Arimathea (unknown date; late)",
+                    "Avenging of the Saviour (c. 700)",
+                ],
+                "pilate-passion-cycle",
+                "[V. Apocryphal Gospels] The Pontius Pilate & Joseph of Arimathea Cycle",
+                "pilate-passion-cycle",
+            ),
+            _build_anf_work(
+                ["Assumption of Mary (c. 400)"],
+                "assumption-of-mary",
+                "[V. Apocryphal Gospels] The Assumption (Dormition) of Mary",
+                "assumption-of-mary",
+            ),
+        ]:
+            if b_opt:
+                books.append(b_opt)
+        books.extend(_build_pcom_books_for_div("V"))
 
     # ==========================================================================
     # DIVISION VI: APOCRYPHAL ACTS, EPISTLES & CHRISTIAN APOCALYPSES
     # ==========================================================================
-    for b_opt in [
-        _build_lbob_book(
-            ["The Epistles of Jesus Christ and Abgarus King of Edessa"],
-            "the-epistles-of-jesus-christ-and-abgarus-king-of-edessa",
-            "[VI. Acts & Apocalypses] The Epistles of Jesus Christ and Abgarus King of Edessa",
-            "the-epistles-of-jesus-christ-and-abgarus-king-of-edessa",
-        ),
-        _build_anf_work(
-            ["The Doctrine of Addai (c. 400)"],
-            "the-doctrine-of-addai",
-            "[VI. Acts & Apocalypses] The Doctrine of Addai the Apostle",
-            "the-epistles-of-jesus-christ-and-abgarus-king-of-edessa",
-        ),
-        _build_lbob_book(
-            ["The Acts of Paul and Thecla"],
-            "the-acts-of-paul-and-thecla",
-            "[VI. Acts & Apocalypses] The Acts of Paul and Thecla",
-            "the-acts-of-paul-and-thecla",
-        ),
-        _build_anf_work(
-            [
-                "Acts of Peter and Paul (c. 200)",
-                "Acts of John",
-                "Acts of Andrew (c. 260)",
-                "Acts of Thomas (c. 240)",
-                "Acts of Philip (c. 350)",
-                "Acts and Martyrdom of St. Matthew the Apostle (c. 550)",
-                "Acts of Bartholomew (c. 500)",
-                "Acts of Barnabas (c. 500)",
-                "Acts of Thaddaeus (c. 250)",
-                "Acts of Xanthippe and Polyxena (c. 270)",
-            ],
-            "apocryphal-acts-of-the-apostles",
-            "[VI. Acts & Apocalypses] The Apocryphal Acts of the Apostles (Peter, John, Andrew, Thomas, Philip, Matthew, Bartholomew, Barnabas & Thaddaeus)",
-            "apocryphal-acts-of-the-apostles",
-        ),
-        _build_lbob_book(
-            [
-                "The Epistle of Paul the Apostle to the Laodiceans",
-                "The Epistles of Paul the Apostle to Seneca, with Seneca's to Paul",
-                "Letters of Herod and Pilate",
-            ],
-            "pauline-apocrypha",
-            "[VI. Acts & Apocalypses] The Apocryphal Epistles (Paul to the Laodiceans, Paul & Seneca, Herod & Pilate)",
-            "pauline-apocrypha",
-        ),
-        _build_anf_work(
-            [
-                "The Apocalypse of Peter",
-                "Apocalypse of Paul (c. 380)",
-                "Apocalypse of John (unknown date; late)",
-                "Apocalypse of the Virgin (unknown date; very late)",
-            ],
-            "christian-apocalypses",
-            "[VI. Acts & Apocalypses] The Early Christian Apocalypses (Peter, Paul, John & the Virgin)",
-            "christian-apocalypses",
-        ),
-    ]:
-        if b_opt:
-            books.append(b_opt)
-    books.extend(_build_pcom_books_for_div("VI"))
+    if "VI" in active_divs:
+        for b_opt in [
+            _build_lbob_book(
+                ["The Epistles of Jesus Christ and Abgarus King of Edessa"],
+                "the-epistles-of-jesus-christ-and-abgarus-king-of-edessa",
+                "[VI. Acts & Apocalypses] The Epistles of Jesus Christ and Abgarus King of Edessa",
+                "the-epistles-of-jesus-christ-and-abgarus-king-of-edessa",
+            ),
+            _build_anf_work(
+                ["The Doctrine of Addai (c. 400)"],
+                "the-doctrine-of-addai",
+                "[VI. Acts & Apocalypses] The Doctrine of Addai the Apostle",
+                "the-epistles-of-jesus-christ-and-abgarus-king-of-edessa",
+            ),
+            _build_lbob_book(
+                ["The Acts of Paul and Thecla"],
+                "the-acts-of-paul-and-thecla",
+                "[VI. Acts & Apocalypses] The Acts of Paul and Thecla",
+                "the-acts-of-paul-and-thecla",
+            ),
+            _build_anf_work(
+                [
+                    "Acts of Peter and Paul (c. 200)",
+                    "Acts of John",
+                    "Acts of Andrew (c. 260)",
+                    "Acts of Thomas (c. 240)",
+                    "Acts of Philip (c. 350)",
+                    "Acts and Martyrdom of St. Matthew the Apostle (c. 550)",
+                    "Acts of Bartholomew (c. 500)",
+                    "Acts of Barnabas (c. 500)",
+                    "Acts of Thaddaeus (c. 250)",
+                    "Acts of Xanthippe and Polyxena (c. 270)",
+                ],
+                "apocryphal-acts-of-the-apostles",
+                "[VI. Acts & Apocalypses] The Apocryphal Acts of the Apostles (Peter, John, Andrew, Thomas, Philip, Matthew, Bartholomew, Barnabas & Thaddaeus)",
+                "apocryphal-acts-of-the-apostles",
+            ),
+            _build_lbob_book(
+                [
+                    "The Epistle of Paul the Apostle to the Laodiceans",
+                    "The Epistles of Paul the Apostle to Seneca, with Seneca's to Paul",
+                    "Letters of Herod and Pilate",
+                ],
+                "pauline-apocrypha",
+                "[VI. Acts & Apocalypses] The Apocryphal Epistles (Paul to the Laodiceans, Paul & Seneca, Herod & Pilate)",
+                "pauline-apocrypha",
+            ),
+            _build_anf_work(
+                [
+                    "The Apocalypse of Peter",
+                    "Apocalypse of Paul (c. 380)",
+                    "Apocalypse of John (unknown date; late)",
+                    "Apocalypse of the Virgin (unknown date; very late)",
+                ],
+                "christian-apocalypses",
+                "[VI. Acts & Apocalypses] The Early Christian Apocalypses (Peter, Paul, John & the Virgin)",
+                "christian-apocalypses",
+            ),
+        ]:
+            if b_opt:
+                books.append(b_opt)
+        books.extend(_build_pcom_books_for_div("VI"))
 
     # ==========================================================================
     # DIVISION VII: THE APOSTOLIC FATHERS & EARLY CHURCH ORDERS
     # ==========================================================================
-    b_didache = ingest_ista_jsonl_book(
-        apocrypha_dir / "the_didache.jsonl",
-        "the-didache",
-        "[VII. Apostolic Fathers] The Didache (The Teaching of the Twelve Apostles)",
-        "The Didache, or Teaching of the Twelve Apostles",
-        "Charles H. Hoole (tr., 1894)",
-    )
-    _attach_dossier_to_book(b_didache, "the-didache")
-    books.append(b_didache)
+    if "VII" in active_divs:
+        b_didache = ingest_ista_jsonl_book(
+            apocrypha_dir / "the_didache.jsonl",
+            "the-didache",
+            "[VII. Apostolic Fathers] The Didache (The Teaching of the Twelve Apostles)",
+            "The Didache, or Teaching of the Twelve Apostles",
+            "Charles H. Hoole (tr., 1894)",
+        )
+        _attach_dossier_to_book(b_didache, "the-didache")
+        books.append(b_didache)
 
-    for b_opt in [
-        _build_lbob_book(
-            ["The First Epistle of Clement to the Corinthians"],
-            "1-clement",
-            "[VII. Apostolic Fathers] The First Epistle of Clement to the Corinthians (c. AD 96)",
-            "1-clement",
-        ),
-        _build_lbob_book(
-            ["The Second Epistle of Clement to the Corinthians"],
-            "2-clement",
-            "[VII. Apostolic Fathers] The Second Epistle of Clement to the Corinthians",
-            "2-clement",
-        ),
-        _build_lbob_book(
-            ["The General Epistle of Barnabas"],
-            "epistle-of-barnabas",
-            "[VII. Apostolic Fathers] The General Epistle of Barnabas",
-            "epistle-of-barnabas",
-        ),
-        _build_lbob_book(
-            [
-                "The Epistle of Ignatius to the Ephesians",
-                "The Epistle of Ignatius to the Magnesians",
-                "The Epistle of Ignatius to the Trallians",
-                "The Epistle of Ignatius to the Romans",
-                "The Epistle of Ignatius to the Philadelphians",
-                "The Epistle of Ignatius to the Smyrn\ufffdans",
-                "The Epistle of Ignatius to the Smyrnaeans",
-                "The Epistle of Ignatius to Polycarp",
-            ],
-            "epistles-of-ignatius",
-            "[VII. Apostolic Fathers] The Seven Epistles of Ignatius of Antioch",
-            "epistles-of-ignatius",
-        ),
-        _build_lbob_book(
-            ["The Epistle of Polycarp to the Philippians"],
-            "epistle-of-polycarp",
-            "[VII. Apostolic Fathers] The Epistle of Polycarp to the Philippians",
-            "epistle-of-polycarp",
-        ),
-        _build_lbob_book(
-            [
-                "The Shepherd of Hermas",
-                "The Second Book of Hermas, Called His Commands",
-                "The Third Book of Hermas, Which Is Called His Similitudes",
-            ],
-            "shepherd-of-hermas",
-            "[VII. Apostolic Fathers] The Shepherd of Hermas (Book I: Visions, Book II: Commands, Book III: Similitudes)",
-            "shepherd-of-hermas",
-        ),
-    ]:
-        if b_opt:
-            books.append(b_opt)
-    books.extend(_build_pcom_books_for_div("VII"))
+        for b_opt in [
+            _build_lbob_book(
+                ["The First Epistle of Clement to the Corinthians"],
+                "1-clement",
+                "[VII. Apostolic Fathers] The First Epistle of Clement to the Corinthians (c. AD 96)",
+                "1-clement",
+            ),
+            _build_lbob_book(
+                ["The Second Epistle of Clement to the Corinthians"],
+                "2-clement",
+                "[VII. Apostolic Fathers] The Second Epistle of Clement to the Corinthians",
+                "2-clement",
+            ),
+            _build_lbob_book(
+                ["The General Epistle of Barnabas"],
+                "epistle-of-barnabas",
+                "[VII. Apostolic Fathers] The General Epistle of Barnabas",
+                "epistle-of-barnabas",
+            ),
+            _build_lbob_book(
+                [
+                    "The Epistle of Ignatius to the Ephesians",
+                    "The Epistle of Ignatius to the Magnesians",
+                    "The Epistle of Ignatius to the Trallians",
+                    "The Epistle of Ignatius to the Romans",
+                    "The Epistle of Ignatius to the Philadelphians",
+                    "The Epistle of Ignatius to the Smyrn\ufffdans",
+                    "The Epistle of Ignatius to the Smyrnaeans",
+                    "The Epistle of Ignatius to Polycarp",
+                ],
+                "epistles-of-ignatius",
+                "[VII. Apostolic Fathers] The Seven Epistles of Ignatius of Antioch",
+                "epistles-of-ignatius",
+            ),
+            _build_lbob_book(
+                ["The Epistle of Polycarp to the Philippians"],
+                "epistle-of-polycarp",
+                "[VII. Apostolic Fathers] The Epistle of Polycarp to the Philippians",
+                "epistle-of-polycarp",
+            ),
+            _build_lbob_book(
+                [
+                    "The Shepherd of Hermas",
+                    "The Second Book of Hermas, Called His Commands",
+                    "The Third Book of Hermas, Which Is Called His Similitudes",
+                ],
+                "shepherd-of-hermas",
+                "[VII. Apostolic Fathers] The Shepherd of Hermas (Book I: Visions, Book II: Commands, Book III: Similitudes)",
+                "shepherd-of-hermas",
+            ),
+        ]:
+            if b_opt:
+                books.append(b_opt)
+        books.extend(_build_pcom_books_for_div("VII"))
+
+    return books
+
+
+def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
+    extra_canon_dir: Path = Path("data/raw/kjv-apocrypha"),
+    apocrypha_dir: Path = Path("data/raw/apocrypha-ista"),
+    gutenberg_dir: Path = Path("data/raw/apocrypha-gutenberg"),
+    pseudepigrapha_com_path: Path = Path("data/raw/apocrypha-pseudepigrapha-com/pseudepigrapha_com.jsonl"),
+) -> Work:
+    """Build the Complete Apocrypha & Pseudepigrapha Mega-Compendium uniting all non-canonical
+    biblical, Second Temple, Enochic, Ethiopian Orthodox, Dead Sea Scrolls, Nag Hammadi,
+    New Testament Apocrypha, and Apostolic Fathers texts across `extra-canon/`, `apocrypha/`,
+    `gutenberg-apocrypha/`, and `pseudepigrapha-com/` with zero duplication and a scholarly
+    Source, Provenance & Veracity dossier for every work.
+    """
+    books = _collect_compendium_books(
+        extra_canon_dir=extra_canon_dir,
+        apocrypha_dir=apocrypha_dir,
+        gutenberg_dir=gutenberg_dir,
+        pseudepigrapha_com_path=pseudepigrapha_com_path,
+    )
 
     intro = Chapter(
         id="apocrypha-compendium-guide",
@@ -1480,6 +1509,106 @@ def ingest_complete_apocrypha_and_pseudepigrapha_compendium(
             "Apocryphal books",
             "Pseudepigrapha",
             "Apostolic Fathers",
+            "Dead Sea Scrolls -- Parallels",
+        ],
+        front_matter=[intro],
+        books=books,
+        css_theme="classic.css",
+    )
+
+
+def ingest_pseudepigrapha(
+    extra_canon_dir: Path = Path("data/raw/kjv-apocrypha"),
+    apocrypha_dir: Path = Path("data/raw/apocrypha-ista"),
+    gutenberg_dir: Path = Path("data/raw/apocrypha-gutenberg"),
+    pseudepigrapha_com_path: Path = Path("data/raw/apocrypha-pseudepigrapha-com/pseudepigrapha_com.jsonl"),
+) -> Work:
+    """Build the standalone Old Testament Pseudepigrapha edition uniting Enochic & Patriarchal
+    literature (1 Enoch Charles & Laurence, 2 Enoch, Jubilees, Jasher), Major OT Pseudepigrapha,
+    the Testaments of the Twelve Patriarchs, and Second Temple Wisdom, Odes, Apocalypses & Qumran
+    parallels—with deduplicated public-domain translations and Provenance & Veracity dossiers.
+    """
+    books = _collect_compendium_books(
+        extra_canon_dir=extra_canon_dir,
+        apocrypha_dir=apocrypha_dir,
+        gutenberg_dir=gutenberg_dir,
+        pseudepigrapha_com_path=pseudepigrapha_com_path,
+        divisions={"II", "III", "IV"},
+    )
+    # Renumber division prefixes for standalone Pseudepigrapha (II->I, III->II, IV->III)
+    for bk in books:
+        if bk.title.startswith("[II. "):
+            bk.title = "[I. " + bk.title[5:]
+        elif bk.title.startswith("[III. "):
+            bk.title = "[II. " + bk.title[6:]
+        elif bk.title.startswith("[IV. "):
+            bk.title = "[III. " + bk.title[5:]
+
+    intro = Chapter(
+        id="pseudepigrapha-editorial-guide",
+        title="Editorial Guide to Provenance, Public-Domain Licensing & Historical Veracity",
+        is_front_matter=True,
+        blocks=[
+            ContentBlock(
+                block_type=BlockType.PARAGRAPH,
+                text=(
+                    f"This standalone Pseudepigrapha edition unites {len(books)} deduplicated extra-canonical "
+                    "Old Testament and Second Temple works across three divisions: "
+                    "(I) Major Old Testament Pseudepigrapha & Rewritten Bible (including both landmark translations "
+                    "of 1 Enoch—R. H. Charles and Richard Laurence—2 Enoch, the Book of Jubilees, the Book of Jasher, "
+                    "Pseudo-Philo's Biblical Antiquities, the Adam and Eve cycle, Apocalypse of Moses, Testament of Abraham, "
+                    "Narrative of Zosimus, Book of Noah, Assumption of Moses, Martyrdom of Isaiah, and 2–4 Baruch); "
+                    "(II) The Testaments of the Twelve Patriarchs; and "
+                    "(III) Second Temple Wisdom, Odes, Apocalypses & Qumran Parallels (the Psalms and Odes of Solomon, "
+                    "Letter of Aristeas, 4 Maccabees, Story of Ahikar, Sibylline Oracles, Greek Apocalypse of Esdras, "
+                    "Apocalypse of Sedrach, and the Cairo Damascus Zadokite Document)."
+                ),
+            ),
+            ContentBlock(
+                block_type=BlockType.PARAGRAPH,
+                text=(
+                    "Scholarly Provenance & Historical Veracity Dossiers: Because Second Temple and late-antique "
+                    "pseudepigraphal texts span authentic pre-Christian Jewish works, Dead Sea Scrolls witnesses, "
+                    "Christianized redactions, and medieval Midrash, every book opens with a dedicated 'Source, "
+                    "Provenance & Historical Veracity Dossier' detailing its date of composition, original language, "
+                    "manuscript tradition, translator, and critical historical evaluation."
+                ),
+            ),
+            ContentBlock(
+                block_type=BlockType.PARAGRAPH,
+                text=(
+                    "Public-Domain & Non-Commercial Attribution Notice: Every translation in this volume is drawn "
+                    "from verified pre-1929 public-domain editions—principally R. H. Charles's Oxford editions "
+                    "(1896–1917), M. R. James's Biblical Antiquities of Philo (1917), Archbishop Richard Laurence "
+                    "(1821/1883), Mordecai M. Noah (1840), the Ante-Nicene Fathers Vol. VIII (1886), Milton S. Terry "
+                    "(1899), and Rutherford H. Platt Jr. (1926)—together with Prof. Robert A. Kraft's 1987 CATSS "
+                    "Public Domain / Free Non-Commercial edition of 4 Baruch (Paraleipomena Jeremiou, University of "
+                    "Pennsylvania)."
+                ),
+            ),
+        ],
+    )
+
+    return Work(
+        id="pseudepigrapha",
+        title="The Complete Pseudepigrapha",
+        subtitle="Enochic Literature, Jubilees, Jasher, Patriarchal Testaments & Second Temple Texts — With Historical Veracity Dossiers",
+        authors=[
+            "R. H. Charles (tr.)",
+            "M. R. James (tr.)",
+            "Richard Laurence (tr.)",
+            "Mordecai Manuel Noah (tr.)",
+        ],
+        edition_label="Proteus Critical Provenance & Veracity Standalone Edition",
+        description=(
+            "Complete standalone public-domain library of Old Testament Pseudepigrapha, Enochic & Patriarchal "
+            "literature (1 & 2 Enoch, Jubilees, Jasher, Testaments of the Twelve Patriarchs), Second Temple wisdom "
+            "and apocalypses, and Dead Sea Scrolls parallels—each with a scholarly Provenance & Veracity dossier."
+        ),
+        subjects=[
+            "Pseudepigrapha",
+            "Old Testament Pseudepigrapha",
+            "Apocryphal books (Old Testament)",
             "Dead Sea Scrolls -- Parallels",
         ],
         front_matter=[intro],

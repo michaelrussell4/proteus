@@ -9,7 +9,7 @@ from pathlib import Path
 
 from proteus.core.models import BlockType, Book, Chapter, ContentBlock, Verse, Work
 from proteus.core.references import make_canonical_ref, normalize_book_name, slugify
-from proteus.core.typography import clean_prose_text, lowercase_continuation_start
+from proteus.core.typography import capitalize_verse_start, clean_prose_text
 
 
 STANDARD_WORKS_FILES: dict[str, tuple[str, str]] = {
@@ -127,13 +127,9 @@ def ingest_standard_work(
                 ch_num = c_data["chapter"]
                 ch_head = clean_prose_text(c_data.get("heading", "")) or None
                 verses: list[Verse] = []
-                prev_ended_with_em_dash = False
                 for v_data in c_data.get("verses", []):
                     v_num = v_data["verse"]
-                    v_text = clean_prose_text(v_data["text"])
-                    if prev_ended_with_em_dash:
-                        v_text = lowercase_continuation_start(v_text)
-                    prev_ended_with_em_dash = v_text.rstrip(" ”’\"')").endswith("—")
+                    v_text = capitalize_verse_start(clean_prose_text(v_data["text"]))
                     verses.append(
                         Verse(
                             verse=v_num,
@@ -168,12 +164,8 @@ def ingest_standard_work(
         for s_data in data["sections"]:
             sec_num = s_data["section"]
             verses: list[Verse] = []
-            prev_ended_with_em_dash = False
             for v_data in s_data.get("verses", []):
-                v_txt = clean_prose_text(v_data["text"])
-                if prev_ended_with_em_dash:
-                    v_txt = lowercase_continuation_start(v_txt)
-                prev_ended_with_em_dash = v_txt.rstrip(" ”’\"')").endswith("—")
+                v_txt = capitalize_verse_start(clean_prose_text(v_data["text"]))
                 verses.append(
                     Verse(
                         verse=v_data["verse"],
@@ -244,14 +236,10 @@ def ingest_bom_historical_edition(
             ch_data = json.loads(ch_file.read_text(encoding="utf-8"))
             ch_num = ch_data["chapter"]
             verses: list[Verse] = []
-            prev_ended_with_em_dash = False
             for v_data in ch_data.get("verses", []):
                 v_num = v_data["verse"]
                 # Preserve exact historical spelling/punctuation while applying clean curly quotes
-                v_text = clean_prose_text(v_data["text"], smart_typography=True)
-                if prev_ended_with_em_dash:
-                    v_text = lowercase_continuation_start(v_text)
-                prev_ended_with_em_dash = v_text.rstrip(" ”’\"')").endswith("—")
+                v_text = capitalize_verse_start(clean_prose_text(v_data["text"], smart_typography=True))
                 verses.append(
                     Verse(
                         verse=v_num,

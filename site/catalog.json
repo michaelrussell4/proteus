@@ -53,7 +53,7 @@
     "badge": "Standard Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon.epub",
     "cover": "covers/book-of-mormon.png",
-    "size_bytes": 1113616,
+    "size_bytes": 1113236,
     "size_human": "1.06 MB",
     "creator": "Translated by Joseph Smith, Jun.",
     "short_desc": "The complete 2013 Standard Works edition with chapter synopses, Title Page, and Testimonies of the Three and Eight Witnesses.",
@@ -75,8 +75,8 @@
     "badge": "1830 Palmyra Text",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-1830.epub",
     "cover": "covers/book-of-mormon-1830.png",
-    "size_bytes": 1116914,
-    "size_human": "1.07 MB",
+    "size_bytes": 1116645,
+    "size_human": "1.06 MB",
     "creator": "Joseph Smith, Jun. (Author and Proprietor)",
     "short_desc": "The historic 1830 E. B. Grandin Palmyra printing with the Title Page, Witnesses, and canonical verse anchors.",
     "full_desc": "The original 1830 Palmyra edition of the Book of Mormon printed by E. B. Grandin, preserving early 19th-century diction and readings alongside canonical chapter/verse reference anchors and the Testimonies of the Three and Eight Witnesses.",
@@ -97,7 +97,7 @@
     "badge": "Standard Edition",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/doctrine-and-covenants.epub",
     "cover": "covers/doctrine-and-covenants.png",
-    "size_bytes": 765242,
+    "size_bytes": 765273,
     "size_human": "747 KB",
     "creator": "Joseph Smith Jr., et al.",
     "short_desc": "The complete 2013 Standard Works edition of the Doctrine and Covenants with full introductory and section headnotes.",
@@ -129,6 +129,138 @@
       "Includes canonical chapter headnotes and introductory material"
     ],
     "contents_summary": "Introductory Note, Moses (8 chapters), Abraham (5 chapters), JS\u2014Matthew, JS\u2014History, Articles of Faith."
+  },
+  {
+    "id": "lds-standard-works-narrative",
+    "slug": "lds-standard-works-narrative",
+    "title": "Standard Works \u2014 Narrative Edition",
+    "subtitle": "All 5 Canonical Volumes in Flowing Paragraph Prose",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "All 5 Volumes \u00b7 Narrative",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/lds-standard-works-narrative.epub",
+    "cover": "covers/lds-standard-works-narrative.png",
+    "size_bytes": 4056418,
+    "size_human": "3.87 MB",
+    "creator": "The Church of Jesus Christ of Latter-day Saints",
+    "short_desc": "All 87 canonical books across the Old Testament, New Testament, Book of Mormon, D&C, and Pearl of Great Price formatted in continuous narrative paragraphs.",
+    "full_desc": "Unites all five Latter-day Saint Standard Works in a Narrative Edition layout. Verses are grouped into natural narrative paragraphs with seamless mid-sentence continuations and subtle inline superscript verse numbers.",
+    "highlights": [
+      "All 87 canonical books in one continuous Narrative Edition volume",
+      "Natural paragraph segmentation at narrative shifts and speaker turns",
+      "Subtle inline superscript verse numbers for effortless reference"
+    ],
+    "contents_summary": "Old Testament, New Testament, Book of Mormon (with Front Matter), Doctrine & Covenants, and Pearl of Great Price."
+  },
+  {
+    "id": "old-testament-narrative",
+    "slug": "old-testament-narrative",
+    "title": "The Old Testament \u2014 Narrative Edition",
+    "subtitle": "King James Version in Flowing Paragraph Prose",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "Narrative Edition",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/old-testament-narrative.epub",
+    "cover": "covers/old-testament-narrative.png",
+    "size_bytes": 2278274,
+    "size_human": "2.17 MB",
+    "creator": "King James Version (2013 LDS Standard Works)",
+    "short_desc": "The 39 Old Testament books formatted in continuous narrative paragraphs with subtle inline verse numbers.",
+    "full_desc": "Presents the King James Old Testament in paragraph-structured prose rather than one-verse-per-line formatting, preserving chapter headnotes and subtle inline superscript verse numbers.",
+    "highlights": [
+      "39 books (929 chapters) in flowing narrative paragraphs",
+      "Preserves chapter headnotes and subtle inline verse numbers",
+      "Clean Kindle typography without verse-per-line breaks"
+    ],
+    "contents_summary": "Genesis through Malachi (39 books, 929 chapters) in narrative paragraphs."
+  },
+  {
+    "id": "new-testament-narrative",
+    "slug": "new-testament-narrative",
+    "title": "The New Testament \u2014 Narrative Edition",
+    "subtitle": "King James Version in Flowing Paragraph Prose",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "Narrative Edition",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/new-testament-narrative.epub",
+    "cover": "covers/new-testament-narrative.png",
+    "size_bytes": 988187,
+    "size_human": "965 KB",
+    "creator": "King James Version (2013 LDS Standard Works)",
+    "short_desc": "The 27 New Testament books formatted in continuous narrative paragraphs with subtle inline verse numbers.",
+    "full_desc": "Presents the King James New Testament in paragraph-structured prose with natural breaks at speaker turns and discourse shifts, preserving subtle inline superscript verse numbers.",
+    "highlights": [
+      "27 books (260 chapters) in flowing narrative paragraphs",
+      "Natural paragraph breaks for dialogue and epistles",
+      "Subtle inline superscript verse numbers"
+    ],
+    "contents_summary": "Matthew through Revelation (27 books, 260 chapters) in narrative paragraphs."
+  },
+  {
+    "id": "book-of-mormon-narrative",
+    "slug": "book-of-mormon-narrative",
+    "title": "The Book of Mormon \u2014 Narrative Edition",
+    "subtitle": "Another Testament of Jesus Christ in Flowing Paragraph Prose",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "Narrative Edition",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/book-of-mormon-narrative.epub",
+    "cover": "covers/book-of-mormon-narrative.png",
+    "size_bytes": 1096434,
+    "size_human": "1.05 MB",
+    "creator": "Translated by Joseph Smith Jr.",
+    "short_desc": "The Book of Mormon formatted in continuous narrative paragraphs with seamless em-dash continuations and subtle inline verse numbers.",
+    "full_desc": "Presents the 2013 Book of Mormon in a Narrative Edition layout. Verses flow into natural narrative paragraphs with seamless mid-sentence continuations and subtle inline superscript verse numbers.",
+    "highlights": [
+      "Complete Title Page, Witness Testimonies, and 15 books (239 chapters)",
+      "Seamless mid-sentence em-dash continuations inside paragraphs",
+      "Subtle inline superscript verse numbers"
+    ],
+    "contents_summary": "Front matter plus 1 Nephi through Moroni in narrative paragraphs."
+  },
+  {
+    "id": "doctrine-and-covenants-narrative",
+    "slug": "doctrine-and-covenants-narrative",
+    "title": "Doctrine & Covenants \u2014 Narrative Edition",
+    "subtitle": "Revelations in Flowing Paragraph Prose",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "Narrative Edition",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/doctrine-and-covenants-narrative.epub",
+    "cover": "covers/doctrine-and-covenants-narrative.png",
+    "size_bytes": 731494,
+    "size_human": "714 KB",
+    "creator": "Joseph Smith Jr. et al.",
+    "short_desc": "All 138 Sections and Official Declarations 1\u20132 formatted in continuous narrative paragraphs with subtle inline verse numbers.",
+    "full_desc": "Presents the Doctrine and Covenants in paragraph-structured prose with seamless mid-sentence continuations and subtle inline superscript verse numbers.",
+    "highlights": [
+      "All 138 Sections and Official Declarations 1 & 2",
+      "Seamless mid-sentence continuations across verse boundaries",
+      "Subtle inline superscript verse numbers"
+    ],
+    "contents_summary": "Sections 1\u2013138 and Official Declarations 1\u20132 in narrative paragraphs."
+  },
+  {
+    "id": "pearl-of-great-price-narrative",
+    "slug": "pearl-of-great-price-narrative",
+    "title": "Pearl of Great Price \u2014 Narrative Edition",
+    "subtitle": "Ancient & Restoration Scripture in Flowing Paragraph Prose",
+    "collection": "standard-works",
+    "collection_label": "Standard Works",
+    "badge": "Narrative Edition",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/pearl-of-great-price-narrative.epub",
+    "cover": "covers/pearl-of-great-price-narrative.png",
+    "size_bytes": 459131,
+    "size_human": "448 KB",
+    "creator": "Joseph Smith Jr.",
+    "short_desc": "Moses, Abraham, Joseph Smith\u2014Matthew, Joseph Smith\u2014History, and the Articles of Faith in continuous narrative paragraphs.",
+    "full_desc": "Presents the Pearl of Great Price in a Narrative Edition layout with natural paragraph breaks and subtle inline superscript verse numbers.",
+    "highlights": [
+      "All 5 books (19 chapters) in flowing narrative paragraphs",
+      "Seamless mid-sentence continuations across verses",
+      "Subtle inline superscript verse numbers"
+    ],
+    "contents_summary": "Moses, Abraham, JS\u2014Matthew, JS\u2014History, and Articles of Faith in narrative paragraphs."
   },
   {
     "id": "lds-standard-works-data-science",
@@ -393,7 +525,7 @@
     "badge": "15 KJV Books",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/kjv-apocrypha.epub",
     "cover": "covers/kjv-apocrypha.png",
-    "size_bytes": 872016,
+    "size_bytes": 872019,
     "size_human": "852 KB",
     "creator": "1611 King James Translators",
     "short_desc": "All 15 Deuterocanonical books placed between the Old and New Testaments in the original 1611 King James Bible (including 1 & 2 Esdras).",
@@ -404,6 +536,28 @@
       "Clean chapter and verse formatting tuned for Kindle"
     ],
     "contents_summary": "D&C 91 Preface, 1 Esdras, 2 Esdras, Tobit, Judith, Rest of Esther, Wisdom, Ecclesiasticus, Baruch, Song of the Three Children, Susanna, Bel and the Dragon, Prayer of Manasses, 1 Maccabees, 2 Maccabees."
+  },
+  {
+    "id": "pseudepigrapha",
+    "slug": "pseudepigrapha",
+    "title": "The Complete Pseudepigrapha",
+    "subtitle": "Enochic Literature, Jubilees, Jasher, Patriarchal Testaments & Second Temple Texts",
+    "collection": "apocrypha",
+    "collection_label": "Apocrypha & Ancient Texts",
+    "badge": "30 Ancient Works",
+    "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/pseudepigrapha.epub",
+    "cover": "covers/pseudepigrapha.png",
+    "size_bytes": 2393742,
+    "size_human": "2.28 MB",
+    "creator": "R. H. Charles, M. R. James, Richard Laurence, Mordecai Manuel Noah (Translators)",
+    "short_desc": "Standalone 30-book Old Testament Pseudepigrapha library\u2014including 1 & 2 Enoch, Jubilees, Jasher, Testaments of the Twelve Patriarchs, and Second Temple texts with Provenance Dossiers.",
+    "full_desc": "A standalone Old Testament Pseudepigrapha edition uniting 30 deduplicated public-domain works: both translations of 1 Enoch (Charles & Laurence), 2 Enoch, the Book of Jubilees, the Book of Jasher, Pseudo-Philo's Biblical Antiquities, the Adam and Eve cycle, Apocalypse of Moses, Testament of Abraham, Narrative of Zosimus, Book of Noah, Assumption of Moses, Martyrdom of Isaiah, 2\u20134 Baruch, the Testaments of the Twelve Patriarchs, Psalms & Odes of Solomon, Letter of Aristeas, 4 Maccabees, Ahikar, Sibylline Oracles, Apocalypses of Esdras & Sedrach, and the Damascus Zadokite Document. Every book opens with a 'Source, Provenance & Historical Veracity' dossier.",
+    "highlights": [
+      "30 complete public-domain Old Testament Pseudepigrapha & Second Temple works",
+      "Includes 1 & 2 Enoch, Jubilees, Jasher, and Testaments of the Twelve Patriarchs",
+      "Dedicated Source, Provenance & Historical Veracity dossier before every book"
+    ],
+    "contents_summary": "Division I: Major OT Pseudepigrapha & Rewritten Bible (20 books); Division II: Testaments of the Twelve Patriarchs; Division III: Second Temple Wisdom, Odes, Apocalypses & Qumran (9 books)."
   },
   {
     "id": "enoch-jubilees-jasher",
@@ -475,22 +629,22 @@
     "id": "early-modern-english-scripture-guide",
     "slug": "early-modern-english-scripture-guide",
     "title": "Early Modern English Guide to the Scriptures",
-    "subtitle": "Comprehensive Grammar, Pronouns, Verb Inflections, Hebraisms & 100-Word Lexicon",
+    "subtitle": "A Concise Reader\u2019s Companion to Pronouns, Verbs, Directionals, False Friends & Crucial Verses",
     "collection": "reading-guides",
     "collection_label": "Reading Guides",
-    "badge": "Comprehensive Guide",
+    "badge": "Reader\u2019s Guide",
     "file": "https://raw.githubusercontent.com/michaelrussell4/proteus/main/site/downloads/early-modern-english-scripture-guide.epub",
     "cover": "covers/early-modern-english-scripture-guide.png",
-    "size_bytes": 528066,
-    "size_human": "516 KB",
-    "creator": "Proteus Philological Series",
-    "short_desc": "In-depth philological companion to the grammar, syntax, Hebraisms, and lexicon of the King James Bible and Book of Mormon.",
-    "full_desc": "A comprehensive 9-chapter philological reference exploring the Early Modern English of the 1611/1769 King James Bible and the 1830/2013 Book of Mormon. Covers the pronoun system, verb morphology, subjunctive and imperative moods, syntactic inversion, Hebraisms (parataxis, cognates, 'and it came to pass'), a 100+ entry lexicon, and annotated side-by-side walkthroughs.",
+    "size_bytes": 469902,
+    "size_human": "459 KB",
+    "creator": "Proteus Scriptorium Press",
+    "short_desc": "A concise, example-driven guide to reading Early Modern English in the King James Bible and Restoration scripture.",
+    "full_desc": "A concise 9-chapter reader\u2019s companion to the Early Modern English of the King James Bible and Restoration scripture. Covers the thou/thee vs. ye/you pronoun system, verb endings and subjunctive mood, spatial directionals (hither/thither/whither/hence), everyday vernacular (twain, asunder, sundry), high-impact false friends, Hebrew idioms, crucial verses unlocked, and one-page quick-reference tables.",
     "highlights": [
-      "9 comprehensive chapters with grammatical tables and scripture examples",
-      "25 interactive pop-up philological notes",
-      "Side-by-side annotated walkthroughs of complex KJV and Book of Mormon passages"
+      "9 concise, high-signal chapters with clear grammar tables and scripture examples",
+      "170 interactive pop-up scripture citations showing each rule in context",
+      "Dedicated walkthroughs of verses where Early Modern English changes the meaning"
     ],
-    "contents_summary": "Chapters 1\u20139: Historical Background, Pronoun System, Verb Morphology, Mood & Tense, Syntax, Hebraisms, 100-Word Lexicon, Annotated Passages, and Quick Reference."
+    "contents_summary": "Chapters 1\u20139: Pronouns, Verbs & Moods, Directionals, Vernacular & Connectors, Sentence Structure, False Friends, Hebrew Idioms, Crucial Verses Unlocked, and Quick-Reference Cheat Sheet."
   }
 ]

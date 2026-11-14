@@ -6,6 +6,7 @@ from proteus.ingest.apocrypha import (
 )
 from proteus.ingest.apocrypha_compendium import (
     ingest_complete_apocrypha_and_pseudepigrapha_compendium,
+    ingest_pseudepigrapha,
 )
 from proteus.ingest.early_modern_english import (
     build_early_modern_english_scripture_guide,
@@ -31,6 +32,7 @@ __all__ = [
     "ingest_kjv_apocrypha",
     "ingest_lds_classic_book",
     "ingest_patriarchs_and_prophets_apocrypha",
+    "ingest_pseudepigrapha",
     "ingest_standard_work",
 ]
 

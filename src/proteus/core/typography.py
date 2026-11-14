@@ -65,8 +65,18 @@ def should_keep_capital_after_continuation(word: str) -> bool:
     return False
 
 
+def capitalize_verse_start(text: str) -> str:
+    """Ensure a verse begins with an uppercase letter (ignoring leading quotes, brackets, or whitespace)."""
+    if not text:
+        return text
+    m = re.match(r'^([\s“‘"\'(\[]*)([a-z])(.*)$', text, re.DOTALL)
+    if not m:
+        return text
+    return f"{m.group(1)}{m.group(2).upper()}{m.group(3)}"
+
+
 def lowercase_continuation_start(text: str) -> str:
-    """Lowercase the leading word of `text` when it continues a sentence after `—`, `;`, or `,`,
+    """Lowercase the leading word of `text` when it continues a sentence mid-paragraph after `—`,
     unless the leading word is a proper noun, sacred title, `I`, `O`, or opens a quotation.
     """
     m = re.match(r"^([A-Z][a-zA-Z']*)\b(.*)$", text, re.DOTALL)
